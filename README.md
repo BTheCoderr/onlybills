@@ -13,7 +13,7 @@ A mobile-friendly, GitHub-ready bill-help community prototype. The experience ha
 | Filter requests by bill type | Working |
 | Choose pledge amount, validate against remaining goal | Working (not financial payment) |
 | Demo accounts, uploads metadata, requests and pledges | Working locally via browser storage |
-| Supabase email/password sign-up and sign-in | Wired; requires project keys |
+| Supabase signup for help seekers or supporters, sign-in, email confirmation, and password recovery | Wired; requires a Supabase project and allowed Auth redirect URLs |
 | Real request records + private PDF/JPG/PNG uploads | Wired; requires database migration |
 | Human approval/rejection queue with proof review and audit trail | Wired; requires admin assignment |
 | Database row-level access policies, private storage, pledge concurrency lock | Included in SQL migration |
@@ -54,8 +54,9 @@ git push -u origin main
 
 1. Create a new Supabase project.
 2. In **SQL Editor**, execute `supabase/migrations/0001_onlybills.sql` against that project. This creates tables, row security, an approved-only public view, a private `bill-documents` bucket, and pledge and moderation triggers.
-3. In **Authentication → Providers**, enable email/password; set confirmation policy and redirect URLs for your deployment domain.
-4. In `src/config.js`, paste the Supabase project URL and **publishable/anon** key:
+3. In **Authentication → Providers**, enable email/password and require email verification. In **Authentication → URL Configuration**, add the deployed site URL, its `/#/auth` confirmation redirect, and `/?reset=1` password reset redirect to the allow list.
+4. Configure **custom SMTP** for public signups and password resets. Supabase's default mailer is severely rate limited and not suitable for a public app.
+5. In `src/config.js`, paste the Supabase project URL and **publishable/anon** key:
 
 ```js
 export const CONFIG = {
@@ -66,8 +67,8 @@ export const CONFIG = {
 export const IS_DEMO = !(CONFIG.supabaseUrl && CONFIG.supabaseAnonKey);
 ```
 
-5. Refresh the app; Supabase mode replaces browser demo data. New requests stay private in `pending_review` until an admin approves them.
-6. To appoint a reviewer, first create their account through the website, then execute in the SQL Editor, replacing the email with their actual account email:
+6. Refresh the app; Supabase mode replaces browser demo data. New requests stay private in `pending_review` until an admin approves them.
+7. To appoint a reviewer, first create their account through the website, then execute in the SQL Editor, replacing the email with their actual account email:
 
 ```sql
 insert into public.admin_users(user_id)
@@ -75,7 +76,9 @@ select id from auth.users where email = 'ACTUAL_REVIEWER_EMAIL_HERE'
 on conflict do nothing;
 ```
 
-7. Reviewer signs in and opens **My space → Review queue**. They can open the private upload through a one-minute signed URL and approve/reject. A successful approval makes a public story appear in **Explore bills**.
+8. Reviewer signs in and opens **My space → Review queue**. They can open the private upload through a one-minute signed URL and approve/reject. A successful approval makes a public story appear in **Explore bills**.
+
+Account creation asks whether the person needs help with a bill or wants to support others. That choice is a **UI preference**, not a permission role; both can browse and post. Reviewers must be promoted in `admin_users` separately. Password recovery and verification email sending are unavailable in demo mode; the app never claims to send demo emails.
 
 **Never put your Supabase service-role key, database password, Stripe secret key, or other server secrets in `src/config.js`.** Browser auth + SQL RLS is the security boundary for this version. `esm.sh` is used to load the Supabase client only when configured; review and pin that dependency for production.
 
@@ -99,7 +102,7 @@ The meme assumes a wealthy supporter can "swipe right to pay". A production-grad
 
 ```
 index.html                     App entry (no build required)
-styles.css                     Design system + responsive layout
+styles.css, auth.css           Design system + responsive account layout
 src/app.js                     Pages, navigation, swipe UI, forms
 src/backend.js                 Demo store + Supabase adapter
 src/config.js                  Browser config: ONLY public keys
