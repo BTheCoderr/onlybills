@@ -1,234 +1,137 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#171527">
-<meta name="description" content="I said I would build OnlyBills. Here is the working prototype: try sample bill cards, give feedback, and join the beta list. No payments yet.">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f9f8f4">
+<meta name="description" content="OnlyBills grew from a comment into a working bill-swipe prototype. Try three fictional cards, tell us what matters, and join early access.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="OnlyBills | I said I’d build it. Here’s the prototype.">
-<meta property="og:description" content="It started in the comments. Now you can test it. Three sample bills. Zero real payments. Help decide what comes next.">
-<meta property="og:url" content="https://onlybillss.netlify.app/idea.html">
+<meta property="og:title" content="OnlyBills | The idea is real. The bills are examples.">
+<meta property="og:description" content="You asked for the link. Here it is. Try the OnlyBills prototype, send feedback, and join the beta list. No money moves yet.">
+<meta property="og:url" content="https://onlybillss.netlify.app/try">
+<meta name="twitter:card" content="summary">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
-<title>It started as a joke. | OnlyBills</title>
-<style>
-:root{color-scheme:dark;--bg:#171527;--ink:#f8f7ff;--muted:#b9b5cd;--lime:#d4f689;--purple:#9f89ff;--line:#433e59;--surface:#252139;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink)}a{color:inherit}button,input{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
-.site-header{max-width:1210px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:23px 28px;gap:20px}.brand{font-size:27px;text-decoration:none;font-weight:900;letter-spacing:-1.4px}.brand b{color:var(--lime)}
-.nav{display:flex;align-items:center;gap:18px}.nav a{font-size:12px;text-decoration:none;font-weight:750;color:var(--muted)}.nav .join-mini{color:#161425;background:var(--lime);padding:12px 15px;border-radius:11px}
-.shell{max-width:1210px;margin:auto;padding:0 28px}.hero{padding:55px 0 68px;background:radial-gradient(circle at 80% 10%,#372b6b 0%,transparent 45%),radial-gradient(circle at 8% 87%,#283b31 0%,transparent 30%)}.hero-grid{display:grid;grid-template-columns:1fr .85fr;gap:54px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:850;letter-spacing:2.2px;text-transform:uppercase;color:var(--lime)}.eyebrow:before{content:"✳";font-size:22px}
-h1{font-size:clamp(52px,6.7vw,91px);line-height:1.02;letter-spacing:-5.6px;margin:22px 0 22px}h1 em{font-style:normal;color:var(--lime)}
-.subtitle{font-size:17px;line-height:1.8;color:var(--muted);max-width:540px}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-.button{background:var(--lime);color:#191a1d;border:1px solid var(--lime);border-radius:13px;display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:15px 22px;min-height:51px;text-decoration:none;font-size:14px;font-weight:850;cursor:pointer}
-.button.secondary{color:var(--ink);background:transparent;border-color:#655c81}.button:hover{filter:brightness(1.08)}
-.disclaimer{font-size:12px;color:#aaa5c0;line-height:1.7;margin-top:21px}.disclaimer strong{color:#e6e3f5}
-.hero-visual{min-height:480px;display:grid;place-items:center;position:relative}.shadow-card{position:absolute;width:min(83%,348px);height:425px;background:#52407a;border-radius:29px;transform:rotate(10deg) translate(12px,2px);box-shadow:0 25px 80px #0603105c}.visual-card{position:relative;transform:rotate(-5deg);width:min(88%,360px);min-height:425px;background:#f6f3ec;border-radius:28px;color:#262234;padding:25px;box-shadow:0 20px 70px #07051796;display:flex;flex-direction:column}
-.visual-tag{font-size:12px;font-weight:850;color:#684dbf}.visual-art{height:145px;border-radius:19px;background:#ddd4ff;display:grid;place-items:center;font-size:79px;margin:18px 0}.visual-card h3{font-size:27px;letter-spacing:-1px;line-height:1.18;margin:3px 0 10px}.visual-card p{font-size:13px;color:#615d71;line-height:1.55;margin:0}.visual-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:19px}.visual-bottom b{font-size:30px;letter-spacing:-1px}.visual-bottom span{font-size:12px;color:#6b6475}.swipe-stamp{position:absolute;right:-26px;bottom:15px;border:5px solid var(--lime);background:#1e1c2d;color:var(--lime);font-size:19px;font-weight:900;padding:13px 16px;transform:rotate(11deg);border-radius:12px;box-shadow:0 14px 30px #08061575}
-.band{border-top:1px solid #39364f;border-bottom:1px solid #39364f;background:#211e32;padding:18px 0}.band-row{display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap;color:#ddd9ef;font-size:13px;font-weight:700}.band-row span{display:flex;gap:11px;align-items:center}
-.section{padding:90px 0}.section-eyebrow{color:var(--purple);letter-spacing:2px;font-size:11px;font-weight:900;text-transform:uppercase}.section-heading{font-size:clamp(34px,4.3vw,52px);line-height:1.12;letter-spacing:-2px;margin:15px 0}.section-description{color:var(--muted);line-height:1.75;font-size:15px;max-width:670px}
-.experiment{background:#f7f5f2;color:#252239}.experiment .section-description{color:#6f6879}.experiment .section-eyebrow{color:#7660c8}
-.demo-layout{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-top:33px}
-.sample-card{max-width:430px;width:100%;border:1px solid #e6e0ed;border-radius:28px;overflow:hidden;background:white;box-shadow:0 22px 75px #211c3419;min-height:425px}
-.sample-top{padding:19px 23px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #ebe7ee;font-size:12px;font-weight:850;color:#776d85}
-.sample-top .label-demo{color:#6550b7}.sample-art{height:144px;display:grid;place-items:center;background:#e1d6ff;font-size:71px}
-.sample-content{padding:23px}.sample-category{text-transform:uppercase;letter-spacing:1.5px;color:#765ab9;font-weight:900;font-size:10px}
-.sample-card h3{font-size:25px;letter-spacing:-1px;margin:10px 0}.sample-card p{font-size:13px;color:#716979;line-height:1.6;margin:0}.sample-amount{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #eeebf0;padding-top:17px;margin-top:20px}.sample-amount strong{font-size:25px;letter-spacing:-1px}.sample-amount span{font-size:11px;color:#726d7e}
-.sample-actions{display:flex;gap:12px;max-width:430px;margin-top:15px}.sample-actions button{flex:1;border-radius:13px;padding:16px 10px;font-size:13px;font-weight:850;cursor:pointer;border:1.5px solid #dbd4e4;background:#fff;color:#514b60}.sample-actions .yes{background:#202036;color:white;border-color:#202036}.sample-progress{font-size:12px;color:#6a6476;min-height:24px;margin:14px 0}
-.sample-copy{font-size:15px;line-height:1.8;color:#575161}.sample-note{border-left:4px solid #8570d8;background:#ece6fb;padding:15px 19px;border-radius:0 10px 10px 0;font-size:12px;line-height:1.7;color:#574c6b;max-width:500px}
-.checkpoints{display:grid;gap:14px;margin-top:21px}.checkpoints div{font-size:13px;color:#555064;display:flex;gap:12px;align-items:center}.checkpoints span{height:28px;width:28px;display:grid;place-items:center;background:#d3f68a;border-radius:50%;font-weight:900;color:#27310f}
-.voice-layout{display:grid;grid-template-columns:.85fr 1fr;gap:72px;align-items:start}.vote-panel{background:#25213b;border:1px solid #504666;border-radius:25px;padding:29px}.vote-panel h3{font-size:24px;letter-spacing:-1px;margin:0 0 12px}.vote-panel p{font-size:13px;color:#b9b5ce;line-height:1.7}
-fieldset{border:0;padding:0;margin:26px 0 0}legend{font-size:14px;font-weight:850;margin:0 0 11px}.radios{display:grid;gap:10px}.radio{display:flex;gap:10px;align-items:center;cursor:pointer;border:1px solid #5a536c;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.4;background:#2d2943}
-.radio input{accent-color:#d3f68a;flex-shrink:0}.radio:has(input:checked){border-color:#d4f689;background:#38402f}.radio:has(input:focus-visible){outline:2px solid #d4f689;outline-offset:1px}
-.poll-footer{font-size:11px;line-height:1.7;color:#aaa4be;margin:14px 0 0}.vote-panel .button{width:100%;margin-top:27px}
-.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:29px}.value-card{padding:25px;border:1px solid #514b68;border-radius:17px;background:#242039}.value-card .num{color:var(--lime);font-size:13px;font-weight:900;letter-spacing:1px}.value-card h3{font-size:19px;margin:15px 0 9px;letter-spacing:-.3px}.value-card p{line-height:1.7;font-size:12px;color:var(--muted);margin:0}
-.final-cta{text-align:center;background:#d4f689;color:#202135;padding:66px 25px}.final-cta h2{font-size:clamp(34px,5vw,59px);letter-spacing:-2.5px;margin:0 0 14px}.final-cta p{max-width:560px;margin:0 auto 25px;line-height:1.7}.final-cta .button{background:#212038;color:white;border-color:#212038}.final-cta .secondary{color:#232139;background:transparent;border-color:#636653}
-footer{padding:25px;text-align:center;font-size:12px;color:#ada7c4}
-.live{position:relative}.live:after{content:"";width:7px;height:7px;border-radius:50%;display:inline-block;background:#d3f68a;margin-left:7px;vertical-align:middle}
-@media(max-width:900px){.hero-grid,.demo-layout,.voice-layout{grid-template-columns:1fr}.hero-visual{min-height:430px}.hero{padding-top:37px}.demo-layout,.voice-layout{gap:30px}.sample-card{max-width:550px}.sample-actions{max-width:550px}.section{padding:63px 0}.cards3{grid-template-columns:1fr 1fr}}
-@media(max-width:580px){.site-header,.shell{padding-left:18px;padding-right:18px}.nav a:not(.join-mini){display:none}.nav{gap:8px}h1{font-size:clamp(48px,13vw,65px);letter-spacing:-3.5px}.hero{padding:35px 0 32px}.hero-visual{min-height:364px}.visual-card{min-height:330px;padding:19px}.visual-art{height:110px;font-size:58px}.visual-card h3{font-size:23px}.shadow-card{height:330px}.swipe-stamp{right:-9px;font-size:14px;padding:10px}.hero-actions .button{width:100%}.cards3{grid-template-columns:1fr}.section-heading{font-size:35px}.band-row{justify-content:flex-start}.vote-panel{padding:19px}.sample-card{min-height:408px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-
-/* Launch polish: grounded receipt details, no fabricated activity or decorative emoji art. */
-.hero{background:#1c1b29}
-.hero-grid{grid-template-columns:1.03fr .97fr}
-.hero h1{font-size:clamp(52px,6.3vw,84px);letter-spacing:-.065em}
-.hero .subtitle{font-size:16px;max-width:510px;line-height:1.8}
-.hero .eyebrow{color:#d4f689}
-.hero-visual{min-height:470px}
-.visual-receipt{background:#fffefa;color:#262334;transform:rotate(-2deg);min-height:430px;box-shadow:0 20px 62px #07071647;border:1px solid #e4dfd4}
-.visual-receipt h3{font-size:30px;letter-spacing:-1.1px}
-.visual-receipt .receipt-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
-.receipt-wordmark{font-size:21px;font-weight:900;letter-spacing:-1.2px}
-.receipt-code{font-size:9px;font-weight:750;letter-spacing:1.1px;color:#8b8494}
-.receipt-divider{margin:18px 0;border-top:1px dashed #c9c3cd}
-.visual-receipt .visual-tag{font-size:10px;color:#7359bd;letter-spacing:1px}
-.visual-receipt .receipt-heading{margin:17px 0 8px}
-.visual-receipt .receipt-sub{margin:0 0 21px;color:#716b76;line-height:1.65}
-.receipt-item{border-top:1px solid #ece8e3;padding:11px 0;display:flex;justify-content:space-between;gap:15px;font-size:12px}
-.receipt-item span{color:#79727f}
-.receipt-item strong{font-size:12px}
-.receipt-total{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 0;border-top:2px solid #292535;margin-top:5px}
-.receipt-total span{font-size:12px;font-weight:800}
-.receipt-total strong{font-size:25px;letter-spacing:-1px}
-.receipt-foot{border-top:1px dashed #c9c3cd;font-size:10px;color:#837d87;padding-top:12px;margin-top:auto}
-.shadow-card{transform:rotate(5deg) translate(14px,3px);background:#514569;height:420px}
-.band{background:#242131}
-.band-row{font-size:11px;letter-spacing:1.25px;text-transform:uppercase}
-.sample-card{border-radius:16px;box-shadow:0 14px 48px #30283c14;touch-action:pan-y;user-select:none}
-.sample-top{background:#f8f7f3}
-.sample-art{height:132px;background:#ece7e0;color:#56505b;font-size:13px;letter-spacing:2.4px;font-weight:900;border-bottom:1px dashed #c7c1bb}
-.sample-content h3{font-size:23px}
-.sample-content p{font-size:14px}
-.sample-amount strong{font-variant-numeric:tabular-nums}
-.visual-card{border-radius:16px}
-.shadow-card{border-radius:17px}
-.value-card{background:#28253a}
-.hero-visual .visual-card{width:min(95%,370px)}
-.disclaimer{font-size:12px;color:#d2cbdc}
-.final-cta{background:#d4f689}
-@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-visual{min-height:450px}.hero{padding-bottom:20px}}
-@media(max-width:580px){.hero .eyebrow{font-size:10px}.hero-visual{min-height:450px}.visual-receipt{min-height:395px}.hero .subtitle{font-size:15px}.hero h1{line-height:1.05;font-size:clamp(49px,11vw,66px);letter-spacing:-2.9px}.receipt-item{padding:9px 0}.shadow-card{height:387px}.sample-art{height:113px}}
-
-</style>
+<link rel="stylesheet" href="/campaign.css">
+<title>Try OnlyBills | The bill-swipe prototype</title>
 </head>
 <body>
-<header class="site-header"><a href="/" class="brand" aria-label="OnlyBills home">onlybills<b>.</b></a><nav class="nav" aria-label="Main navigation"><a href="/#/discover">Explore the app</a><a href="#vote">Vote on the idea</a><a href="/join.html?utm_source=viral_post&utm_medium=website&utm_campaign=joke_to_beta" class="join-mini">Join early access ↗</a></nav></header>
+<header class="lp-head"><nav class="lp-shell lp-nav" aria-label="Main navigation">
+  <a class="lp-brand" href="/" aria-label="OnlyBills homepage">onlybills<span>.</span></a>
+  <div class="lp-nav-right"><a href="/#/discover">Explore the full demo</a><a class="lp-nav-cta" href="/beta">Join beta list →</a></div>
+</nav></header>
 <main>
-<section class="hero"><div class="shell hero-grid">
-<div>
-<span class="eyebrow">FROM A COMMENT TO A WORKING PROTOTYPE</span>
-<h1>I said I’d<br>build it.<br><em>So I did.</em></h1>
-<p class="subtitle">The idea was simple: what if you could swipe through bills and choose one to help with? This is my first working version of OnlyBills. Try it and tell me what to change before real accounts open.</p>
-<div class="hero-actions"><a href="#try" class="button">Try three sample swipes ↗</a><a class="button secondary" href="/join.html?utm_source=viral_post&utm_medium=website&utm_campaign=joke_to_beta">Get first access</a></div>
-<p class="disclaimer"><strong>Here’s what’s real:</strong> the clickable prototype, the feedback form, and the beta list. The sample bills are made up. There’s no payment system yet.</p>
-</div>
-<div class="hero-visual" aria-label="Illustration of a fictional bill assistance card">
-<div class="visual-card visual-receipt">
-      <div class="receipt-head"><span class="receipt-wordmark">onlybills<span style="color:#6e5ace">.</span></span><span class="receipt-code">CONCEPT / 001</span></div>
-      <div class="receipt-divider"></div>
-      <span class="visual-tag">SAMPLE BILL • NOT A REAL REQUEST</span>
-      <h3 class="receipt-heading">Electric service</h3>
-      <p class="receipt-sub">A sample of how a future request could appear without sharing anyone’s private account details.</p>
-      <div class="receipt-item"><span>Category</span><strong>Utilities</strong></div>
-      <div class="receipt-item"><span>Amount due</span><strong>$142.00</strong></div>
-      <div class="receipt-item"><span>Request status</span><strong>Demo only</strong></div>
-      <div class="receipt-total"><span>Example amount</span><strong>$142.00</strong></div>
-      <div class="receipt-foot">No bill uploaded · No payment processed</div>
+<section class="lp-hero"><div class="lp-shell lp-hero-grid">
+  <div>
+    <span class="lp-overline">OnlyBills / First public prototype</span>
+    <h1 class="lp-title">I said I’d build it.<br><em>Here it is.</em></h1>
+    <p class="lp-text">Remember that post about swiping right to help pay somebody’s bills? I took it seriously enough to build a demo. Try three sample requests and tell me what should happen next.</p>
+    <div class="lp-actions"><a href="#sample" class="lp-button lp-button--dark">Try the sample swipes →</a><a href="/beta" class="lp-button lp-button--plain">Get early access</a></div>
+    <p class="lp-fine">Real website, fictional scenarios. No charges, donations, real bill uploads or payments are enabled.</p>
+  </div>
+  <div id="sample">
+    <div class="lp-card" id="lp-card" aria-label="Swipeable sample bill" aria-live="polite">
+      <div class="lp-card-top"><strong>onlybills<span style="color:#db7b63">.</span></strong><span id="lp-count">EXAMPLE 01 / 03</span></div>
+      <div class="lp-card-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="m13 2-9 12h7l-1 8 10-12h-7V2Z"/></svg></div>
+      <div class="lp-card-core">
+        <span class="lp-chip" id="lp-category">UTILITY EXPENSE · FICTIONAL</span>
+        <h2 id="lp-title">The electric bill is due</h2>
+        <p id="lp-story">An example of a household electricity balance due before payday.</p>
+        <div class="lp-card-total"><span>Example amount<br/>Not a real request</span><strong id="lp-amount">$142</strong></div>
+      </div>
+      <div class="lp-card-controls"><button type="button" id="lp-pass">← Pass</button><button type="button" id="lp-support">I'd consider helping →</button></div>
     </div>
-</div>
+    <p class="lp-try-instruction" id="lp-status" role="status">Swipe the card or tap an option · Selections stay on your device</p>
+  </div>
 </div></section>
-<div class="band"><div class="shell band-row"><span>01 / Try sample cards</span><span>02 / Vote on what matters</span><span>03 / Join the beta list</span></div></div>
-<section id="try" class="section experiment"><div class="shell"><span class="section-eyebrow">01 / Try the idea</span><h2 class="section-heading">Three cards. One question.</h2><p class="section-description">Would you even want to help this way? Test the interaction before we build the real financial product.</p>
-<div class="demo-layout">
-<div>
-<div class="sample-card" id="sample-card" aria-live="polite" aria-description="Swipe left to pass or right to consider helping, or use the buttons below."><div class="sample-top"><span id="sample-step">CARD 1 OF 3</span><span class="label-demo">SAMPLE, NOT REAL</span></div><div class="sample-art" id="sample-art" aria-hidden="true">ELECTRIC SERVICE</div><div class="sample-content"><div id="sample-category" class="sample-category">UTILITIES</div><h3 id="sample-title">Keep the lights on</h3><p id="sample-story">A sample household needs help with a power bill.</p><div class="sample-amount"><strong id="sample-amount">$142</strong><span>Illustrative bill · Not real</span></div></div></div>
-<div class="sample-actions"><button type="button" id="skip-button">← Pass</button><button type="button" id="help-button" class="yes">I'd consider helping ♥</button></div>
-<p class="sample-progress" id="sample-progress" aria-live="polite">Swipe left to pass or right to consider helping. Buttons work too.</p>
-</div>
-<div>
-<h3 style="font-size:clamp(26px,3vw,37px);letter-spacing:-1.4px;margin-top:0">Would you really use this?</h3>
-<p class="sample-copy">I can build the swipe part. The harder questions are whether people trust the requests, where the money goes, and how anyone knows a bill was actually paid. That’s why I need your feedback before turning on payments.</p>
-<div class="checkpoints"><div><span>1</span> Browse fictional example needs</div><div><span>2</span> Mark a bill you'd consider helping</div><div><span>3</span> Share what would make this trustworthy</div></div>
-<p class="sample-note">These taps are a private, on-device demo only, not recorded donations or payment commitments. To contribute to our research, use the separate optional vote below.</p>
-<a href="#vote" class="button" style="margin-top:24px">Help shape the product ↓</a>
-</div>
-</div></div></section>
-<section id="vote" class="section"><div class="shell voice-layout">
-<div><span class="section-eyebrow">02 / Help us decide</span><h2 class="section-heading">Tell us what would make this real.</h2><p class="section-description">Thirty seconds of feedback is worth more than a thousand likes. We want to hear from people who need help and people who would offer it.</p><div class="cards3" style="grid-template-columns:1fr"><div class="value-card"><span class="num">WHY WE'RE ASKING</span><h3>Trust before transactions.</h3><p>Before collecting any funds, we need to solve proof review, privacy, abuse prevention, and how help reaches the bill itself.</p></div></div></div>
-<div class="vote-panel"><h3>Your vote shapes the beta.</h3><p>Short feedback poll. No name, email, bill details, or payment information requested. Netlify may retain routine request metadata.</p>
-<form name="onlybills-concept-pulse" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/poll-thanks">
-<input type="hidden" name="form-name" value="onlybills-concept-pulse"><input type="hidden" name="subject" value="OnlyBills: New concept survey (%{submissionId})"><input type="hidden" name="campaign" value="joke_to_beta"><input type="hidden" name="referrer" value="direct">
-<p hidden><label>Leave blank <input type="text" name="bot-field" autocomplete="off" tabindex="-1"></label></p>
-<fieldset><legend>What brings you here?</legend><div class="radios">
-<label class="radio"><input type="radio" name="role" value="need-help" required> I might need help paying a bill</label>
-<label class="radio"><input type="radio" name="role" value="would-help" required> I'd consider helping someone</label>
-<label class="radio"><input type="radio" name="role" value="curious" required> I'm just curious about the idea</label>
-</div></fieldset>
-<fieldset><legend>Would you try a trustworthy version of OnlyBills?</legend><div class="radios">
-<label class="radio"><input type="radio" name="interest" value="yes" required> Yes, I'd try it</label>
-<label class="radio"><input type="radio" name="interest" value="maybe" required> Maybe, once I see how it works</label>
-<label class="radio"><input type="radio" name="interest" value="no" required> Not for me</label>
-</div></fieldset>
-<fieldset><legend>What's the single most important trust feature?</legend><div class="radios">
-<label class="radio"><input type="radio" name="trust" value="verify-bills" required> Bills are independently reviewed</label>
-<label class="radio"><input type="radio" name="trust" value="pay-biller" required> Money goes to a biller, not a stranger</label>
-<label class="radio"><input type="radio" name="trust" value="privacy" required> Strong privacy protections</label>
-<label class="radio"><input type="radio" name="trust" value="transparent-fees" required> Clear fees and transaction status</label>
-</div></fieldset>
-<button class="button" type="submit">Send my feedback ↗</button>
-<p class="poll-footer">Responses are collected through Netlify Forms for concept research only. This isn't a funding request. No account or password needed.</p>
-</form></div></div></section>
-<section class="section" style="background:#211d33"><div class="shell"><span class="section-eyebrow">03 / What I would build next</span><h2 class="section-heading">An actual product needs more than swipe cards.</h2><div class="cards3">
-<div class="value-card"><div class="num">FIRST</div><h3>Private verification</h3><p>Keep sensitive documents private. Review authenticity and avoid publicly exposing bills or account numbers.</p></div>
-<div class="value-card"><div class="num">THEN</div><h3>Safer payment rails</h3><p>Explore biller-directed payments and a regulated processing partner; never treat pledges as settled bills.</p></div>
-<div class="value-card"><div class="num">ALWAYS</div><h3>Transparent status</h3><p>Clear pending, approved, funded, and paid states with evidence that actual payments completed.</p></div>
-</div></div></section>
-<section class="final-cta"><h2>This started with a comment.<br>Help me figure out the next version.</h2><p>If you’d actually use OnlyBills, tell me. Join the beta list or send this to someone who’d have a strong opinion. Still just a prototype, not a way to pay bills yet.</p>
-<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px"><a class="button" href="/join.html?utm_source=viral_post&utm_medium=website&utm_campaign=joke_to_beta">Join the beta waitlist ↗</a><button type="button" class="button secondary" id="share-button">Share this idea ↗</button></div><p id="share-status" role="status" aria-live="polite" style="font-size:12px;min-height:20px;margin-top:12px"></p></section>
-</main><footer>Built independently from an idea in an online conversation. No affiliation or endorsement by the original poster. All examples are fictional. No payments enabled. <a href="/contact.html" style="color:inherit;text-decoration:underline">Contact</a> · © 2026 OnlyBills.</footer>
+<section class="lp-section lp-section--muted lp-line" id="vote"><div class="lp-shell lp-section-grid">
+  <div class="lp-section-intro">
+    <span class="lp-overline">Help shape what gets built</span>
+    <h2>The real challenge isn’t the swipe.</h2>
+    <p>It's making sure requests are genuine, documents stay private, and assistance actually reaches a bill. Before taking payments, I want to hear from people on both sides.</p>
+    <div class="lp-trust">
+      <div><b>01.</b> No financial documents go into this survey.</div>
+      <div><b>02.</b> You don't need an account to give feedback.</div>
+      <div><b>03.</b> No payments can be made on this demo.</div>
+    </div>
+  </div>
+  <div class="lp-form"><h3>Tell me what you think.</h3><p>Three quick questions. We use the responses to choose what to build, not to request money.</p>
+    <form name="onlybills-concept-pulse" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/poll-thanks">
+      <input type="hidden" name="form-name" value="onlybills-concept-pulse">
+      <input type="hidden" name="subject" value="OnlyBills: New concept survey (%{submissionId})">
+      <input type="hidden" name="campaign" value="joke_to_beta">
+      <input type="hidden" name="referrer" value="direct">
+      <p hidden><label>Leave this blank<input name="bot-field" type="text" autocomplete="off" tabindex="-1"></label></p>
+      <fieldset><legend>Which describes you best?</legend><div class="lp-options">
+        <label class="lp-option"><input type="radio" name="role" value="need-help" required> I'd like help with a bill</label>
+        <label class="lp-option"><input type="radio" name="role" value="would-help" required> I'd consider helping someone</label>
+        <label class="lp-option"><input type="radio" name="role" value="curious" required> I'm curious about the idea</label>
+      </div></fieldset>
+      <fieldset><legend>Would you try a trustworthy version?</legend><div class="lp-options">
+        <label class="lp-option"><input type="radio" name="interest" value="yes" required> Yes, I'd try it</label>
+        <label class="lp-option"><input type="radio" name="interest" value="maybe" required> Maybe, once I see how it works</label>
+        <label class="lp-option"><input type="radio" name="interest" value="no" required> Probably not</label>
+      </div></fieldset>
+      <fieldset><legend>What matters most before money moves?</legend><div class="lp-options">
+        <label class="lp-option"><input type="radio" name="trust" value="verify-bills" required> Checking that bills are genuine</label>
+        <label class="lp-option"><input type="radio" name="trust" value="pay-biller" required> Paying the biller, not a stranger</label>
+        <label class="lp-option"><input type="radio" name="trust" value="privacy" required> Keeping personal documents private</label>
+        <label class="lp-option"><input type="radio" name="trust" value="transparent-fees" required> Clear fees and payment tracking</label>
+      </div></fieldset>
+      <button class="lp-button lp-button--dark" type="submit">Send my feedback →</button>
+      <p class="lp-form-note">No name, email or payment details requested. Netlify may log routine request metadata.</p>
+    </form>
+  </div>
+</div></section>
+<section class="lp-why"><div class="lp-shell lp-why-grid">
+  <div><span class="lp-overline" style="color:#b8cbbb">This is still the first version</span>
+    <h2>Started in the comments.<br><em>Built for what comes after.</em></h2>
+    <p>If you'd actually use OnlyBills, leave your email on the beta list. We'll reach out when secure accounts become available. Joining doesn't promise funding or create an account today.</p>
+  </div>
+  <a href="/beta" class="lp-why-link">Join the early-access list →</a>
+</div></section>
+</main>
+<footer class="lp-foot"><div class="lp-shell">Independent prototype inspired by an online conversation; not affiliated with or endorsed by the original poster. All stories are fictional. No payments are enabled. <a href="/contact.html">Contact / privacy requests</a> · © 2026 OnlyBills.</div></footer>
 <script>
 (function(){
 "use strict";
-var samples=[
- {category:"ELECTRIC SERVICE",icon:"UTILITY STATEMENT",title:"Electric bill due soon",story:"Example: a $142 electric balance is due before the next payday.",amount:"$142",color:"#ece7e0"},
- {category:"AUTO REPAIR",icon:"REPAIR ESTIMATE",title:"Car repair before Monday",story:"Example: a $315 repair estimate would get someone back to work.",amount:"$315",color:"#e5e9eb"},
- {category:"ESSENTIALS",icon:"ESSENTIAL EXPENSE",title:"A grocery budget shortfall",story:"Example: an $86 grocery shortfall for the week.",amount:"$86",color:"#e8ecdf"}
+var cards=[
+{category:"UTILITY EXPENSE · FICTIONAL",title:"The electric bill is due",story:"An example of a household electricity balance due before payday.",amount:"$142"},
+{category:"AUTO REPAIR · FICTIONAL",title:"A repair to get to work",story:"An example of a repair estimate for someone who needs their car for work.",amount:"$315"},
+{category:"ESSENTIALS · FICTIONAL",title:"Groceries for this week",story:"An example of a small essentials expense between paychecks.",amount:"$86"}
 ];
-var index=0,yes=0;
-var el=function(id){return document.getElementById(id)};
+var index=0,yes=0,xStart=null;
+function byId(name){return document.getElementById(name)}
 function paint(){
- if(index===samples.length){
-  el("sample-step").textContent="DEMO COMPLETE";
-  el("sample-category").textContent="THANK YOU FOR TRYING";
-  el("sample-title").textContent="You considered "+yes+" of "+samples.length+" sample requests.";
-  el("sample-story").textContent="This was a concept demo, not a donation or payment. Vote below to help decide what matters most.";
-  el("sample-amount").textContent="No charges";
-  el("sample-art").textContent="CONCEPT TEST COMPLETE";el("sample-art").style.background="#e4ecdb";
-  el("skip-button").hidden=true;el("help-button").textContent="Try again ↺";
-  el("sample-progress").textContent="Your choices stayed in this browser. Use the poll below to share your opinion.";
-  return;
- }
- var sample=samples[index];el("sample-step").textContent="CARD "+(index+1)+" OF "+samples.length;
- el("sample-category").textContent=sample.category;el("sample-title").textContent=sample.title;
- el("sample-story").textContent=sample.story;el("sample-amount").textContent=sample.amount;
- el("sample-art").textContent=sample.icon;el("sample-art").style.background=sample.color;
- el("sample-progress").textContent="Card "+(index+1)+" of 3 · Swipe or use buttons. No payment is made.";
+ var complete=index>=cards.length;
+ var card=cards[index]||{category:"CONCEPT TEST COMPLETE",title:"You’ve seen the examples",story:"You’d consider helping with "+yes+" of 3 fictional requests. Nothing was charged or recorded as a financial commitment.",amount:"$0"};
+ byId("lp-count").textContent=complete?"DEMO FINISHED":"EXAMPLE 0"+(index+1)+" / 03";
+ byId("lp-category").textContent=card.category;
+ byId("lp-title").textContent=card.title;
+ byId("lp-story").textContent=card.story;
+ byId("lp-amount").textContent=complete?"No charge":card.amount;
+ byId("lp-pass").disabled=complete;
+ byId("lp-support").textContent=complete?"Try again ↺":"I'd consider helping →";
+ byId("lp-status").textContent=complete?"That's it. Vote below to help decide what gets built next.": "Example "+(index+1)+" of 3 · Fictional card. No real donation.";
 }
-function next(help){if(index===samples.length){index=0;yes=0;el("skip-button").hidden=false;el("help-button").textContent="I'd consider helping ♥";paint();return}if(help)yes++;index++;paint()}
-var xStart=null;
-var card=el("sample-card");
-card.style.touchAction="pan-y";
+function advance(wouldHelp){
+ if(index>=cards.length){index=0;yes=0;paint();return}
+ if(wouldHelp)yes++;
+ index++;
+ paint();
+}
+byId("lp-pass").addEventListener("click",function(){advance(false)});
+byId("lp-support").addEventListener("click",function(){advance(true)});
+var card=byId("lp-card");card.style.touchAction="pan-y";
 card.addEventListener("pointerdown",function(e){if(e.isPrimary)xStart=e.clientX});
-card.addEventListener("pointerup",function(e){
- if(xStart===null)return;
- var difference=e.clientX-xStart;xStart=null;
- if(Math.abs(difference)>68)next(difference>0);
-});
+card.addEventListener("pointerup",function(e){if(xStart===null)return;var change=e.clientX-xStart;xStart=null;if(Math.abs(change)>65)advance(change>0)});
 card.addEventListener("pointercancel",function(){xStart=null});
-el("skip-button").addEventListener("click",function(){next(false)});
-el("help-button").addEventListener("click",function(){next(true)});
-var params=new URLSearchParams(window.location.search);
-function safeTag(value,fallback){return (String(value||fallback).replace(/[^a-zA-Z0-9_-]/g,"").slice(0,48)||fallback)}
-var source=safeTag(params.get("utm_source"),"direct");
-var campaign=safeTag(params.get("utm_campaign"),"joke_to_beta");
+var params=new URLSearchParams(location.search);
+function clean(value,fallback){return String(value||fallback).replace(/[^a-zA-Z0-9_-]/g,"").slice(0,48)||fallback}
+var source=clean(params.get("utm_source"),"direct");
+var campaign=clean(params.get("utm_campaign"),"joke_to_beta");
 document.querySelector('input[name="campaign"]').value=campaign;
 document.querySelector('input[name="referrer"]').value=source;
-document.querySelectorAll('a[href*="/join.html?"]').forEach(function(anchor){
-  var target=new URL(anchor.getAttribute("href"),window.location.href);
-  target.searchParams.set("utm_source",source);
-  target.searchParams.set("utm_campaign",campaign);
-  anchor.setAttribute("href",target.pathname+target.search);
-});
-el("share-button").addEventListener("click",async function(){
- var url="https://onlybillss.netlify.app/idea.html?utm_source=shared&utm_medium=referral&utm_campaign=joke_to_beta";
- var status=el("share-status");
- try {
-  if(navigator.share){await navigator.share({title:"OnlyBills: the joke is becoming real",text:"Would you swipe right to help pay someone's bill? Try the demo and vote on the idea.",url:url});status.textContent="Thanks for spreading the word.";return;}
-  if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(url);status.textContent="Link copied!";return}
-  status.textContent="Share this address: "+url;
- }catch(e){if(e&&e.name!=="AbortError")status.textContent="Share this address: "+url}
+document.querySelectorAll('a[href="/beta"]').forEach(function(a){
+ a.href="/beta?utm_source="+encodeURIComponent(source)+"&utm_campaign="+encodeURIComponent(campaign);
 });
 paint();
 })();

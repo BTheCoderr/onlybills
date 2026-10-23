@@ -45,6 +45,7 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
 .eyebrow:before{content:""}
 @media(max-width:820px){.panel{margin-top:10px}}
 </style>
+<link rel="stylesheet" href="/campaign.css">
 </head>
 <body>
 <header><a href="/" class="logo" aria-label="OnlyBills home">onlybills<span>.</span></a><a class="back" href="/">← Back to OnlyBills</a></header>
@@ -87,7 +88,12 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
   };
   document.getElementById("signup-source").value = clean(params.get("utm_source"), "direct");
   document.getElementById("signup-campaign").value = clean(params.get("utm_campaign"), "early_access");
+  var intent = clean(params.get("intent"), "");
+  if (intent === "need-help" || intent === "want-to-help") {
+    var chosen = document.querySelector('input[name="intent"][value="' + intent + '"]');
+    if (chosen) chosen.checked = true;
+  }
 })();
 </script>
-<footer>© 2026 OnlyBills. No payments or bill settlements are being processed.</footer>
+<footer>© 2026 OnlyBills. Early-access interest list only. No payments are being processed. · <a href="/contact.html">Contact</a></footer>
 </body></html>

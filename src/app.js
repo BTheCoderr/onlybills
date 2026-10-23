@@ -47,19 +47,19 @@ function nav(active) {
     <nav class="desktop-nav" aria-label="Main navigation">
       ${link('discover','Explore bills', active === 'discover' ? 'nav-link active' : 'nav-link')}
       ${link('how','How it works', active === 'how' ? 'nav-link active' : 'nav-link')}
-      ${link('post','Post a bill', active === 'post' ? 'nav-link active' : 'nav-link')}
+      ${isDemo()?'<a class="nav-link" href="./join.html?intent=need-help">Need help?</a>':link('post','Post a bill', active === 'post' ? 'nav-link active' : 'nav-link')}
     </nav><div class="nav-actions">${signed ? `${link('dashboard', `<span class="small-avatar">${esc(initials(accountName()))}</span> My space`, 'account-link')}` : `${isDemo()?'<a class="nav-signin" href="#/discover">Explore demo</a>':link('auth','Sign in', 'nav-signin')}`}
     ${isDemo()?'<a class="btn btn-dark nav-get" href="./join.html">Join early access '+icon('arrow',17)+'</a>':link('post','Get help ' + icon('arrow',17), 'btn btn-dark nav-get')}
     <button type="button" class="mobile-menu" data-action="menu" aria-label="Open menu">${icon('menu',23)}</button></div></div>
-    <div class="mobile-dropdown" id="mobile-dropdown">${link('discover', 'Explore bills')}${link('how','How it works')}${link('post','Post a bill')}${link('dashboard','My space')}${signed ? `<button data-action="logout">Sign out</button>` : isDemo()?'<a href="./join.html">Join early access</a><a href="#/discover">Explore demo</a>':link('auth','Sign in')}</div>
+    <div class="mobile-dropdown" id="mobile-dropdown">${link('discover', 'Explore bills')}${link('how','How it works')}${isDemo()?'<a href="./join.html?intent=need-help">Join as requester</a>':link('post','Post a bill')}${isDemo()?'':link('dashboard','My space')}${signed ? `<button data-action="logout">Sign out</button>` : isDemo()?'<a href="./join.html">Join early access</a><a href="#/discover">Explore demo</a>':link('auth','Sign in')}</div>
   </header>`;
 }
 function foot() { return `<footer class="footer"><div class="shell footer-grid"><div>${brand()}<p>Less scrolling past. More showing up.</p></div><div><span>Explore</span>${link('discover','Discover bills')}${link('post','Ask for help')}${link('how','How it works')}</div><div><span>Information</span><a href="./idea.html">Try the viral idea</a>${link('privacy','Privacy')}${link('terms','Terms')}${isDemo()?'<a href="./join.html">Join early access</a>':''}${link('dashboard','My space')}</div><div class="footer-end">${isDemo()?'Building it in public.':'Made for a kinder internet.'} <span class="footer-heart">♥</span><p>© ${new Date().getFullYear()} OnlyBills. MVP.</p></div></div><div class="footer-bottom shell">OnlyBills is ${isDemo()?'a fictional-scenario demo and early-access experiment':'a pledge-only prototype'}. No money is collected. Pledges are not payments or proof of bill settlement. Never share bill account numbers or sensitive identifiers. <a href="./contact.html" style="color:inherit;text-decoration:underline">Contact and privacy requests</a>.</div></footer>`; }
 function bottomNav(active) { return `<nav class="bottom-nav" aria-label="Mobile navigation">
     ${link('home', `${icon('home',22)}<span>Home</span>`, active === 'home'?'current':'')}
     ${link('discover', `${icon('heart',22)}<span>Explore</span>`, active === 'discover'?'current':'')}
-    ${link('post', `${icon('plus',23)}<span>Post bill</span>`, active === 'post'?'current':'')}
-    ${link('dashboard', `${icon('user',22)}<span>My space</span>`, active === 'dashboard'?'current':'')}
+    ${isDemo()?'<a href="./join.html?intent=need-help">'+icon('plus',23)+'<span>Join beta</span></a>':link('post', `${icon('plus',23)}<span>Post bill</span>`, active === 'post'?'current':'')}
+    ${isDemo()?'<a href="./idea.html#vote">'+icon('users',22)+'<span>Feedback</span></a>':link('dashboard', `${icon('user',22)}<span>My space</span>`, active === 'dashboard'?'current':'')}
   </nav>`; }
 function layout(active, content) { return `${modeBanner()}${nav(active)}<main>${content}</main>${foot()}${bottomNav(active)}<div id="modal-layer"></div><div class="toast-region" aria-live="polite"></div>`; }
 
@@ -85,7 +85,7 @@ function miniCard(b) {
   </article>`;
 }
 function sectionLead(eyebrow, title, desc) { return `<div class="section-lead"><span class="eyebrow">${esc(eyebrow)}</span><h2>${title}</h2><p>${desc}</p></div>`; }
-function homePage() {
+function legacyHomePage() {
   const bills = state.bills;
   const featured = bills.length ? bills[0] : { id:'sample', alias:'Alex J.', title:'A little help with the electric bill', story:'One small act could make a big difference.', category:'Utilities', city:'Somewhere, USA', amount_cents:28400, pledged_cents:8500 };
   return `<section class="hero"><div class="hero-bg-bubble bg-one"></div><div class="hero-bg-bubble bg-two"></div><div class="shell hero-grid">
@@ -110,6 +110,89 @@ function homePage() {
     </div>${isDemo()?'<p class="fiction-note">All names and stories shown here are fictional demo content.</p>':''}</div></section>
   <section class="closing-cta shell"><div class="closing-inner"><span class="cta-spark cta-spark-left">✳</span><div><span class="eyebrow">A BETTER KIND OF VIRAL</span><h2>Imagine if helping<br/>was the trend.</h2><p>You're a swipe away from making someone's day feel a little lighter.</p>${link('discover','Start swiping '+icon('arrow',19),'btn btn-dark btn-large')}</div><span class="cta-spark cta-spark-right">✳</span></div></section>`;
 }
+function newLaunchHomePage() {
+  const examples = state.bills.slice(0, 3);
+  const first = examples[0] || { category: 'Utilities', amount_cents: 18427 };
+  const steps = [
+    ['01', 'Tell us what you need', 'When accounts open, people will be able to explain an expense and submit supporting proof privately.'],
+    ['02', 'We check the request', 'Review and anti-fraud checks have to happen before a bill becomes a public request.'],
+    ['03', 'Choose how you help', 'Our goal is a simple, transparent way to contribute toward a real expense through a trusted provider.']
+  ];
+  return `<section class="ob-hero"><div class="shell ob-hero-grid">
+    <div>
+      <span class="ob-kicker">OnlyBills / Concept preview</span>
+      <h1 class="ob-hero-title">What if you could <em>swipe to help</em> someone pay a bill?</h1>
+      <p class="ob-hero-description">It started as a joke in the comments. We made it into something you can actually try. Explore sample requests, help shape the idea, and get first access when real accounts are ready.</p>
+      <div class="ob-hero-actions">
+        <a href="#/discover" class="ob-action-primary">Try the swipe demo ${icon('arrow',17)}</a>
+        <a href="./join.html?utm_source=site&utm_campaign=site_v2" class="ob-action-secondary">Get early access ${icon('arrow',17)}</a>
+      </div>
+      <div class="ob-footnote">${icon('info',18)} <span>Interactive prototype. Fictional requests. No payments or real bill uploads.</span></div>
+    </div>
+    <div class="ob-product" aria-label="An illustrated preview of a fictional utility-bill request">
+      <div class="ob-window">
+        <div class="ob-window-nav"><b>onlybills<span style="color:#df795e">.</span></b><small>THE EXPLORE FEED / 01</small></div>
+        <div class="ob-window-content">
+          <div class="ob-window-top"><span class="ob-window-tag">Sample · ${esc(first.category)}</span><span class="ob-window-step">01 / 08</span></div>
+          <div class="ob-icon-art">${icon('zap',48)}</div>
+          <span class="ob-window-label">A possible request</span>
+          <h3>Keeping up with the electricity bill</h3>
+          <p class="ob-window-copy">A fictional example of an upcoming bill. Future requests would be checked before appearing here.</p>
+          <div class="ob-window-total"><label>Example amount<br/>Not a real bill</label><strong>${money(first.amount_cents)}</strong></div>
+        </div>
+        <div class="ob-window-actions"><a href="#/discover">← Pass</a><a href="#/discover">See how it works ${icon('arrow',14)}</a></div>
+      </div>
+      <p class="ob-window-disclaimer">Illustrative demo card · Not a verified bill</p>
+    </div>
+  </div></section>
+  <div class="ob-proposition-strip"><div class="shell ob-proposition-inner">
+    <div class="ob-proposition-item">${icon('heart',22)}<p>Built around everyday people, not billionaires.</p></div>
+    <div class="ob-proposition-item">${icon('lock',22)}<p>Privacy and dignity are part of the plan.</p></div>
+    <div class="ob-proposition-item">${icon('shield',22)}<p>Payments stay off until the safeguards are ready.</p></div>
+  </div></div>
+  <section class="ob-section ob-section--white" id="approach"><div class="shell">
+    <div class="ob-section-intro"><span class="ob-overline">01 / THE IDEA</span>
+      <h2>More than a donation.<br/><em>A specific bill.</em></h2>
+      <p class="ob-section-description">A power bill. A car repair. A bus pass that gets someone to work. We want to make small, concrete expenses easier to understand and easier to help with. But trust comes before money.</p>
+    </div>
+    <div class="ob-how-grid">${steps.map(([n,t,d])=>`<article class="ob-how-card"><span class="ob-how-index">${n}</span><h3>${esc(t)}</h3><p>${esc(d)}</p></article>`).join('')}</div>
+  </div></section>
+  <section class="ob-section ob-section--muted" id="samples"><div class="shell">
+    <div class="ob-examples-heading"><div class="ob-section-intro"><span class="ob-overline">02 / HOW IT COULD LOOK</span>
+      <h2>Real-life expenses.<br/>Fictional examples.</h2>
+      <p class="ob-section-description">These are made-up scenarios, not people asking you for money. Try the experience before deciding whether it should become a real service.</p></div>
+      <a href="#/discover" class="ob-text-link">Explore the sample feed ${icon('arrow',17)}</a>
+    </div>
+    <div class="ob-example-grid">${examples.map((b,i)=>`<article class="ob-example"><div class="ob-example-head"><span class="ob-example-kind">${esc(b.category)}</span><span class="ob-example-number">EXAMPLE 0${i+1}</span></div>
+      <h3>${esc(b.title)}</h3><p>${esc(b.story)}</p>
+      <div class="ob-example-foot"><span>Sample amount</span><strong>${money(b.amount_cents)}</strong></div></article>`).join('')}</div>
+  </div></section>
+  <section class="ob-section ob-section--white"><div class="shell ob-convert">
+    <div><span class="ob-overline">03 / BE PART OF THE FIRST VERSION</span><h2>Who would you be<br/><em>on OnlyBills?</em></h2>
+      <p class="ob-section-description">The beta isn't open yet. We're starting with the people who would actually use it, so we can build around real needs instead of guessing.</p>
+      <p class="ob-plain-callout">Joining the list does not submit a bill, create an account, or guarantee financial assistance.</p>
+    </div>
+    <div class="ob-choices">
+      <a class="ob-choice" href="./join.html?intent=need-help&utm_source=site&utm_campaign=site_v2"><span><span class="ob-choice-title">I might need help with a bill</span><small>Join the early list as a potential requester</small></span>${icon('arrow',22)}</a>
+      <a class="ob-choice" href="./join.html?intent=want-to-help&utm_source=site&utm_campaign=site_v2"><span><span class="ob-choice-title">I'd consider helping someone</span><small>Join the early list as a potential supporter</small></span>${icon('arrow',22)}</a>
+      <a class="ob-choice" href="./idea.html#vote"><span><span class="ob-choice-title">I have thoughts about the idea</span><small>Vote on what would make it trustworthy</small></span>${icon('arrow',22)}</a>
+    </div>
+  </div></section>
+  <section class="ob-section ob-section--muted"><div class="shell ob-faq-grid">
+    <div><span class="ob-overline">THE IMPORTANT DETAILS</span><h2>Good question.<br/>Here’s the answer.</h2></div>
+    <div class="ob-faq-list">
+      <details><summary>Can I pay someone’s bill right now?</summary><p>No. The live website is an interactive prototype. Any practice pledge is fictional and does not charge or transfer money. A payment partner and safeguards must come first.</p></details>
+      <details><summary>Are the people and bills on the site real?</summary><p>No. Every story in the current public demo is an invented sample. There are no verified or funded bills yet.</p></details>
+      <details><summary>What would make a request trustworthy?</summary><p>Our planned requirements include private proof review, abuse prevention, strong account security, and a payment flow that can confirm the expense was actually settled. Those features are not live yet.</p></details>
+      <details><summary>What happens when I join the beta list?</summary><p>We collect your name, email address, how you'd use the service, and your consent through Netlify Forms. We'll use those details for launch updates. This does not create a password-protected account.</p></details>
+    </div>
+  </div></section>
+  <section class="ob-closing"><div class="shell ob-closing-grid"><div><span class="ob-overline" style="color:#b8cbb8">BUILT IN PUBLIC</span>
+    <h2>The joke was easy.<br/><em>Getting it right matters.</em></h2><p>Help shape a version worth trusting. Try the prototype, vote on the features you want, then join our early-access list.</p></div>
+    <a href="./idea.html" class="ob-action-primary">Try it and give feedback ${icon('arrow',18)}</a>
+  </div></section>`;
+}
+function homePage() { return isDemo() ? newLaunchHomePage() : legacyHomePage(); }
 function discoverPage() {
   const filtered = state.bills.filter((b) => (state.filter === 'All bills' || b.category === state.filter) && remaining(b) > 0);
   if (state.index >= filtered.length) state.index = 0;

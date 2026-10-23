@@ -1,12 +1,17 @@
 {
-  "name": "OnlyBills | Swipe with purpose",
+  "name": "OnlyBills | Public Prototype",
   "short_name": "OnlyBills",
-  "description": "A kinder way to discover bills and pledge support",
+  "description": "Swipe-to-support concept demo with fictional requests; payments not enabled",
   "start_url": "/#/home",
   "display": "standalone",
-  "theme_color": "#1c2130",
+  "theme_color": "#20312b",
   "background_color": "#f9f8f4",
   "icons": [
-    { "src": "./assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
   ]
 }
