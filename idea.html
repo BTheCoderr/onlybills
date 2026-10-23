@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#171527">
-<meta name="description" content="A viral joke became a real OnlyBills prototype. Try three sample swipes, vote on what matters, and join early access.">
+<meta name="description" content="I said I would build OnlyBills. Here is the working prototype: try sample bill cards, give feedback, and join the beta list. No payments yet.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="OnlyBills — The internet joked. We built the demo.">
-<meta property="og:description" content="Could swiping right help pay someone's bill? Try the concept. No money changes hands.">
+<meta property="og:title" content="OnlyBills | I said I’d build it. Here’s the prototype.">
+<meta property="og:description" content="It started in the comments. Now you can test it. Three sample bills. Zero real payments. Help decide what comes next.">
 <meta property="og:url" content="https://onlybillss.netlify.app/idea.html">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 <title>It started as a joke. | OnlyBills</title>
@@ -48,6 +48,49 @@ footer{padding:25px;text-align:center;font-size:12px;color:#ada7c4}
 @media(max-width:900px){.hero-grid,.demo-layout,.voice-layout{grid-template-columns:1fr}.hero-visual{min-height:430px}.hero{padding-top:37px}.demo-layout,.voice-layout{gap:30px}.sample-card{max-width:550px}.sample-actions{max-width:550px}.section{padding:63px 0}.cards3{grid-template-columns:1fr 1fr}}
 @media(max-width:580px){.site-header,.shell{padding-left:18px;padding-right:18px}.nav a:not(.join-mini){display:none}.nav{gap:8px}h1{font-size:clamp(48px,13vw,65px);letter-spacing:-3.5px}.hero{padding:35px 0 32px}.hero-visual{min-height:364px}.visual-card{min-height:330px;padding:19px}.visual-art{height:110px;font-size:58px}.visual-card h3{font-size:23px}.shadow-card{height:330px}.swipe-stamp{right:-9px;font-size:14px;padding:10px}.hero-actions .button{width:100%}.cards3{grid-template-columns:1fr}.section-heading{font-size:35px}.band-row{justify-content:flex-start}.vote-panel{padding:19px}.sample-card{min-height:408px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* Launch polish: grounded receipt details, no fabricated activity or decorative emoji art. */
+.hero{background:#1c1b29}
+.hero-grid{grid-template-columns:1.03fr .97fr}
+.hero h1{font-size:clamp(52px,6.3vw,84px);letter-spacing:-.065em}
+.hero .subtitle{font-size:16px;max-width:510px;line-height:1.8}
+.hero .eyebrow{color:#d4f689}
+.hero-visual{min-height:470px}
+.visual-receipt{background:#fffefa;color:#262334;transform:rotate(-2deg);min-height:430px;box-shadow:0 20px 62px #07071647;border:1px solid #e4dfd4}
+.visual-receipt h3{font-size:30px;letter-spacing:-1.1px}
+.visual-receipt .receipt-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.receipt-wordmark{font-size:21px;font-weight:900;letter-spacing:-1.2px}
+.receipt-code{font-size:9px;font-weight:750;letter-spacing:1.1px;color:#8b8494}
+.receipt-divider{margin:18px 0;border-top:1px dashed #c9c3cd}
+.visual-receipt .visual-tag{font-size:10px;color:#7359bd;letter-spacing:1px}
+.visual-receipt .receipt-heading{margin:17px 0 8px}
+.visual-receipt .receipt-sub{margin:0 0 21px;color:#716b76;line-height:1.65}
+.receipt-item{border-top:1px solid #ece8e3;padding:11px 0;display:flex;justify-content:space-between;gap:15px;font-size:12px}
+.receipt-item span{color:#79727f}
+.receipt-item strong{font-size:12px}
+.receipt-total{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:13px 0;border-top:2px solid #292535;margin-top:5px}
+.receipt-total span{font-size:12px;font-weight:800}
+.receipt-total strong{font-size:25px;letter-spacing:-1px}
+.receipt-foot{border-top:1px dashed #c9c3cd;font-size:10px;color:#837d87;padding-top:12px;margin-top:auto}
+.shadow-card{transform:rotate(5deg) translate(14px,3px);background:#514569;height:420px}
+.band{background:#242131}
+.band-row{font-size:11px;letter-spacing:1.25px;text-transform:uppercase}
+.sample-card{border-radius:16px;box-shadow:0 14px 48px #30283c14;touch-action:pan-y;user-select:none}
+.sample-top{background:#f8f7f3}
+.sample-art{height:132px;background:#ece7e0;color:#56505b;font-size:13px;letter-spacing:2.4px;font-weight:900;border-bottom:1px dashed #c7c1bb}
+.sample-content h3{font-size:23px}
+.sample-content p{font-size:14px}
+.sample-amount strong{font-variant-numeric:tabular-nums}
+.visual-card{border-radius:16px}
+.shadow-card{border-radius:17px}
+.value-card{background:#28253a}
+.hero-visual .visual-card{width:min(95%,370px)}
+.disclaimer{font-size:12px;color:#d2cbdc}
+.final-cta{background:#d4f689}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-visual{min-height:450px}.hero{padding-bottom:20px}}
+@media(max-width:580px){.hero .eyebrow{font-size:10px}.hero-visual{min-height:450px}.visual-receipt{min-height:395px}.hero .subtitle{font-size:15px}.hero h1{line-height:1.05;font-size:clamp(49px,11vw,66px);letter-spacing:-2.9px}.receipt-item{padding:9px 0}.shadow-card{height:387px}.sample-art{height:113px}}
+
 </style>
 </head>
 <body>
@@ -55,27 +98,38 @@ footer{padding:25px;text-align:center;font-size:12px;color:#ada7c4}
 <main>
 <section class="hero"><div class="shell hero-grid">
 <div>
-<span class="eyebrow">A joke on the internet. A real question.</span>
-<h1>They joked.<br><em>We built<br>the demo.</em></h1>
-<p class="subtitle">What if paying it forward felt as easy as swiping right? OnlyBills is testing a new way to discover bills that need help and choose to show up.</p>
+<span class="eyebrow">FROM A COMMENT TO A WORKING PROTOTYPE</span>
+<h1>I said I’d<br>build it.<br><em>So I did.</em></h1>
+<p class="subtitle">The idea was simple: what if you could swipe through bills and choose one to help with? This is my first working version of OnlyBills. Try it and tell me what to change before real accounts open.</p>
 <div class="hero-actions"><a href="#try" class="button">Try three sample swipes ↗</a><a class="button secondary" href="/join.html?utm_source=viral_post&utm_medium=website&utm_campaign=joke_to_beta">Get first access</a></div>
-<p class="disclaimer"><strong>Prototype only.</strong> All example bills are fictional. No charges, real donations, or bill payments happen here.</p>
+<p class="disclaimer"><strong>Here’s what’s real:</strong> the clickable prototype, the feedback form, and the beta list. The sample bills are made up. There’s no payment system yet.</p>
 </div>
 <div class="hero-visual" aria-label="Illustration of a fictional bill assistance card">
-<div class="shadow-card"></div><div class="visual-card"><span class="visual-tag">✳ SAMPLE REQUEST · UTILITIES</span><div class="visual-art" aria-hidden="true">💡</div><h3>Someone needs<br>a little light.</h3><p>A made-up example showing what a private, reviewed request could look like.</p><div class="visual-bottom"><div><span>Sample amount</span><br><b>$142</b></div><span>♥ Consider helping</span></div><div class="swipe-stamp">SWIPE RIGHT ♥</div></div>
+<div class="visual-card visual-receipt">
+      <div class="receipt-head"><span class="receipt-wordmark">onlybills<span style="color:#6e5ace">.</span></span><span class="receipt-code">CONCEPT / 001</span></div>
+      <div class="receipt-divider"></div>
+      <span class="visual-tag">SAMPLE BILL • NOT A REAL REQUEST</span>
+      <h3 class="receipt-heading">Electric service</h3>
+      <p class="receipt-sub">A sample of how a future request could appear without sharing anyone’s private account details.</p>
+      <div class="receipt-item"><span>Category</span><strong>Utilities</strong></div>
+      <div class="receipt-item"><span>Amount due</span><strong>$142.00</strong></div>
+      <div class="receipt-item"><span>Request status</span><strong>Demo only</strong></div>
+      <div class="receipt-total"><span>Example amount</span><strong>$142.00</strong></div>
+      <div class="receipt-foot">No bill uploaded · No payment processed</div>
+    </div>
 </div>
 </div></section>
-<div class="band"><div class="shell band-row"><span>✳ Internet-inspired prototype</span><span>♡ Designed for everyday givers, too</span><span>⌁ No money collected during this test</span></div></div>
+<div class="band"><div class="shell band-row"><span>01 / Try sample cards</span><span>02 / Vote on what matters</span><span>03 / Join the beta list</span></div></div>
 <section id="try" class="section experiment"><div class="shell"><span class="section-eyebrow">01 / Try the idea</span><h2 class="section-heading">Three cards. One question.</h2><p class="section-description">Would you even want to help this way? Test the interaction before we build the real financial product.</p>
 <div class="demo-layout">
 <div>
-<div class="sample-card" id="sample-card" aria-live="polite"><div class="sample-top"><span id="sample-step">CARD 1 OF 3</span><span class="label-demo">FICTIONAL EXAMPLE</span></div><div class="sample-art" id="sample-art" aria-hidden="true">💡</div><div class="sample-content"><div id="sample-category" class="sample-category">UTILITIES</div><h3 id="sample-title">Keep the lights on</h3><p id="sample-story">A sample household needs help with a power bill.</p><div class="sample-amount"><strong id="sample-amount">$142</strong><span>Illustrative bill · Not real</span></div></div></div>
+<div class="sample-card" id="sample-card" aria-live="polite" aria-description="Swipe left to pass or right to consider helping, or use the buttons below."><div class="sample-top"><span id="sample-step">CARD 1 OF 3</span><span class="label-demo">SAMPLE, NOT REAL</span></div><div class="sample-art" id="sample-art" aria-hidden="true">ELECTRIC SERVICE</div><div class="sample-content"><div id="sample-category" class="sample-category">UTILITIES</div><h3 id="sample-title">Keep the lights on</h3><p id="sample-story">A sample household needs help with a power bill.</p><div class="sample-amount"><strong id="sample-amount">$142</strong><span>Illustrative bill · Not real</span></div></div></div>
 <div class="sample-actions"><button type="button" id="skip-button">← Pass</button><button type="button" id="help-button" class="yes">I'd consider helping ♥</button></div>
-<p class="sample-progress" id="sample-progress" aria-live="polite">Try all three, then tell us what matters.</p>
+<p class="sample-progress" id="sample-progress" aria-live="polite">Swipe left to pass or right to consider helping. Buttons work too.</p>
 </div>
 <div>
-<h3 style="font-size:clamp(26px,3vw,37px);letter-spacing:-1.4px;margin-top:0">The swipe is fun.<br>The trust is everything.</h3>
-<p class="sample-copy">We want to discover whether people actually need this and whether anyone would feel comfortable helping. The answer shapes what we build next.</p>
+<h3 style="font-size:clamp(26px,3vw,37px);letter-spacing:-1.4px;margin-top:0">Would you really use this?</h3>
+<p class="sample-copy">I can build the swipe part. The harder questions are whether people trust the requests, where the money goes, and how anyone knows a bill was actually paid. That’s why I need your feedback before turning on payments.</p>
 <div class="checkpoints"><div><span>1</span> Browse fictional example needs</div><div><span>2</span> Mark a bill you'd consider helping</div><div><span>3</span> Share what would make this trustworthy</div></div>
 <p class="sample-note">These taps are a private, on-device demo only, not recorded donations or payment commitments. To contribute to our research, use the separate optional vote below.</p>
 <a href="#vote" class="button" style="margin-top:24px">Help shape the product ↓</a>
@@ -106,21 +160,21 @@ footer{padding:25px;text-align:center;font-size:12px;color:#ada7c4}
 <button class="button" type="submit">Send my feedback ↗</button>
 <p class="poll-footer">Responses are collected through Netlify Forms for concept research only. This isn't a funding request. No account or password needed.</p>
 </form></div></div></section>
-<section class="section" style="background:#211d33"><div class="shell"><span class="section-eyebrow">03 / More than a joke</span><h2 class="section-heading">We know what would have to come next.</h2><div class="cards3">
+<section class="section" style="background:#211d33"><div class="shell"><span class="section-eyebrow">03 / What I would build next</span><h2 class="section-heading">An actual product needs more than swipe cards.</h2><div class="cards3">
 <div class="value-card"><div class="num">FIRST</div><h3>Private verification</h3><p>Keep sensitive documents private. Review authenticity and avoid publicly exposing bills or account numbers.</p></div>
 <div class="value-card"><div class="num">THEN</div><h3>Safer payment rails</h3><p>Explore biller-directed payments and a regulated processing partner; never treat pledges as settled bills.</p></div>
 <div class="value-card"><div class="num">ALWAYS</div><h3>Transparent status</h3><p>Clear pending, approved, funded, and paid states with evidence that actual payments completed.</p></div>
 </div></div></section>
-<section class="final-cta"><h2>The internet had an idea.<br>What if we actually tried?</h2><p>Join the early list or share this concept with somebody who would have an opinion. We are testing demand, not taking payments.</p>
+<section class="final-cta"><h2>This started with a comment.<br>Help me figure out the next version.</h2><p>If you’d actually use OnlyBills, tell me. Join the beta list or send this to someone who’d have a strong opinion. Still just a prototype, not a way to pay bills yet.</p>
 <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px"><a class="button" href="/join.html?utm_source=viral_post&utm_medium=website&utm_campaign=joke_to_beta">Join the beta waitlist ↗</a><button type="button" class="button secondary" id="share-button">Share this idea ↗</button></div><p id="share-status" role="status" aria-live="polite" style="font-size:12px;min-height:20px;margin-top:12px"></p></section>
-</main><footer>OnlyBills is an independent prototype inspired by an online conversation, not affiliated with the original poster. All examples are fictional. © 2026 OnlyBills.</footer>
+</main><footer>Built independently from an idea in an online conversation. No affiliation or endorsement by the original poster. All examples are fictional. No payments enabled. <a href="/contact.html" style="color:inherit;text-decoration:underline">Contact</a> · © 2026 OnlyBills.</footer>
 <script>
 (function(){
 "use strict";
 var samples=[
- {category:"UTILITIES",icon:"💡",title:"Keep the lights on",story:"A fictional household needs help with a past-due electric bill.",amount:"$142",color:"#e1d6ff"},
- {category:"TRANSPORTATION",icon:"🚘",title:"Get back to work",story:"A fictional driver needs help with a repair bill to get to their shift.",amount:"$315",color:"#daf1df"},
- {category:"ESSENTIALS",icon:"🛒",title:"One easier week",story:"A fictional family has an essential household expense due soon.",amount:"$86",color:"#ffe5cd"}
+ {category:"ELECTRIC SERVICE",icon:"UTILITY STATEMENT",title:"Electric bill due soon",story:"Example: a $142 electric balance is due before the next payday.",amount:"$142",color:"#ece7e0"},
+ {category:"AUTO REPAIR",icon:"REPAIR ESTIMATE",title:"Car repair before Monday",story:"Example: a $315 repair estimate would get someone back to work.",amount:"$315",color:"#e5e9eb"},
+ {category:"ESSENTIALS",icon:"ESSENTIAL EXPENSE",title:"A grocery budget shortfall",story:"Example: an $86 grocery shortfall for the week.",amount:"$86",color:"#e8ecdf"}
 ];
 var index=0,yes=0;
 var el=function(id){return document.getElementById(id)};
@@ -131,7 +185,7 @@ function paint(){
   el("sample-title").textContent="You considered "+yes+" of "+samples.length+" sample requests.";
   el("sample-story").textContent="This was a concept demo, not a donation or payment. Vote below to help decide what matters most.";
   el("sample-amount").textContent="No charges";
-  el("sample-art").textContent="♡";el("sample-art").style.background="#d4f689";
+  el("sample-art").textContent="CONCEPT TEST COMPLETE";el("sample-art").style.background="#e4ecdb";
   el("skip-button").hidden=true;el("help-button").textContent="Try again ↺";
   el("sample-progress").textContent="Your choices stayed in this browser. Use the poll below to share your opinion.";
   return;
@@ -140,9 +194,19 @@ function paint(){
  el("sample-category").textContent=sample.category;el("sample-title").textContent=sample.title;
  el("sample-story").textContent=sample.story;el("sample-amount").textContent=sample.amount;
  el("sample-art").textContent=sample.icon;el("sample-art").style.background=sample.color;
- el("sample-progress").textContent="Card "+(index+1)+" of 3 · Fictional preview, not real fundraising.";
+ el("sample-progress").textContent="Card "+(index+1)+" of 3 · Swipe or use buttons. No payment is made.";
 }
 function next(help){if(index===samples.length){index=0;yes=0;el("skip-button").hidden=false;el("help-button").textContent="I'd consider helping ♥";paint();return}if(help)yes++;index++;paint()}
+var xStart=null;
+var card=el("sample-card");
+card.style.touchAction="pan-y";
+card.addEventListener("pointerdown",function(e){if(e.isPrimary)xStart=e.clientX});
+card.addEventListener("pointerup",function(e){
+ if(xStart===null)return;
+ var difference=e.clientX-xStart;xStart=null;
+ if(Math.abs(difference)>68)next(difference>0);
+});
+card.addEventListener("pointercancel",function(){xStart=null});
 el("skip-button").addEventListener("click",function(){next(false)});
 el("help-button").addEventListener("click",function(){next(true)});
 var params=new URLSearchParams(window.location.search);
