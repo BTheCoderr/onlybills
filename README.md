@@ -18,7 +18,9 @@ A mobile-friendly, GitHub-ready bill-help community prototype. The experience ha
 | Human approval/rejection queue with proof review and audit trail | Wired; requires admin assignment |
 | Database row-level access policies, private storage, pledge concurrency lock | Included in SQL migration |
 | Charge a donor / transfer to biller | **Not built** |
-| Identity/fraud checks, dispute handling, deletion, full production legal compliance | **Not built** |
+| Identity/fraud checks, dispute handling, full production legal compliance | **Not built** |
+| Netlify early-access waitlist and waitlist contact/removal request intake | **Live** at `/join.html` and `/contact.html` (manual processing) |
+| Instagram-inspired swipe concept and short audience interest poll | **Live** at `/idea.html` with separate Netlify Form |
 
 **Important: No payment processor is enabled.** The app records nonbinding pledges. A "pledge" is not a payment, a donation receipt, or proof that any bill has been paid. Do not enable real fundraising or market the product as a way to settle bills until the regulated payment flow has been built and reviewed.
 
@@ -30,8 +32,8 @@ No `npm install` or build tools needed.
 2. Run `python3 -m http.server 4173` from the project folder, or `npm run dev` if Python and Node are installed.
 3. Open `http://localhost:4173`.
 4. Click **Explore bills** to swipe fictional requests.
-5. Click **Post a bill**, create a demo account, attach a PDF/JPG/PNG and submit. Open **My space** and click **Simulate approval** to publish your fictional request to the swipe feed.
-6. Visit **My space** for pledge history. Demo data is saved in browser `localStorage`.
+5. On the hosted demo, choose **Join early access** to leave a real email waitlist entry; it is **not** an account. The `/#/auth` route can still be used for internal local testing of a browser-only demo account.
+6. Visit `/idea.html` for the fictional 3-card demo and the anonymous-by-design, no-contact-field opinion poll. Browser demo data is saved in `localStorage` and is not a real funding record.
 
 The demo cannot upload your document anywhere; it remembers only the *filename*. You can reset the browser demo by removing the `onlybills_demo_v1` localStorage entry.
 
@@ -49,6 +51,20 @@ git push -u origin main
 ```
 
 **Netlify:** Import the GitHub repository as a new site. Publish directory is `.` and there is no build command. You can also drag the complete extracted folder into Netlify Drop.
+
+## Instagram-to-beta launch funnel
+
+The existing Netlify deployment is at <https://onlybillss.netlify.app/> and is linked to `BTheCoderr/onlybills` `main`.
+
+- `/idea.html`: shareable viral-concept campaign with 3 fictional practice cards and Netlify Forms feedback (`onlybills-concept-pulse`). Practice taps are local to the browser and are not centrally counted.
+- `/poll-thanks.html`: after an opinion is submitted, offers the opt-in waitlist.
+- `/join.html`: consent-based waitlist (`onlybills-early-access`), with help-seeker / supporter segmentation and sanitized `utm_source` / `utm_campaign` values. No passwords or bill images.
+- `/contact.html`: a request form (`onlybills-contact`) for waitlist removals/corrections and privacy questions. Requests require **manual operator review** and possibly verifying email ownership; posting the form does not automatically remove data.
+- `LAUNCH_PLAN.md`: content/positioning, 7-day organic test, metrics and trust safeguards.
+
+Use this tracked Instagram URL: `https://onlybillss.netlify.app/idea.html?utm_source=instagram&utm_medium=social&utm_campaign=joke_to_beta`.
+
+The Netlify Forms dashboard records interested respondents and poll selections. It is not itself a traffic/unique-visitor analytics system. For view counts, use channel insights plus separately configured privacy-aware website analytics if needed.
 
 ## Connect real accounts and uploads with Supabase
 
