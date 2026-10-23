@@ -2,7 +2,7 @@ import { CONFIG, IS_DEMO } from './config.js';
 import { SEED_BILLS } from './data.js';
 import { parseDollars, validateDocument, validateRequest, remaining } from './utils.js';
 
-const STORAGE_KEY = 'onlybills_demo_v1';
+const STORAGE_KEY = 'onlybills_demo_v2';
 let client = null;
 let currentUser = null;
 
