@@ -1,0 +1,25 @@
+name: Verify OnlyBills
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax check
+        run: |
+          node --check src/app.js
+          node --check src/backend.js
+          node --check src/config.js
+          node --check src/data.js
+          node --check src/utils.js
+      - name: Test
+        run: npm test
