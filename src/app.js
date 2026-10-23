@@ -1,9 +1,9 @@
-import { isDemo, initialize, user, accountName, signIn, signUp, signOut, getPublicBills, getMyBills, getMyPledges, submitBill, submitPledge, simulateApproval, getAdminAccess, getPendingReviews, reviewBill, getReviewDocumentUrl } from './backend.js';
+import { isDemo, initialize, user, accountName, signIn, signUp, signOut, resendConfirmation, requestPasswordReset, updatePassword, getPublicBills, getMyBills, getMyPledges, submitBill, submitPledge, simulateApproval, getAdminAccess, getPendingReviews, reviewBill, getReviewDocumentUrl } from './backend.js';
 import { CATEGORY_ICONS, CATEGORY_TONES } from './data.js';
 import { CATEGORIES, esc, initials, money, parseDollars, progress, remaining, shortDate } from './utils.js';
 
 const app = document.querySelector('#app');
-const state = { bills: [], myBills: [], pledges: [], filter: 'All bills', index: 0, selected: null, amount: null, custom: '', authMode: 'signup', authNext: 'dashboard', loading: false, toast: '', admin: false, pending: [], feedError: '' };
+const state = { bills: [], myBills: [], pledges: [], filter: 'All bills', index: 0, selected: null, amount: null, custom: '', authMode: 'signup', authNext: 'dashboard', signupEmail: '', signupIntent: 'requester', loading: false, toast: '', admin: false, pending: [], feedError: '' };
 
 const paths = ['home', 'discover', 'post', 'dashboard', 'how', 'auth', 'privacy', 'terms', 'admin'];
 const glyphs = {
@@ -154,7 +154,34 @@ function howPage() { return `<section class="interior-hero shell"><span class="e
   <article><div class="how-no">02</div><div class="how-text"><span class="eyebrow">A QUICK CHECK FIRST</span><h2>Every request gets reviewed.</h2><p>A reviewer can inspect the privately submitted proof and approve or decline the request. Approval confirms only that a document was reviewed; it isn't a guarantee that a bill or story is authentic.</p></div><div class="how-art how-art-two">${icon('shield',105)}<span>Privacy first.</span></div></article>
   <article><div class="how-no">03</div><div class="how-text"><span class="eyebrow">IF YOU WANT TO SHOW UP</span><h2>Swipe right on a need you care about.</h2><p>Browse reviewed requests, swipe left to keep going, or swipe right to choose an amount to pledge. A pledge is a promise of interest, not a charge and not a completed payment.</p>${link('discover','Start exploring '+icon('arrow',18),'text-link')}</div><div class="how-art how-art-three">${icon('heart',105)}<span>Give a little hope.</span></div></article></section>
   <section class="shell how-faq"><div><span class="eyebrow">THE IMPORTANT STUFF</span><h2>A few honest answers.</h2></div><div class="faq-list"><details open><summary>Does OnlyBills send money to billers?</summary><p>Not in this initial version. OnlyBills records nonbinding pledges; it does not collect or transfer money. Verified payment partnerships, fraud controls, and legal review are required before real bill payments launch.</p></details><details><summary>Can everyone see my uploaded bill?</summary><p>No. Files live in a private storage bucket when Supabase is configured. Authorized reviewers can access them for limited periods. The public feed includes only the nickname, story, category, general city and amount.</p></details><details><summary>What if a request is rejected?</summary><p>It remains private and doesn't appear in the discovery feed. Check your dashboard for its status. A production version would also add a formal appeal and resubmission process.</p></details><details><summary>Is the demo real?</summary><p>Demo cards are fictional, and demo accounts, requests, and pledges are saved only in your browser's local storage. Hooking up Supabase enables real accounts, document storage, review and synced requests.</p></details></div></section>`; }
-function authPage() { const signup = state.authMode==='signup'; return `<section class="auth-layout shell"><div class="auth-art"><div class="auth-art-top"><span class="eyebrow">GOOD PEOPLE ARE OUR THING</span><h1>Here's to<br/>showing up<br/>for each other<span>.</span></h1><p>You belong here whether you're giving help or asking for it.</p></div><div class="auth-art-bottom">${icon('heart',76)}<span>Kindness looks good on you.</span></div></div><div class="auth-form-outer"><div class="auth-form-title"><span class="eyebrow">WELCOME TO ONLYBILLS</span><h2>${signup ? 'Make yourself at home.' : 'Good to have you back.'}</h2><p>${signup ? 'Create your account to start sharing or supporting.' : 'Sign in to keep the good going.'}</p></div><div class="auth-tabs"><button class="${signup?'selected':''}" data-action="auth-mode" data-mode="signup">Create account</button><button class="${!signup?'selected':''}" data-action="auth-mode" data-mode="signin">Sign in</button></div><form id="auth-form">${signup ? `<div class="form-field"><label for="auth-name">Your name</label><input id="auth-name" name="name" required autocomplete="name" minlength="2" placeholder="e.g. Jordan"/></div>` : ''}<div class="form-field"><label for="auth-email">Email address</label><input id="auth-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"/></div><div class="form-field"><label for="auth-password">Password</label><input id="auth-password" name="password" type="password" required minlength="8" autocomplete="${signup?'new-password':'current-password'}" placeholder="At least 8 characters"/></div><button type="submit" class="btn btn-dark btn-large auth-submit">${signup?'Create account':'Sign in'} ${icon('arrow',18)}</button></form><p class="auth-footnote">${icon('lock',16)} ${isDemo() ? 'Demo mode: no actual account is created and no email is sent.' : 'Secure account authentication is provided by Supabase.'}</p></div></section>`; }
+function authPage() {
+  const mode=state.authMode, signup=mode==='signup', signin=mode==='signin', special=!signup&&!signin;
+  const titles={signup:'Make yourself at home.',signin:'Good to have you back.',forgot:'Reset your password.',verify:'Check your inbox.',reset:'Choose a new password.'};
+  const descriptions={signup:'Create your account to share or support.',signin:'Sign in to keep the good going.',forgot:'Enter your email to request a secure reset link.',verify:'Open the confirmation email, verify your address and come back to sign in.',reset:'Use a new password of at least 10 characters.'};
+  const passwordField=(label,name)=>`<div class="form-field"><label for="auth-${name}">${label}</label><input id="auth-${name}" name="${name}" type="password" required minlength="10" autocomplete="new-password" placeholder="At least 10 characters"></div>`;
+  const emailField=(val='')=>`<div class="form-field"><label for="auth-email">Email address</label><input id="auth-email" name="email" type="email" autocomplete="email" required value="${val}" placeholder="you@example.com"></div>`;
+  const submit=(label)=>`<button type="submit" class="btn btn-dark btn-large auth-submit">${label} ${icon('arrow',18)}</button>`;
+  let form='';
+  if(signup){
+    form=`<form id="auth-form" data-mode="signup"><fieldset class="auth-intent"><legend>What brings you here?</legend>
+      <label class="auth-intent-option"><input type="radio" name="intent" value="requester" required ${state.signupIntent==='requester'?'checked':''}><span>${icon('receipt',23)}<strong>I need help with a bill</strong><small>Share a request for review</small></span></label>
+      <label class="auth-intent-option"><input type="radio" name="intent" value="supporter" ${state.signupIntent==='supporter'?'checked':''}><span>${icon('heart',23)}<strong>I want to help others</strong><small>Discover bills and pledge help</small></span></label></fieldset>
+      <div class="form-field"><label for="auth-name">Your name</label><input id="auth-name" name="name" required minlength="2" maxlength="120" autocomplete="name" placeholder="e.g. Jordan"></div>
+      ${emailField()}${passwordField('Create password','password')}${passwordField('Confirm password','confirm')}
+      <p class="auth-password-tip">Use a unique password. Either type of account can request or offer help.</p>
+      <label class="auth-consent"><input name="agree" type="checkbox" required><span>I agree to the <a href="#/terms">Terms</a> and <a href="#/privacy">Privacy Policy</a>. OnlyBills records pledges, not payments.</span></label>
+      ${submit('Create my account')}</form>`;
+  }else if(signin){
+    form=`<form id="auth-form" data-mode="signin">${emailField()}<div class="auth-password-row"><label for="auth-password">Password</label><button type="button" data-action="auth-mode" data-mode="forgot">Forgot password?</button></div><div class="form-field"><input id="auth-password" name="password" type="password" required autocomplete="current-password" placeholder="Your password"></div>${submit('Sign in')}</form>`;
+  }else if(mode==='forgot'){
+    form=`<form id="auth-form" data-mode="forgot">${emailField(esc(state.signupEmail))}${submit('Send reset link')}</form><button type="button" class="auth-secondary" data-action="auth-mode" data-mode="signin">Back to sign in</button>`;
+  }else if(mode==='verify'){
+    form=`<div class="auth-verification">${icon('check',26)}<strong>${esc(state.signupEmail || 'Your email address')}</strong><p>Check your spam folder if you do not see the email. You will need to verify your address before signing in.</p></div><button type="button" class="btn btn-dark btn-large auth-submit" data-action="resend-verification" ${isDemo()?'disabled':''}>Resend verification email</button><button type="button" class="auth-secondary" data-action="auth-mode" data-mode="signin">I've verified. Sign in</button>`;
+  }else{
+    form=user()?`<form id="auth-form" data-mode="reset">${passwordField('New password','password')}${passwordField('Confirm new password','confirm')}${submit('Save new password')}</form>`:`<div class="auth-verification"><p>Your reset session expired or is missing. Ask for another link.</p></div><button type="button" class="auth-secondary" data-action="auth-mode" data-mode="forgot">Request a reset link</button>`;
+  }
+  return `<section class="auth-layout shell"><div class="auth-art"><div class="auth-art-top"><span class="eyebrow">GOOD PEOPLE ARE OUR THING</span><h1>Here's to<br/>showing up<br/>for each other<span>.</span></h1><p>You belong here whether you're giving help or asking for it.</p></div><div class="auth-art-bottom">${icon('heart',76)}<span>Kindness looks good on you.</span></div></div><div class="auth-form-outer"><div class="auth-form-title"><span class="eyebrow">WELCOME TO ONLYBILLS</span><h2>${titles[mode]||titles.signup}</h2><p>${descriptions[mode]||descriptions.signup}</p></div>${special?'':`<div class="auth-tabs"><button type="button" class="${signup?'selected':''}" data-action="auth-mode" data-mode="signup">Create account</button><button type="button" class="${signin?'selected':''}" data-action="auth-mode" data-mode="signin">Sign in</button></div>`}${form}<p class="auth-footnote">${icon('lock',16)} ${isDemo()?'Demo mode: no real account or email is created.':'Account security and email verification powered by Supabase Auth.'}</p></div></section>`;
+}
 function policyPage(type) {
   if (type === 'privacy') return `<section class="legal shell"><span class="eyebrow">PLAIN-LANGUAGE PRIVACY</span><h1>Your bill is your business.</h1><p><strong>Prototype privacy notice, updated October 2026.</strong> This notice is a starting point and must receive legal review before any public production launch.</p><h2>What we store</h2><p>When connected to Supabase, we store your account email, public display name, bill category, requested amount, general city, optional due date, story, and a private document upload. Your private upload is not part of public feeds.</p><h2>What other people see</h2><p>Approved public requests show your chosen nickname, story, amount, category, general location, and pledged total. Do not include full addresses, account numbers, medical diagnoses, or other private data in your story.</p><h2>Private verification</h2><p>Authorized reviewers may access your document to consider your request. Uploads use a private bucket and restricted access policies. A secure review link expires after a short period. Access logs, retention windows, and deletion tools must be finalized before public launch.</p><h2>Demo mode</h2><p>Demo data stays in this browser's local storage, not a server. Demo submissions, accounts, and pledges are not real.</p><h2>Contact and rights</h2><p>Before a production launch, the operator must publish a valid contact address, deletion instructions, retention schedule, data processor details, and jurisdiction-specific privacy disclosures.</p></section>`;
   return `<section class="legal shell"><span class="eyebrow">THE GROUND RULES</span><h1>Let's keep this genuine.</h1><p><strong>Prototype terms, updated October 2026.</strong> These are provisional and require legal review before any public release.</p><h2>Be truthful</h2><p>Do not submit fraudulent, altered, duplicate, or misleading bills. Don't publish someone else's confidential information, full account number, personal address, or protected information.</p><h2>What the product currently does</h2><p>OnlyBills provides bill-story submissions, human moderation, discovery and nonbinding pledges. It does not accept funds, promise charitable tax deductions, transmit money, settle debts, arrange loans, or guarantee that a request is genuine.</p><h2>Moderation</h2><p>Requests can be held, approved, or declined. Approval means the submission has been reviewed, not that the content has been independently guaranteed. Moderators are not financial advisers.</p><h2>Future payments</h2><p>Actual collection, payment to providers, refunds, chargebacks, fees, compliance, and identity verification require separate terms and technical launch controls. No real-money feature should be enabled until those requirements are satisfied.</p><h2>Age and conduct</h2><p>Account holders should be at least 18 and use the service lawfully. Public production terms must be finalized for the operator's jurisdiction.</p></section>`;
@@ -218,7 +245,12 @@ function setupSwipe() {
 }
 
 window.addEventListener('hashchange',()=>render());
-window.addEventListener('onlybills:auth',()=>render());
+window.addEventListener('onlybills:auth',(event)=>{
+  if(event.detail?.event==='PASSWORD_RECOVERY'||(new URLSearchParams(location.search).get('reset')==='1'&&user())){
+    state.authMode='reset'; window.history.replaceState({},'',location.pathname+'#/auth');
+  }
+  render();
+});
 document.addEventListener('keydown',(e)=>{if(e.key==='Escape')closeModal();if(route()==='discover'&&!state.selected&&!['INPUT','TEXTAREA','SELECT'].includes(document.activeElement?.tagName)){if(e.key==='ArrowLeft')nextCard();if(e.key==='ArrowRight'){const card=document.querySelector('#swipe-card');if(card)openPledge(card.dataset.id);}}});
 
 document.addEventListener('input',(e)=>{if(e.target.id==='story') {const count=document.querySelector('#story-count');if(count)count.textContent=e.target.value.length; }if(e.target.id==='document'){const l=document.querySelector('#file-label');if(l)l.textContent=e.target.files?.[0]?.name||'Choose a PDF or image';}if(e.target.id==='custom-pledge')state.custom=e.target.value;});
@@ -233,6 +265,11 @@ document.addEventListener('click',async(e)=>{
   if(action==='reset-filter'){state.filter='All bills';state.index=0;const area=document.querySelector('.discover-layout');if(area){area.outerHTML=discoverPage().match(/<section class="shell discover-layout">[\s\S]*?<\/section>/)?.[0]||area.outerHTML;setupSwipe();}return;}
   if(action==='go-auth'){state.authNext=control.dataset.next||'dashboard';state.authMode='signup';go('auth');return;}
   if(action==='auth-mode'){state.authMode=control.dataset.mode;app.innerHTML=layout('auth',authPage());return;}
+  if(action==='resend-verification'){
+    control.disabled=true;
+    try{const result=await resendConfirmation(state.signupEmail);toast(result.message);}catch(err){toast(err.message,true);}finally{control.disabled=false;}
+    return;
+  }
   if(action==='logout'){try{await signOut();go('home');toast('Signed out successfully.');}catch(err){toast(err.message,true);}return;}
   if(action==='pick-amount'){state.amount=Number(control.dataset.amount);renderPledgeModal();return;}
   if(action==='pick-custom'){state.amount='custom';renderPledgeModal();document.querySelector('#custom-pledge')?.focus();return;}
@@ -243,10 +280,34 @@ document.addEventListener('click',async(e)=>{
 
 document.addEventListener('submit',async(e)=>{
   if(e.target.id==='auth-form'){
-    e.preventDefault();const form=e.target, data=new FormData(form), button=form.querySelector('button[type=submit]');button.disabled=true;button.textContent='One moment...';
-    try{ const result=state.authMode==='signup'?await signUp(String(data.get('name')),String(data.get('email')),String(data.get('password'))):await signIn(String(data.get('email')),String(data.get('password')));
-      if(user()){const next=state.authNext;state.authNext='dashboard';go(next);toast(result.message);}else{button.disabled=false;button.innerHTML='Sign in';toast(result.message);}
-    }catch(err){button.disabled=false;button.textContent=state.authMode==='signup'?'Create account':'Sign in';toast(err.message,true);}return;
+
+  e.preventDefault();
+  const form=e.target,data=new FormData(form),button=form.querySelector('button[type=submit]');
+  const mode=form.dataset.mode,email=String(data.get('email')||'').trim(),password=String(data.get('password')||'');
+  if(mode==='signup'||mode==='reset'){
+    if(password.length<10){toast('Use a password of at least 10 characters.',true);return;}
+    if(password!==String(data.get('confirm')||'')){toast('Passwords do not match.',true);return;}
+  }
+  if(mode==='signup'&&!data.has('agree')){toast('Agree to the terms and privacy policy to continue.',true);return;}
+  button.disabled=true;button.textContent='One moment...';
+  try{
+    if(mode==='forgot'){
+      const result=await requestPasswordReset(email);state.authMode='signin';app.innerHTML=layout('auth',authPage());toast(result.message);
+    }else if(mode==='reset'){
+      const result=await updatePassword(password);state.authMode='signin';go('dashboard');toast(result.message);
+    }else{
+      if(mode==='signup'){state.signupIntent=String(data.get('intent')||'requester');state.signupEmail=email;}
+      const result=mode==='signup'?await signUp(String(data.get('name')||'').trim(),email,password,state.signupIntent):await signIn(email,password);
+      if(user()){
+        const next=mode==='signup'?(state.signupIntent==='requester'?'post':'discover'):state.authNext;
+        state.authNext='dashboard';go(next);toast(result.message);
+      }else if(mode==='signup'){
+        state.authMode='verify';app.innerHTML=layout('auth',authPage());toast(result.message);
+      }else{button.disabled=false;button.textContent='Sign in';toast(result.message);}
+    }
+  }catch(err){button.disabled=false;button.textContent=mode==='signup'?'Create my account':mode==='forgot'?'Send reset link':mode==='reset'?'Save new password':'Sign in';toast(err.message,true);}
+  return;
+
   }
   if(e.target.id==='post-form'){
     e.preventDefault();const form=e.target, data=new FormData(form), button=form.querySelector('button[type=submit]');button.disabled=true;button.textContent='Submitting privately...';
