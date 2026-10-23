@@ -27,7 +27,7 @@ export async function initialize() {
   });
   const { data, error } = await client.auth.getUser();
   if (!error) currentUser = data.user || null;
-  client.auth.onAuthStateChange((_event, session) => { currentUser = session?.user || null; window.dispatchEvent(new CustomEvent('onlybills:auth')); });
+  client.auth.onAuthStateChange((event, session) => { currentUser = session?.user || null; window.dispatchEvent(new CustomEvent('onlybills:auth', { detail: { event } })); });
 }
 
 export function isDemo() { return IS_DEMO; }
@@ -43,15 +43,38 @@ export async function signIn(email, password) {
   if (error) throw error; currentUser = data.user;
   return { message: 'Welcome back.' };
 }
-export async function signUp(name, email, password) {
+export async function signUp(name, email, password, intent = 'requester') {
+  if (!['requester','supporter'].includes(intent)) throw new Error('Choose how you want to get started.');
   if (IS_DEMO) {
-    const d = readDemo(); const normalized = email.trim().toLowerCase(); d.user = { id: `demo:${normalized}`, email: normalized, name }; writeDemo(d); currentUser = d.user;
+    const d = readDemo(); const normalized = email.trim().toLowerCase(); d.user = { id: `demo:${normalized}`, email: normalized, name, signup_intent: intent }; writeDemo(d); currentUser = d.user;
     return { message: 'Demo account ready. No email was sent.' };
   }
-  const { data, error } = await client.auth.signUp({ email, password, options: { data: { full_name: name } } });
+  const { data, error } = await client.auth.signUp({ email, password, options: { data: { full_name: name, signup_intent: intent }, emailRedirectTo: `${window.location.origin}${window.location.pathname}#/auth` } });
   if (error) throw error; currentUser = data.session ? data.user : null;
   return { message: data.session ? 'Account created.' : 'Check your email to confirm your account, then sign in.' };
 }
+export async function resendConfirmation(email) {
+  if (IS_DEMO) throw new Error('Connect Supabase before sending verification emails.');
+  const { error } = await client.auth.resend({ type: 'signup', email,
+    options: { emailRedirectTo: `${window.location.origin}${window.location.pathname}#/auth` } });
+  if (error) throw error;
+  return { message: 'If this email needs verification, another confirmation link has been requested.' };
+}
+export async function requestPasswordReset(email) {
+  if (IS_DEMO) throw new Error('Password recovery requires a connected Supabase project.');
+  const redirectTo = `${window.location.origin}${window.location.pathname}?reset=1`;
+  const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+  if (error) throw error;
+  return { message: 'If an account exists, a password reset link will be sent.' };
+}
+export async function updatePassword(password) {
+  if (IS_DEMO) throw new Error('Password recovery requires a connected Supabase project.');
+  if (!currentUser) throw new Error('Open your password reset link again.');
+  const { error } = await client.auth.updateUser({ password });
+  if (error) throw error;
+  return { message: 'Password updated. Your account is ready.' };
+}
+
 export async function signOut() {
   if (IS_DEMO) { const d = readDemo(); d.user = null; writeDemo(d); currentUser = null; return; }
   const { error } = await client.auth.signOut(); if (error) throw error; currentUser = null;
