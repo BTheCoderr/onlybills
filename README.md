@@ -66,6 +66,15 @@ Use this tracked Instagram URL: `https://onlybillss.netlify.app/idea.html?utm_so
 
 The Netlify Forms dashboard records interested respondents and poll selections. It is not itself a traffic/unique-visitor analytics system. For view counts, use channel insights plus separately configured privacy-aware website analytics if needed.
 
+## Impact Hub feature validation
+
+- `/impact` (source: `impact.html`): public preview of the opt-in Impact League, business matching scenario builder, and example proof-of-impact record. **No real donations, sponsors, settled bills or receipts exist.**
+- `/impact-thanks`: confirmation after a new `onlybills-impact-interest` Netlify form submission.
+- `IMPACT_FEATURES.md`: controls and implementation gates for verified settlement, transparent matching limits, privacy, audit and eventual payment integration.
+- The homepage, desktop/mobile navigation and Instagram `/try` page link to the hub.
+- The form collects a segmented opt-in lead, participant type, feature priority and optional organization. It does not collect passwords, account numbers or money.
+- Impact League remains an honest zero state until the application has trustworthy server-side settlement records. Example matching ratios and example receipts are never financial commitments.
+
 ## Connect real accounts and uploads with Supabase
 
 1. Create a new Supabase project.

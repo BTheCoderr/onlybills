@@ -19,3 +19,8 @@
   from = "/beta"
   to = "/join.html"
   status = 200
+
+[[redirects]]
+  from = "/impact"
+  to = "/impact.html"
+  status = 200
