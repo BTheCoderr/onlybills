@@ -51,6 +51,8 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
   <p class="intro">We'll email you when real OnlyBills accounts are available. This is a waitlist, not an account or promise of financial help.</p>
   <form name="onlybills-early-access" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks.html">
     <input type="hidden" name="form-name" value="onlybills-early-access">
+    <input type="hidden" name="referrer" id="signup-source" value="direct">
+    <input type="hidden" name="campaign" id="signup-campaign" value="early_access">
     <p hidden><label>Leave this empty: <input type="text" name="bot-field" tabindex="-1" autocomplete="off"></label></p>
     <div class="field"><label for="full-name">Your name</label><input type="text" id="full-name" name="name" maxlength="100" required autocomplete="name" placeholder="How should we address you?"></div>
     <div class="field"><label for="email">Email address</label><input type="email" id="email" name="email" maxlength="254" required autocomplete="email" placeholder="you@example.com"></div>
@@ -65,5 +67,16 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
   <p class="demo-link">Want to see the concept? <a href="/#/discover">Explore the interactive demo</a>.</p>
 </section>
 </main>
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var clean = function(value, fallback) {
+    if (!value) return fallback;
+    return String(value).replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 48) || fallback;
+  };
+  document.getElementById("signup-source").value = clean(params.get("utm_source"), "direct");
+  document.getElementById("signup-campaign").value = clean(params.get("utm_campaign"), "early_access");
+})();
+</script>
 <footer>© 2026 OnlyBills. No payments or bill settlements are being processed.</footer>
 </body></html>
