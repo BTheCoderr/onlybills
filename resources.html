@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f9f8f4"><meta name="robots" content="index,follow">
+<meta name="description" content="Explore official resources to find help with energy bills, rent, food, hospital bills and phone service. OnlyBills provides free links without collecting sensitive information.">
+<meta property="og:title" content="Find help with bills | OnlyBills">
+<meta property="og:description" content="Your bill might have an assistance option. Start with trusted services and program guides.">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<title>Find help with your bills | OnlyBills</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#22382e;background:#f9f8f4;--ink:#22382e;--muted:#64796b;--border:#dfe6db;--paper:#fffefa;--soft:#eef2ea;--coral:#dd7b64}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}a{color:inherit;text-decoration:none}button,input{font:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #8ea98e;outline-offset:3px}
+.wrap{width:min(1150px,calc(100% - 42px));margin:auto}
+.top{background:#f9f8f4e8;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}
+.top .wrap{min-height:73px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-size:25px;letter-spacing:-1.7px;font-weight:900}.logo span{color:var(--coral)}
+.top-nav{display:flex;gap:22px;align-items:center}.top-nav a{font-size:12px;font-weight:760;color:#506857}
+.top-nav a:last-child{background:var(--ink);color:white;padding:12px 16px;border-radius:7px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:10px;font-weight:850;letter-spacing:1.8px;text-transform:uppercase;color:#71876e}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--coral)}
+.hero{padding:70px 0 56px}.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:74px;align-items:center}
+.hero h1{font-size:clamp(48px,5.6vw,78px);line-height:1.06;letter-spacing:-.075em;margin:22px 0}.hero h1 em{font-style:normal;font-family:Georgia,serif;font-weight:400;color:#63816a}
+.hero p{color:var(--muted);font-size:16px;line-height:1.8;max-width:590px}
+.hero-note{background:var(--soft);border:1px solid #dce6d9;border-radius:12px;padding:27px}
+.hero-note strong{font-size:17px;letter-spacing:-.4px}.hero-note p{font-size:13px;line-height:1.75;margin:9px 0 17px}
+.hero-note a{display:inline-flex;background:var(--ink);color:white;border-radius:8px;padding:13px 16px;font-size:13px;font-weight:800}
+.helper-strip{background:#e9eee7;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:19px 0}
+.helper-strip .wrap{display:flex;gap:15px;align-items:center;color:#506c5a;font-size:13px;line-height:1.6}
+.helper-strip strong{font-weight:900;white-space:nowrap}
+.section{padding:75px 0}.section-top{max-width:710px}
+.section-overline{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;font-weight:850;color:#709078}
+.section h2{font-size:clamp(33px,4.6vw,52px);line-height:1.12;letter-spacing:-.07em;margin:13px 0 15px}
+.section p{color:var(--muted);font-size:14px;line-height:1.85}
+.finder{margin:32px 0 22px;background:#fffefa;border:1px solid var(--border);border-radius:11px;padding:18px}
+.search-label{font-size:12px;display:block;margin-bottom:9px;font-weight:800}
+.search-box{display:flex;align-items:center;gap:11px}
+.search-box input{flex:1;border:1px solid #cdd9ce;background:white;min-height:50px;border-radius:7px;padding:12px 14px;outline:none;font-size:15px;min-width:0;color:var(--ink)}
+.search-box input:focus{outline:2px solid #93b096;outline-offset:2px}
+.search-box button{border:1px solid #d2ddd1;background:#f7f9f4;padding:13px 15px;font-size:12px;font-weight:800;border-radius:7px;color:#58715d}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}
+.filters button{border:1px solid #d9e3d7;background:#f6f8f3;color:#57715f;font-size:12px;border-radius:7px;padding:10px 13px;font-weight:780}
+.filters button[aria-pressed=true]{background:#203b32;color:white;border-color:#203b32}
+.results{font-size:12px;color:#839285;margin:0 0 18px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.help-card{background:var(--paper);border:1px solid var(--border);border-radius:12px;padding:27px;min-height:345px;display:flex;flex-direction:column}
+.help-card-head{display:flex;align-items:center;justify-content:space-between;gap:13px}
+.help-card-type,.help-card-number{font-size:10px;letter-spacing:1.3px;font-weight:850;color:#6a8d72}
+.help-card-number{color:#a0ada1}
+.help-card h3{font-size:23px;line-height:1.2;letter-spacing:-.055em;margin:25px 0 11px}
+.help-card p{margin:0;font-size:13px;line-height:1.8}.help-card .help-org{font-size:11px;font-weight:850;letter-spacing:.3px;margin:19px 0;color:#89978c}
+.help-card-foot{display:flex;flex-direction:column;gap:13px;align-items:start;margin-top:auto;border-top:1px solid #e3e8e0;padding-top:19px}
+.help-card-foot a{color:var(--ink);font-size:13px;font-weight:850;text-decoration:underline;text-underline-offset:4px}
+.help-card-note{font-size:11px;line-height:1.6;color:#7b8c7c}
+.help-card[hidden]{display:none!important}
+.empty{border:1px dashed #bccfbd;background:#f2f5f0;border-radius:10px;padding:30px;color:#58715b}
+.empty[hidden]{display:none!important}
+.action-section{background:#eef2e9;padding:68px 0}
+.action-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:75px}
+.action-grid h2{font-size:clamp(31px,4vw,47px);letter-spacing:-.06em;line-height:1.15;margin:14px 0}
+.action-grid p{font-size:14px;line-height:1.8;color:#67786c}
+.steps{display:grid;gap:14px}.step{background:#fffefa;border:1px solid var(--border);padding:20px 22px;border-radius:9px}
+.step label{display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:14px;font-weight:730;line-height:1.5}
+.step input{margin-top:4px;accent-color:#315d42;width:17px;height:17px;flex-shrink:0}
+.step p{font-size:12px;line-height:1.7;margin:9px 0 0 28px}
+.step:has(input:checked){border-color:#87a98d;background:#f7faf4}
+.safety{padding:60px 0}.safety-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.safety-box{padding:26px;border:1px solid var(--border);border-radius:11px}
+.safety-box strong{font-size:18px}.safety-box p{font-size:13px}
+.safety-box a{font-weight:850;text-decoration:underline;text-underline-offset:3px;font-size:13px}
+.callout{background:#203b32;color:#e2ede4;padding:65px 0}
+.callout .wrap{display:flex;justify-content:space-between;gap:30px;align-items:center}
+.callout h2{font-size:clamp(32px,4.1vw,53px);line-height:1.14;letter-spacing:-.065em;max-width:610px;margin:0}
+.callout p{font-size:13px;color:#bdd0c1;line-height:1.7;max-width:520px}
+.callout a{display:inline-block;background:#f7f8f0;color:#203b32;padding:16px 21px;font-size:13px;font-weight:800;border-radius:8px;white-space:nowrap}
+footer{padding:28px 0;color:#778779;font-size:12px;line-height:1.7}
+footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer a{text-decoration:underline}
+@media(max-width:920px){.hero-grid,.action-grid{grid-template-columns:1fr;gap:27px}.hero-note{max-width:580px}.cards{gap:12px}}
+@media(max-width:620px){.wrap{width:calc(100% - 34px)}.top .wrap{min-height:64px}.logo{font-size:22px}.top-nav{gap:12px}.top-nav a:first-child{display:none}.hero{padding:43px 0 38px}.hero h1{font-size:clamp(43px,11.1vw,61px)}.hero p{font-size:14px}.hero-note{padding:21px}.helper-strip .wrap{flex-direction:column;align-items:start;gap:5px}.section{padding:54px 0}.section h2{font-size:36px}.finder{padding:13px}.search-box{align-items:stretch}.search-box input{font-size:14px}.filters button{font-size:11px}.cards{grid-template-columns:1fr}.help-card{min-height:300px;padding:23px}.help-card h3{margin-top:19px}.action-section{padding:53px 0}.safety-grid{grid-template-columns:1fr;gap:11px}.callout{padding:50px 0}.callout .wrap{display:block}.callout a{margin-top:10px;white-space:normal}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a href="/" class="logo" aria-label="OnlyBills homepage">onlybills<span>.</span></a><nav class="top-nav" aria-label="Navigation"><a href="/try">Try the prototype</a><a href="/beta">Join beta →</a></nav></div></header>
+<main>
+<section class="hero"><div class="wrap hero-grid">
+  <div><span class="eyebrow">OnlyBills / Actual resources</span><h1>Need help with<br><em>a bill?</em><br>Start here.</h1>
+  <p>OnlyBills can't pay bills yet. But you shouldn't have to wait for our beta to find assistance. Start with these trusted public programs and service directories.</p>
+  <p style="font-size:12px;color:#839288">U.S. resources. Programs are operated by outside organizations; eligibility and availability vary. No guarantee of funding.</p></div>
+  <aside class="hero-note"><strong>Not sure where to begin?</strong><p>Calling 211 can connect you with local help for housing, food, utility bills, transportation, and more. You can also search your local 211 online.</p><a href="https://211.org/about-us/your-local-211" target="_blank" rel="noopener noreferrer">Find your local 211 ↗</a><p style="margin:12px 0 0;font-size:11px">211 is an independent public referral network, not an OnlyBills service.</p></aside>
+</div></section>
+<div class="helper-strip"><div class="wrap"><strong>Private by default.</strong><span>This page does not ask for your bills, address, income, or account numbers. Search and filters run only in your browser.</span></div></div>
+<section class="section" id="programs"><div class="wrap">
+<div class="section-top"><span class="section-overline">01 / Choose your next step</span><h2>Find a place to start.</h2><p>Choose a category or search for the expense you're worried about. Every link opens the source organization, where you can check the current requirements.</p></div>
+<div class="finder"><label class="search-label" for="resource-search">Search programs by need</label><div class="search-box"><input type="search" id="resource-search" maxlength="80" autocomplete="off" placeholder="Try rent, electricity, hospital or groceries…"><button id="clear-search" type="button">Clear</button></div>
+<div class="filters" aria-label="Filter programs by category" role="group">
+<button type="button" data-filter="All" aria-pressed="true">All resources</button><button type="button" data-filter="Utilities" aria-pressed="false">Utilities</button><button type="button" data-filter="Housing" aria-pressed="false">Housing</button><button type="button" data-filter="Food" aria-pressed="false">Food</button><button type="button" data-filter="Medical" aria-pressed="false">Medical</button><button type="button" data-filter="Phone" aria-pressed="false">Phone</button><button type="button" data-filter="Transportation" aria-pressed="false">Transportation</button>
+</div></div>
+<p class="results" id="result-count" role="status" aria-live="polite">7 resources shown</p>
+<div class="cards" id="resource-cards"><article class="help-card" data-resource data-category="All" data-tags="General Housing Utilities Food Transportation" data-search="find local assistance through 211 united way 211 start with a local referral specialist for help with housing, food, utilities, transportation and other essential needs. referral local rental transportation shelter emergency bills food assistance">
+<div class="help-card-head"><span class="help-card-type">LOCAL RESOURCES</span><span class="help-card-number">01 / 07</span></div>
+<h3>Find local assistance through 211</h3><p>Start with a local referral specialist for help with housing, food, utilities, transportation and other essential needs.</p><p class="help-org">United Way 211</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://211.org/about-us/your-local-211">Find local 211 services <span aria-hidden="true">↗</span></a><span class="help-card-note">Call 211 to ask about programs where you live.</span></div>
+</article>
+<article class="help-card" data-resource data-category="Utilities" data-tags="Utilities" data-search="help with heating and electricity usagov / liheap learn about income-based energy assistance and how to find your state or territory's application office. electricity natural gas heating cooling shutoff disconnect liheap energy">
+<div class="help-card-head"><span class="help-card-type">UTILITIES</span><span class="help-card-number">02 / 07</span></div>
+<h3>Help with heating and electricity</h3><p>Learn about income-based energy assistance and how to find your state or territory's application office.</p><p class="help-org">USAGov / LIHEAP</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://www.usa.gov/help-with-energy-bills">Explore energy bill help <span aria-hidden="true">↗</span></a><span class="help-card-note">Funding, eligibility and application deadlines vary by state.</span></div>
+</article>
+<article class="help-card" data-resource data-category="Housing" data-tags="Housing" data-search="emergency help paying rent usagov explore state and local rental-assistance programs and where to ask for help if you are behind on housing payments. rent landlord eviction late lease housing">
+<div class="help-card-head"><span class="help-card-type">HOUSING</span><span class="help-card-number">03 / 07</span></div>
+<h3>Emergency help paying rent</h3><p>Explore state and local rental-assistance programs and where to ask for help if you are behind on housing payments.</p><p class="help-org">USAGov</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://www.usa.gov/emergency-pay-rent">Find emergency rent options <span aria-hidden="true">↗</span></a><span class="help-card-note">If you received an eviction notice, also review local tenant rights.</span></div>
+</article>
+<article class="help-card" data-resource data-category="Housing" data-tags="Housing" data-search="talk to a housing counselor hud find hud-participating agencies that can discuss rental issues, foreclosure concerns and housing stability. foreclosure mortgage counselor rent eviction housing">
+<div class="help-card-head"><span class="help-card-type">HOUSING</span><span class="help-card-number">04 / 07</span></div>
+<h3>Talk to a housing counselor</h3><p>Find HUD-participating agencies that can discuss rental issues, foreclosure concerns and housing stability.</p><p class="help-org">HUD</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://www.hud.gov/hud-partners/single-family-about-housing-counseling">Find housing counseling <span aria-hidden="true">↗</span></a><span class="help-card-note">HUD's counselor referral phone: 800-569-4287.</span></div>
+</article>
+<article class="help-card" data-resource data-category="Food" data-tags="Food" data-search="apply for food assistance (snap) usagov / snap find your state's application process for snap, which can help eligible households buy groceries. food groceries ebt benefits snap hunger">
+<div class="help-card-head"><span class="help-card-type">FOOD</span><span class="help-card-number">05 / 07</span></div>
+<h3>Apply for food assistance (SNAP)</h3><p>Find your state's application process for SNAP, which can help eligible households buy groceries.</p><p class="help-org">USAGov / SNAP</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://www.usa.gov/food-stamps">Explore SNAP benefits <span aria-hidden="true">↗</span></a><span class="help-card-note">State agencies determine eligibility and process applications.</span></div>
+</article>
+<article class="help-card" data-resource data-category="Medical" data-tags="Medical" data-search="request hospital bill financial aid centers for medicare &amp; medicaid services learn how to request a hospital's financial-assistance or charity-care policy and ask about reducing eligible medical bills. hospital doctor medicine health charity care medical">
+<div class="help-card-head"><span class="help-card-type">MEDICAL</span><span class="help-card-number">06 / 07</span></div>
+<h3>Request hospital bill financial aid</h3><p>Learn how to request a hospital's financial-assistance or charity-care policy and ask about reducing eligible medical bills.</p><p class="help-org">Centers for Medicare &amp; Medicaid Services</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://www.cms.gov/initiatives/your-patient-rights/medical-bill-rights/get-help/guides-resources/apply-financial-assistance">Learn about medical bill aid <span aria-hidden="true">↗</span></a><span class="help-card-note">Ask the medical provider directly; OnlyBills does not review or resolve bills.</span></div>
+</article>
+<article class="help-card" data-resource data-category="Phone" data-tags="Phone" data-search="lower phone or internet costs usagov / lifeline find out how the lifeline program may reduce eligible households' phone or internet service costs. wireless broadband cell phone internet lifeline">
+<div class="help-card-head"><span class="help-card-type">PHONE</span><span class="help-card-number">07 / 07</span></div>
+<h3>Lower phone or internet costs</h3><p>Find out how the Lifeline program may reduce eligible households' phone or internet service costs.</p><p class="help-org">USAGov / Lifeline</p>
+<div class="help-card-foot"><a target="_blank" rel="noopener noreferrer" href="https://www.usa.gov/help-with-phone-internet-bills">Learn about Lifeline <span aria-hidden="true">↗</span></a><span class="help-card-note">Program rules and provider offerings can vary.</span></div>
+</article></div>
+<div class="empty" id="empty-results" hidden>No results for this filter. Try <button type="button" id="show-all" style="background:none;border:0;color:#294c37;text-decoration:underline;font-weight:850">all resources</button> or contact 211 for local assistance.</div>
+</div></section>
+<section class="action-section"><div class="wrap action-grid">
+<div><span class="section-overline">02 / A simple plan</span><h2>Three things you can do today.</h2><p>Use this quick checklist to organize your next steps. Nothing you check is sent to OnlyBills or saved to an account.</p></div>
+<div class="steps">
+<div class="step"><label><input type="checkbox">Contact the company or biller</label><p>Ask whether there's a hardship program, payment extension, budget billing, or a payment plan with terms you can afford.</p></div>
+<div class="step"><label><input type="checkbox">Check public and nonprofit assistance</label><p>Follow an official link above or contact 211, and ask which programs currently accept applications.</p></div>
+<div class="step"><label><input type="checkbox">Keep notes about the conversation</label><p>Save reference numbers, eligibility guidance and deadlines privately. Don't post full bills or private account details publicly.</p></div>
+</div></div></section>
+<section class="safety"><div class="wrap safety-grid">
+<div class="safety-box"><strong>If the situation is urgent</strong><p>If you're facing imminent eviction, a utility shutoff or another urgent need, reach out to local service organizations and the biller directly. OnlyBills is not an emergency service.</p><a href="https://www.usa.gov/emergency-pay-rent" target="_blank" rel="noopener noreferrer">Emergency rent resources ↗</a></div>
+<div class="safety-box"><strong>Protect your information</strong><p>Don't pay anyone a fee to “unlock” government benefits. OnlyBills never asks you to send bank passwords or Social Security numbers through this directory.</p><a href="https://www.usa.gov/no-free-money/" target="_blank" rel="noopener noreferrer">Read USAGov's scam guidance ↗</a></div>
+</div></section>
+<section class="callout"><div class="wrap"><div><h2>Want to help shape the real OnlyBills?</h2><p>Join our beta interest list. The app still doesn't process real bill payments or accept genuine assistance requests.</p></div><a href="/beta?intent=need-help&utm_source=resources&utm_campaign=help_hub">Join the waitlist →</a></div></section>
+</main>
+<footer><div class="wrap"><span>© 2026 OnlyBills · Resource directory last reviewed October 2026 · Not affiliated with the listed agencies</span><span><a href="/contact.html">Contact</a> · <a href="/">Home</a> · <a href="/#/privacy">Privacy</a></span></div></footer>
+<script>
+(function(){
+"use strict";
+const input=document.getElementById("resource-search");
+const buttons=Array.from(document.querySelectorAll("[data-filter]"));
+const cards=Array.from(document.querySelectorAll("[data-resource]"));
+const count=document.getElementById("result-count");
+const empty=document.getElementById("empty-results");
+let category="All";
+function update(){
+  const q=input.value.trim().toLocaleLowerCase();
+  let visible=0;
+  cards.forEach(function(card){
+    const filter=category==="All"||card.dataset.tags.split(" ").includes(category)||card.dataset.category===category;
+    const match= !q || card.dataset.search.includes(q);
+    card.hidden=!(filter&&match);
+    if(!card.hidden)visible++;
+  });
+  buttons.forEach(function(button){button.setAttribute("aria-pressed",String(button.dataset.filter===category))});
+  count.textContent=visible+" resource"+(visible===1?"":"s")+" shown";
+  empty.hidden=visible!==0;
+}
+function reset(){category="All";input.value="";update();input.focus()}
+buttons.forEach(function(button){button.addEventListener("click",function(){category=button.dataset.filter;update()})});
+document.getElementById("clear-search").addEventListener("click",reset);
+document.getElementById("show-all").addEventListener("click",reset);
+input.addEventListener("input",update);
+const requested=new URLSearchParams(window.location.search).get("category");
+if(buttons.some(function(b){return b.dataset.filter===requested})){category=requested}
+update();
+})();
+</script>
+</body></html>

@@ -46,20 +46,20 @@ function nav(active) {
   return `<header class="site-header"><div class="nav-inner">${brand()}
     <nav class="desktop-nav" aria-label="Main navigation">
       ${link('discover','Explore bills', active === 'discover' ? 'nav-link active' : 'nav-link')}
-      <a href="./impact" class="nav-link">Impact Hub</a>
+      <a href="./impact" class="nav-link">Impact Hub</a><a href="./help" class="nav-link">Find assistance</a>
       ${link('how','How it works', active === 'how' ? 'nav-link active' : 'nav-link')}
       ${isDemo()?'<a class="nav-link" href="./join.html?intent=need-help">Need help?</a>':link('post','Post a bill', active === 'post' ? 'nav-link active' : 'nav-link')}
     </nav><div class="nav-actions">${signed ? `${link('dashboard', `<span class="small-avatar">${esc(initials(accountName()))}</span> My space`, 'account-link')}` : `${isDemo()?'<a class="nav-signin" href="#/discover">Explore demo</a>':link('auth','Sign in', 'nav-signin')}`}
     ${isDemo()?'<a class="btn btn-dark nav-get" href="./join.html">Join early access '+icon('arrow',17)+'</a>':link('post','Get help ' + icon('arrow',17), 'btn btn-dark nav-get')}
     <button type="button" class="mobile-menu" data-action="menu" aria-label="Open menu">${icon('menu',23)}</button></div></div>
-    <div class="mobile-dropdown" id="mobile-dropdown">${link('discover', 'Explore bills')}<a href="./impact">Impact Hub</a>${link('how','How it works')}${isDemo()?'<a href="./join.html?intent=need-help">Join as requester</a>':link('post','Post a bill')}${isDemo()?'':link('dashboard','My space')}${signed ? `<button data-action="logout">Sign out</button>` : isDemo()?'<a href="./join.html">Join early access</a><a href="#/discover">Explore demo</a>':link('auth','Sign in')}</div>
+    <div class="mobile-dropdown" id="mobile-dropdown">${link('discover', 'Explore bills')}<a href="./impact">Impact Hub</a><a href="./help">Find assistance</a>${link('how','How it works')}${isDemo()?'<a href="./join.html?intent=need-help">Join as requester</a>':link('post','Post a bill')}${isDemo()?'':link('dashboard','My space')}${signed ? `<button data-action="logout">Sign out</button>` : isDemo()?'<a href="./join.html">Join early access</a><a href="#/discover">Explore demo</a>':link('auth','Sign in')}</div>
   </header>`;
 }
-function foot() { return `<footer class="footer"><div class="shell footer-grid"><div>${brand()}<p>Less scrolling past. More showing up.</p></div><div><span>Explore</span>${link('discover','Discover bills')}<a href="./impact">Impact Hub</a>${link('post','Ask for help')}${link('how','How it works')}</div><div><span>Information</span><a href="./idea.html">Try the viral idea</a>${link('privacy','Privacy')}${link('terms','Terms')}${isDemo()?'<a href="./join.html">Join early access</a>':''}${link('dashboard','My space')}</div><div class="footer-end">${isDemo()?'Building it in public.':'Made for a kinder internet.'} <span class="footer-heart">♥</span><p>© ${new Date().getFullYear()} OnlyBills. MVP.</p></div></div><div class="footer-bottom shell">OnlyBills is ${isDemo()?'a fictional-scenario demo and early-access experiment':'a pledge-only prototype'}. No money is collected. Pledges are not payments or proof of bill settlement. Never share bill account numbers or sensitive identifiers. <a href="./contact.html" style="color:inherit;text-decoration:underline">Contact and privacy requests</a>.</div></footer>`; }
+function foot() { return `<footer class="footer"><div class="shell footer-grid"><div>${brand()}<p>Less scrolling past. More showing up.</p></div><div><span>Explore</span>${link('discover','Discover bills')}<a href="./impact">Impact Hub</a><a href="./help">Bill assistance resources</a>${link('post','Ask for help')}${link('how','How it works')}</div><div><span>Information</span><a href="./idea.html">Try the viral idea</a>${link('privacy','Privacy')}${link('terms','Terms')}${isDemo()?'<a href="./join.html">Join early access</a>':''}${link('dashboard','My space')}</div><div class="footer-end">${isDemo()?'Building it in public.':'Made for a kinder internet.'} <span class="footer-heart">♥</span><p>© ${new Date().getFullYear()} OnlyBills. MVP.</p></div></div><div class="footer-bottom shell">OnlyBills is ${isDemo()?'a fictional-scenario demo and early-access experiment':'a pledge-only prototype'}. No money is collected. Pledges are not payments or proof of bill settlement. Never share bill account numbers or sensitive identifiers. <a href="./contact.html" style="color:inherit;text-decoration:underline">Contact and privacy requests</a>.</div></footer>`; }
 function bottomNav(active) { return `<nav class="bottom-nav" aria-label="Mobile navigation">
     ${link('home', `${icon('home',22)}<span>Home</span>`, active === 'home'?'current':'')}
     ${link('discover', `${icon('heart',22)}<span>Explore</span>`, active === 'discover'?'current':'')}
-    ${isDemo()?'<a href="./join.html?intent=need-help">'+icon('plus',23)+'<span>Join beta</span></a>':link('post', `${icon('plus',23)}<span>Post bill</span>`, active === 'post'?'current':'')}
+    ${isDemo()?'<a href="./help">'+icon('plus',23)+'<span>Find help</span></a>':link('post', `${icon('plus',23)}<span>Post bill</span>`, active === 'post'?'current':'')}
     ${isDemo()?'<a href="./impact">'+icon('users',22)+'<span>Impact</span></a>':link('dashboard', `${icon('user',22)}<span>My space</span>`, active === 'dashboard'?'current':'')}
   </nav>`; }
 function layout(active, content) { return `${modeBanner()}${nav(active)}<main>${content}</main>${foot()}${bottomNav(active)}<div id="modal-layer"></div><div class="toast-region" aria-live="polite"></div>`; }
@@ -176,9 +176,18 @@ function newLaunchHomePage() {
     <div class="ob-choices">
       <a class="ob-choice" href="./join.html?intent=need-help&utm_source=site&utm_campaign=site_v2"><span><span class="ob-choice-title">I might need help with a bill</span><small>Join the early list as a potential requester</small></span>${icon('arrow',22)}</a>
       <a class="ob-choice" href="./join.html?intent=want-to-help&utm_source=site&utm_campaign=site_v2"><span><span class="ob-choice-title">I'd consider helping someone</span><small>Join the early list as a potential supporter</small></span>${icon('arrow',22)}</a>
+      <a class="ob-choice" href="./help"><span><span class="ob-choice-title">I need assistance right now</span><small>Search real outside programs while OnlyBills is in beta</small></span>${icon('arrow',22)}</a>
       <a class="ob-choice" href="./idea.html#vote"><span><span class="ob-choice-title">I have thoughts about the idea</span><small>Vote on what would make it trustworthy</small></span>${icon('arrow',22)}</a>
     </div>
   </div></section>
+  <section class="ob-section ob-section--white" id="ob-help-hub"><div class="shell ob-convert">
+    <div><span class="ob-overline">REAL HELP / AVAILABLE TODAY</span><h2>Don't wait on<br/><em>our beta.</em></h2>
+    <p class="ob-section-description">We aren't paying bills yet. But there are legitimate agencies and programs you can contact today for help with utilities, rent, medical bills, food and phone service.</p>
+    <p class="ob-plain-callout">Outside resources only. No guarantee of eligibility or funding. You never need to upload a bill to browse.</p></div>
+    <div class="ob-choices">
+      <a class="ob-choice" href="./help"><span><span class="ob-choice-title">Find assistance programs</span><small>Official U.S. sources and private, searchable guidance</small></span>${icon('arrow',22)}</a>
+      <a class="ob-choice" href="https://211.org/about-us/your-local-211" target="_blank" rel="noopener noreferrer"><span><span class="ob-choice-title">Start with your local 211</span><small>Independent referrals for food, housing and utilities</small></span>${icon('arrow',22)}</a>
+    </div></div></section>
   <section class="ob-section ob-section--muted" id="ob-impact-preview"><div class="shell">
     <div class="ob-examples-heading"><div class="ob-section-intro"><span class="ob-overline">04 / WHAT YOU ASKED FOR</span><h2>What if helping<br/>became a team effort?</h2><p class="ob-section-description">Community members suggested supporter rankings, business matching, and proof of impact. We're exploring all three, with real records only after payments exist.</p></div><a href="./impact" class="ob-text-link">Explore the Impact Hub →</a></div>
     <div class="ob-example-grid">

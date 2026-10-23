@@ -66,6 +66,17 @@ Use this tracked Instagram URL: `https://onlybillss.netlify.app/idea.html?utm_so
 
 The Netlify Forms dashboard records interested respondents and poll selections. It is not itself a traffic/unique-visitor analytics system. For view counts, use channel insights plus separately configured privacy-aware website analytics if needed.
 
+## Live public bill-help finder
+
+The public assistance directory at **/help** or **/resources** is useful without a real OnlyBills account:
+- Filter and search a curated list of verified U.S. agency/referral links for utility bills, rent, food, medical bills, phone/internet and transportation referrals.
+- The directory's checklist and search operate only in the browser; no visitor information or uploaded document is collected on that page.
+- Resources are from outside organizations. The page does **not** determine eligibility or promise financial help.
+- /help is linked from the homepage, mobile navigation, Instagram campaign and waitlist.
+- Source links and review/QA notes are in [RESOURCE_HUB.md](RESOURCE_HUB.md).
+
+**Real accounts:** `src/config.js` still has empty Supabase URL / publishable key. The interactive app remains a fictional prototype until OnlyBills receives its own Supabase project, tested storage policies and working confirmation emails. Never connect it to another project's database just to get signups running.
+
 ## Impact Hub feature validation
 
 - `/impact` (source: `impact.html`): public preview of the opt-in Impact League, business matching scenario builder, and example proof-of-impact record. **No real donations, sponsors, settled bills or receipts exist.**
