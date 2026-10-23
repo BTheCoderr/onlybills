@@ -1,0 +1,59 @@
+/* OnlyBills launch polish: plain, credible and honest about a demo. */
+:root { --ink:#22232b; --paper:#f9f8f4; --lime:#d7f292; --purple:#6254b1 }
+.hero { background:#23242d; }
+.hero-bg-bubble { display:none }
+.hero h1 { letter-spacing:-.062em; font-size:clamp(49px,5.35vw,76px); line-height:1.13; }
+.hero h1 span:not(.highlight-dot) { color:#d7f292; }
+.hero-copy>p { color:#dfddd6;line-height:1.7; }
+.hero-badge { border-radius:7px; background:#343841; border:1px solid #535966; color:#d7f292; letter-spacing:.07em; }
+.hero-art .hero-shadow-card { background:#504c63; border-radius:15px; transform:rotate(5deg) translate(12px,9px); width:340px; height:447px; box-shadow:0 21px 48px #15151852;}
+.hero-art .hero-gesture {color:#ded9d6;letter-spacing:1px}
+.preview-statement { display:flex;position:relative;z-index:3;flex-direction:column;min-height:448px;width:min(350px,100%);background:#fffcf5;border:1px solid #e9e3d7;color:#252632;border-radius:15px;padding:26px 27px;transform:rotate(-3deg);box-shadow:0 25px 56px #13141455; }
+.preview-statement-top {display:flex;align-items:center;justify-content:space-between;gap:9px}
+.preview-brand {font-size:23px;letter-spacing:-1.1px;font-weight:900}
+.preview-brand>span {color:#6554bb}
+.preview-ref{font-size:9px;font-weight:800;color:#8b8393;letter-spacing:.09em}
+.preview-dash{height:1px;border-top:1px dashed #c6bdc1;margin:20px 0}
+.preview-warning {font-size:9px;letter-spacing:.1em;font-weight:850;color:#6b568a}
+.preview-statement h2 {font-size:30px;line-height:1.2;letter-spacing:-.04em;margin:19px 0 9px}
+.preview-statement p {font-size:12px;line-height:1.65;color:#777380;margin:0 0 18px}
+.preview-statement dl {margin:0}
+.preview-statement dl>div{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #eae3dc;padding:12px 0;gap:12px}
+.preview-statement dt{color:#777079;font-size:11px}
+.preview-statement dd{margin:0;font-size:12px;font-weight:850;color:#34323b}
+.preview-total{margin-top:auto;border-top:2px solid #34313b;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 0 7px}
+.preview-total span{font-size:11px;font-weight:850}
+.preview-total strong{font-size:27px;letter-spacing:-1px;font-variant-numeric:tabular-nums}
+.preview-bottom{border-top:1px dashed #c6bdc1;padding-top:12px;font-size:10px;color:#716c74}
+.preview-authentic-note{margin-top:26px;font-size:12px;line-height:1.7;color:#dedbde}
+.preview-authentic-note a{color:#d7f292;text-decoration:underline;text-underline-offset:3px}
+.trust-strip{background:#e7e9df}
+.trust-inner>span{font-weight:700}
+.step,.feature-card{border-radius:13px;box-shadow:none}
+.feature-card{border:1px solid #e6e3dd}
+.feature-visual{border-radius:0}
+.feature-card-body .feature-top{font-size:11px}
+.feature-card .feature-link{margin-top:5px}
+.fiction-note {font-size:12px;line-height:1.6;color:#696873;font-weight:700}
+.verified-chip {border-radius:7px}
+.swipe-card{border-radius:14px}
+.swipe-progress-top {align-items:center}
+.swipe-progress-top>strong {font-size:20px;font-variant-numeric:tabular-nums}
+.swipe-total {line-height:1.55}
+.side-note{border-radius:15px}
+.closing-inner{border-radius:16px}
+@media(max-width:780px){
+ .preview-statement{min-height:429px;width:340px;transform:rotate(-2deg) scale(.95)}
+ .hero-art .hero-shadow-card{transform:rotate(4deg) translate(10px,9px) scale(.95);height:428px}
+ .hero-art{height:480px}
+ .hero-copy{padding-bottom:12px}
+ .hero h1{font-size:clamp(48px,9vw,64px)}
+}
+@media(max-width:430px){
+ .preview-statement{transform:rotate(-2deg) scale(.85)}
+ .hero-art{height:415px}
+ .hero-art .hero-shadow-card{transform:rotate(4deg) translate(12px,9px) scale(.85)}
+ .preview-statement h2{font-size:30px}
+ .hero h1{font-size:clamp(44px,10.5vw,50px)}
+}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}.btn:hover{transform:none}}
