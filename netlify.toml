@@ -8,3 +8,14 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "DENY"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Short links for the Instagram comment / bio launch.
+[[redirects]]
+  from = "/try"
+  to = "/idea.html"
+  status = 200
+
+[[redirects]]
+  from = "/beta"
+  to = "/join.html"
+  status = 200
