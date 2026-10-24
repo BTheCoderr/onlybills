@@ -23,7 +23,7 @@ create policy "Read own profile" on public.profiles for select to authenticated 
 create policy "Update own name" on public.profiles for update to authenticated using (id = (select auth.uid())) with check (id = (select auth.uid()));
 
 create or replace function private.new_user_profile()
-returns trigger language plpgsql security definer set search_path = '' as $
+returns trigger language plpgsql security definer set search_path = '' as $$
 begin
   insert into public.profiles(id, full_name) values (new.id, left(coalesce(new.raw_user_meta_data->>'full_name',''), 120))
   on conflict(id) do nothing;
@@ -43,7 +43,7 @@ alter table public.admin_users enable row level security;
 revoke all on public.admin_users from anon, authenticated;
 
 create or replace function private.is_admin()
-returns boolean language sql stable security definer set search_path = '' as $
+returns boolean language sql stable security definer set search_path = '' as $$
   select exists(select 1 from public.admin_users where user_id = (select auth.uid()));
 $$;
 revoke all on function private.is_admin() from public, anon;
@@ -51,9 +51,9 @@ grant execute on function private.is_admin() to authenticated;
 
 -- RPC wrapper has no elevated privileges: only the hidden private function does.
 create or replace function public.is_admin()
-returns boolean language sql stable security invoker set search_path = '' as $
+returns boolean language sql stable security invoker set search_path = '' as $$
   select private.is_admin();
-$;
+$$;
 revoke all on function public.is_admin() from public, anon;
 grant execute on function public.is_admin() to authenticated;
 
@@ -122,7 +122,7 @@ create policy "Read own pledges or moderate" on public.pledges for select to aut
 -- Serialize pledge requests by locking the target bill row before modifying the counter.
 -- This prevents competing clients from oversubscribing the amount.
 create or replace function private.reserve_pledged_amount()
-returns trigger language plpgsql security definer set search_path = '' as $
+returns trigger language plpgsql security definer set search_path = '' as $$
 declare
   target public.bills%rowtype;
 begin
@@ -162,7 +162,7 @@ revoke all on public.bill_reviews from anon, authenticated;
 grant select on public.bill_reviews to authenticated;
 create policy "Reviewers read audit history" on public.bill_reviews for select to authenticated using((select public.is_admin()));
 create or replace function private.audit_bill_review()
-returns trigger language plpgsql security definer set search_path = '' as $
+returns trigger language plpgsql security definer set search_path = '' as $$
 begin
   if new.status is distinct from old.status then
     if not private.is_admin() then
@@ -189,7 +189,7 @@ revoke execute on function private.audit_bill_review() from public, anon, authen
 -- This trigger runs with owner rights only to check Storage metadata and enforce limits;
 -- clients cannot execute the function directly.
 create or replace function private.check_bill_submission()
-returns trigger language plpgsql security definer set search_path = '' as $
+returns trigger language plpgsql security definer set search_path = '' as $$
 begin
   if (select auth.uid()) is null or new.user_id is distinct from (select auth.uid()) then
     raise exception 'Submit a request using your own authenticated account';
@@ -221,7 +221,7 @@ begin
   end if;
   return new;
 end;
-$;
+$$;
 revoke all on function private.check_bill_submission() from public, anon, authenticated;
 drop trigger if exists on_bill_insert on public.bills;
 create trigger on_bill_insert before insert on public.bills

@@ -11,12 +11,12 @@ The existing Netlify site remains a fictional prototype. New code adds a secure 
 Defaults for every flag are OFF. A Netlify build generates `src/runtime-config.js` containing only the public Supabase project URL and its `sb_publishable_` key. Secrets do not belong in this browser app. The build fails closed if accounts are enabled without an HTTPS `*.supabase.co` URL and a proper publishable key, or if a private-only flag is enabled without accounts.
 
 ## Blocker
-No project named OnlyBills was found across the nine connected Supabase account links. We must create a **dedicated OnlyBills project** in the correct user-selected organization (e.g. BTheCoderr or Bthedream), not reuse another application's tables.
+A dedicated project named **OnlyBills** was created in the **bthedream** Supabase organization, in **us-east-1**, project ref `xpofbysfuhlbibjlbwur`, at a confirmed quoted project cost of **$0/month**. The initial private-bills schema and the separate approved-public-summary migration were applied and checked. This is NOT a live account launch.
 
 ## Deployment & verification checklist
-1. User selects the Supabase organization. Create `OnlyBills` in a U.S. region with approved billing.
-2. In the *new* project, use the reviewed `supabase/migrations/0001_onlybills.sql` as a **fresh-install starting point**. It has not been executed against any database. Review against the current Supabase schema and security guidance before applying. Do not blindly apply it to an existing project.
-3. Verify schema creation and that every exposed public table has RLS. Check database security/performance advisors.
+1. Completed: dedicated OnlyBills project created in bthedream (us-east-1) at quoted $0/month.
+2. Completed: initial schema and `0002_safe_public_bills.sql` projection migration applied to the dedicated project. Both files now correspond to the database schema. Never apply them to an unrelated existing application.
+3. Verified: six public application tables have RLS; `public.public_bills` is a normal RLS-protected projection, never a security-definer view; client roles cannot insert published summaries or pledges; storage evidence bucket is private. One INFO advisor for intentionally policy-less `admin_users` is expected, since direct client access is revoked.
 4. Create and verify a moderator user through Auth. Assign only that verified user in `public.admin_users` using a privileged SQL operation. No client-supplied role or JWT user_metadata can confer admin privileges.
 5. Register allowed Auth redirects: `https://onlybillss.netlify.app/` and appropriate `/#/auth` flows (Auth redirect targets cannot assume a URL fragment will survive every provider). Verify signup/confirmation, login, sign-out, and reset from a physical iPhone. Update to the final brand domain when ready.
 6. Configure a dedicated OnlyBills SMTP sender, verified SPF/DKIM, spam/reputation checks, email templates, and rate limits. Supabase's default test sender is **not** a reliable production mail service.
@@ -32,7 +32,7 @@ No project named OnlyBills was found across the nine connected Supabase account 
 11. Payment acceptance, biller settlement, refunds and reconciliation require separate engineering/legal milestones; never count pledges as settled donations.
 
 ## Current limitations
-- This code does not by itself create a Supabase project, verify email delivery, apply SQL or run an end-to-end private document upload.
+- A dedicated Supabase project has been created, and the initial and publication SQL migrations have been applied. Email delivery, two-user RLS tests, authenticated browser tests, and end-to-end private upload remain unverified.
 - SQL is an unexecuted fresh-install definition. All RLS and Storage rules must be tested against the newly provisioned project before enabling uploads.
 - The browser still loads a pinned Supabase JS ESM dependency from a CDN; review supply-chain and secure hosting requirements before the production launch.
 - Existing early-access and impact research forms remain separate Netlify Forms; do not silently enroll those contacts as authenticated users.

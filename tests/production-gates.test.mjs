@@ -82,3 +82,18 @@ test('client enforces a closed pilot until the server and verified email are rea
   assert.match(app,/Real accounts are coming/);
   assert.match(app,/canBrowseRealBills/);
 });
+
+
+test('both database migrations have complete dollar quotes and secure public projection', () => {
+  const initial = read('supabase/migrations/0001_onlybills.sql');
+  const projection = read('supabase/migrations/0002_safe_public_bills.sql');
+  const starts = (initial.match(/as \$\$(?=\n)/g) || []).length;
+  const ends = (initial.match(/^\$\$;$/gm) || []).length;
+  assert.equal(starts, 6);
+  assert.equal(ends, starts);
+  assert.match(projection, /create table if not exists public\.public_bills/);
+  assert.match(projection, /alter table public\.public_bills enable row level security/);
+  assert.match(projection, /revoke all on public\.public_bills from public, anon, authenticated/);
+  assert.match(projection, /private\.publish_reviewed_bill/);
+  assert.doesNotMatch(projection, /grant (insert|update|delete) on public\.public_bills/);
+});
