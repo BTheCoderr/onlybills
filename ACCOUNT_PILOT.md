@@ -40,3 +40,14 @@ A dedicated project named **OnlyBills** was created in the **bthedream** Supabas
 
 ## Explicit release discipline
 Deliver the account-hardening changes as a **single draft PR** while the public site remains unchanged. Merge only after database selection and end-to-end security review. This avoids a build merely to show unfinished signup controls.
+
+## Current launch decision · October 24, 2026
+
+- The **OnlyBills** project now exists in bthedream, US East: [project dashboard](https://supabase.com/dashboard/project/xpofbysfuhlbibjlbwur).
+- Database migrations `0001_onlybills.sql` and `0002_safe_public_bills.sql` have been applied. Six app tables are protected by RLS, storage bucket is private, published feed has no document paths, clients cannot insert financial pledges.
+- Supabase security advisor reports one informational policy-less `admin_users` table by design. No error-level view warning remains.
+- Netlify production build environment has the correct PUBLIC Supabase URL and publishable key, but `ONLYBILLS_ACCOUNTS_ENABLED=0`, `ONLYBILLS_PRIVATE_INTAKE_ENABLED=0`, and `ONLYBILLS_PUBLIC_FEED_ENABLED=0`.
+- Connected transactional email provider has **no verified OnlyBills sender domain**. Another project's sender domain may not be used. Do not enable real accounts, email notifications or reset flows until OnlyBills's sender and SPF/DKIM are set and an end-to-end message is received.
+- Open [Supabase Auth URL configuration](https://supabase.com/dashboard/project/xpofbysfuhlbibjlbwur/auth/url-configuration), set site URL to the final OnlyBills domain (currently `https://onlybillss.netlify.app`), then explicitly allow `https://onlybillss.netlify.app/` and `https://onlybillss.netlify.app/?reset=1`. Do not add arbitrary wildcard origins. Test signup, verification, return URL, signin, password reset, session and sign-out.
+- Prior Netlify Forms waitlist submissions are **not** Supabase auth users. Do not create accounts or send transactional passwords without affirmative opt-in.
+- No real bill uploads or public postings should be accepted during the beta questionnaire release.
