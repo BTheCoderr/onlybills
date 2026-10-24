@@ -58,6 +58,7 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
 @media(max-width:420px){.choices{grid-template-columns:1fr 1fr}.choice{min-height:80px}}
 </style>
 <link rel="stylesheet" href="/campaign.css">
+<link rel="stylesheet" href="/brand-footer.css">
 </head>
 <body>
 <header><a href="/" class="logo" aria-label="OnlyBills home">onlybills<span>.</span></a><a class="back" href="/">← Back to OnlyBills</a></header>
@@ -177,5 +178,26 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
   syncQuestions();
 })();
 </script>
-<footer>© 2026 OnlyBills. Early-access interest list only. No payments are being processed. · <a href="/contact.html">Contact</a></footer>
+<footer class="obf" aria-label="OnlyBills footer">
+  <div class="obf__inner obf__top">
+    <div class="obf__intro">
+      <a class="obf__logo" href="/" aria-label="OnlyBills home">onlybills<span>.</span></a>
+      <p class="obf__statement">Building a simpler, safer way for people to help with everyday bills.</p>
+      <a class="obf__action" href="/beta?utm_source=footer&amp;utm_campaign=early_access">Help shape the beta <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav class="obf__column" aria-label="Explore OnlyBills"><span class="obf__heading">Explore</span>
+      <a href="/try">Try the swipe demo</a><a href="/#/how">How it works</a><a href="/impact">Impact Hub</a>
+    </nav>
+    <nav class="obf__column" aria-label="Get involved"><span class="obf__heading">Get involved</span>
+      <a href="/beta">Join early access</a><a href="/idea.html#vote">Share feedback</a><a href="/help">Find bill assistance</a>
+    </nav>
+    <nav class="obf__column" aria-label="Support and policies"><span class="obf__heading">Information</span>
+      <a href="/contact.html">Contact us</a><a href="/#/privacy">Privacy notice</a><a href="/#/terms">Terms</a>
+    </nav>
+  </div>
+  <div class="obf__inner obf__bottom">
+    <p class="obf__disclosure"><strong>Currently a concept preview.</strong> Bills shown in the demo are fictional. No payments, donations, or real bill uploads are available.</p>
+    <div class="obf__legal"><span>© 2026 OnlyBills</span><a href="/contact.html">Privacy requests</a></div>
+  </div>
+</footer>
 </body></html>

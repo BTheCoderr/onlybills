@@ -81,6 +81,7 @@ footer a{text-decoration:underline}
 @media(max-width:620px){.wrap{width:calc(100% - 34px)}.top .wrap{min-height:64px}.logo{font-size:22px}.top-nav{gap:12px}.top-nav a:first-child{display:none}.hero{padding:43px 0 38px}.hero h1{font-size:clamp(43px,11.1vw,61px)}.hero p{font-size:14px}.hero-note{padding:21px}.helper-strip .wrap{flex-direction:column;align-items:start;gap:5px}.section{padding:54px 0}.section h2{font-size:36px}.finder{padding:13px}.search-box{align-items:stretch}.search-box input{font-size:14px}.filters button{font-size:11px}.cards{grid-template-columns:1fr}.help-card{min-height:300px;padding:23px}.help-card h3{margin-top:19px}.action-section{padding:53px 0}.safety-grid{grid-template-columns:1fr;gap:11px}.callout{padding:50px 0}.callout .wrap{display:block}.callout a{margin-top:10px;white-space:normal}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="/brand-footer.css">
 </head>
 <body>
 <header class="top"><div class="wrap"><a href="/" class="logo" aria-label="OnlyBills homepage">onlybills<span>.</span></a><nav class="top-nav" aria-label="Navigation"><a href="/try">Try the prototype</a><a href="/beta">Join beta →</a></nav></div></header>
@@ -149,7 +150,28 @@ footer a{text-decoration:underline}
 </div></section>
 <section class="callout"><div class="wrap"><div><h2>Want to help shape the real OnlyBills?</h2><p>Join our beta interest list. The app still doesn't process real bill payments or accept genuine assistance requests.</p></div><a href="/beta?intent=need-help&utm_source=resources&utm_campaign=help_hub">Join the waitlist →</a></div></section>
 </main>
-<footer><div class="wrap"><span>© 2026 OnlyBills · Resource directory last reviewed October 2026 · Not affiliated with the listed agencies</span><span><a href="/contact.html">Contact</a> · <a href="/">Home</a> · <a href="/#/privacy">Privacy</a></span></div></footer>
+<footer class="obf" aria-label="OnlyBills footer">
+  <div class="obf__inner obf__top">
+    <div class="obf__intro">
+      <a class="obf__logo" href="/" aria-label="OnlyBills home">onlybills<span>.</span></a>
+      <p class="obf__statement">Building a simpler, safer way for people to help with everyday bills.</p>
+      <a class="obf__action" href="/beta?utm_source=footer&amp;utm_campaign=early_access">Help shape the beta <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav class="obf__column" aria-label="Explore OnlyBills"><span class="obf__heading">Explore</span>
+      <a href="/try">Try the swipe demo</a><a href="/#/how">How it works</a><a href="/impact">Impact Hub</a>
+    </nav>
+    <nav class="obf__column" aria-label="Get involved"><span class="obf__heading">Get involved</span>
+      <a href="/beta">Join early access</a><a href="/idea.html#vote">Share feedback</a><a href="/help">Find bill assistance</a>
+    </nav>
+    <nav class="obf__column" aria-label="Support and policies"><span class="obf__heading">Information</span>
+      <a href="/contact.html">Contact us</a><a href="/#/privacy">Privacy notice</a><a href="/#/terms">Terms</a>
+    </nav>
+  </div>
+  <div class="obf__inner obf__bottom">
+    <p class="obf__disclosure"><strong>Currently a concept preview.</strong> Bills shown in the demo are fictional. No payments, donations, or real bill uploads are available.</p>
+    <div class="obf__legal"><span>© 2026 OnlyBills</span><a href="/contact.html">Privacy requests</a></div>
+  </div>
+</footer>
 <script>
 (function(){
 "use strict";

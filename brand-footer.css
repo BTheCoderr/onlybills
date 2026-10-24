@@ -1,0 +1,40 @@
+/* OnlyBills site-wide footer. Shared between the application and public pages. */
+.obf{--obf-ink:#eaf1e8;--obf-secondary:#b7c9ba;--obf-border:rgba(226,238,228,.16);
+  background:#1f372d;color:var(--obf-ink);padding:64px 0 0;position:relative;text-align:left;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:14px;margin:0}
+.obf *{box-sizing:border-box}
+.obf .obf__inner{width:min(1150px,calc(100% - 44px));margin:0 auto}
+.obf__top{display:grid;grid-template-columns:minmax(250px,1.65fr) repeat(3,minmax(120px,.7fr));gap:clamp(26px,4vw,67px);padding-bottom:64px}
+.obf .obf__logo{display:inline-block;text-decoration:none;color:#fff;font-size:32px;font-weight:900;letter-spacing:-2.1px;line-height:1.2}
+.obf__logo span{color:#df907b}
+.obf .obf__statement{font-size:18px;line-height:1.58;letter-spacing:-.025em;max-width:350px;margin:19px 0 24px;color:#e4ece3;font-weight:530}
+.obf .obf__action{display:inline-flex;align-items:center;gap:11px;min-height:42px;padding:10px 15px;border:1px solid #708b79;border-radius:6px;text-decoration:none;font-weight:800;font-size:12px;color:#e9f2e6;background:rgba(255,255,255,.045);transition:background .18s,border-color .18s}
+.obf .obf__action:hover{background:rgba(255,255,255,.12);border-color:#b5cbbc;color:white}
+.obf__column{display:flex;flex-direction:column;gap:13px;align-items:flex-start}
+.obf__column .obf__heading{display:block;font-size:10px;letter-spacing:1.4px;font-weight:850;color:#a5c0a9;text-transform:uppercase;margin:6px 0 6px}
+.obf .obf__column a,.obf .obf__bottom a{font-size:12px;line-height:1.65;color:#e0e9df;text-decoration:none;transition:color .15s}
+.obf .obf__column a:hover,.obf .obf__bottom a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
+.obf .obf__column a:focus-visible,.obf .obf__bottom a:focus-visible,.obf .obf__action:focus-visible,.obf .obf__logo:focus-visible{outline:3px solid #f1c0a5;outline-offset:4px}
+.obf__bottom{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:center;gap:26px;padding:22px 0 27px;border-top:1px solid var(--obf-border)}
+.obf .obf__disclosure{font-size:11px;line-height:1.8;color:#b9cbbd;margin:0;max-width:625px}
+.obf__disclosure strong{color:#e8f1e6;font-weight:760}
+.obf__legal{display:flex;align-items:center;justify-content:flex-end;gap:17px;flex-wrap:wrap}
+.obf__legal span{font-size:11px;color:#aabfae}
+@media(max-width:950px){
+ .obf__top{grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));row-gap:35px}
+ .obf__intro{grid-column:1/-1}
+ .obf__statement{max-width:530px!important}
+}
+@media(max-width:620px){
+ .obf{padding-top:42px}
+ .obf .obf__inner{width:calc(100% - 36px)}
+ .obf__top{grid-template-columns:1fr 1fr;gap:30px 22px;padding-bottom:37px}
+ .obf__intro{grid-column:1/-1}
+ .obf .obf__logo{font-size:29px}
+ .obf .obf__statement{font-size:16px;line-height:1.65;margin:15px 0 20px}
+ .obf__column{gap:10px}
+ .obf__bottom{grid-template-columns:1fr;gap:17px;padding:21px 0 26px}
+ .obf__legal{justify-content:flex-start;gap:13px}
+ .obf.obf--app{padding-bottom:calc(67px + env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){.obf .obf__action,.obf .obf__column a{transition:none}}

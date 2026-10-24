@@ -67,6 +67,7 @@ fieldset.form-field{border:0;padding:0;margin:0}.choices{display:grid;grid-templ
 @media(max-width:610px){.wrap{width:calc(100% - 34px)}.top .wrap{min-height:65px}.logo{font-size:23px}.top-nav{gap:9px}.top-nav a:first-child{display:none}.hero{padding:45px 0 37px}.hero h1{font-size:clamp(43px,11vw,57px)}.hero p{font-size:14px}.ctas{display:grid}.ctas a{width:100%}.section{padding:57px 0}.panel{padding:19px}.league-head{display:block}.league-head .tabs{width:100%;margin-top:17px}.tabs button{flex:1}.form-grid,.choices{grid-template-columns:1fr}.match-preview{padding:24px}.receipt-grid{gap:25px}.section-top{display:block}.metric-line{align-items:flex-start}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="/brand-footer.css">
 </head>
 <body>
 <header class="top"><div class="wrap"><a href="/" class="logo" aria-label="OnlyBills homepage">onlybills<span>.</span></a><nav class="top-nav" aria-label="Impact hub navigation"><a href="/#/discover">Explore demo</a><a href="/beta" class="nav-cta">Join beta →</a></nav></div></header>
@@ -138,7 +139,28 @@ fieldset.form-field{border:0;padding:0;margin:0}.choices{display:grid;grid-templ
 <button class="primary form-submit" type="submit">Send my interest →</button><p class="fine">No passwords, bill documents, payment details or financial commitments are collected here.</p>
 </form></div></div></section>
 </main>
-<footer class="foot"><div class="wrap"><span>© 2026 OnlyBills · Prototype and research only</span><span><a href="/">Home</a> · <a href="/try">Try demo</a> · <a href="/contact.html">Privacy requests</a></span></div></footer>
+<footer class="obf" aria-label="OnlyBills footer">
+  <div class="obf__inner obf__top">
+    <div class="obf__intro">
+      <a class="obf__logo" href="/" aria-label="OnlyBills home">onlybills<span>.</span></a>
+      <p class="obf__statement">Building a simpler, safer way for people to help with everyday bills.</p>
+      <a class="obf__action" href="/beta?utm_source=footer&amp;utm_campaign=early_access">Help shape the beta <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav class="obf__column" aria-label="Explore OnlyBills"><span class="obf__heading">Explore</span>
+      <a href="/try">Try the swipe demo</a><a href="/#/how">How it works</a><a href="/impact">Impact Hub</a>
+    </nav>
+    <nav class="obf__column" aria-label="Get involved"><span class="obf__heading">Get involved</span>
+      <a href="/beta">Join early access</a><a href="/idea.html#vote">Share feedback</a><a href="/help">Find bill assistance</a>
+    </nav>
+    <nav class="obf__column" aria-label="Support and policies"><span class="obf__heading">Information</span>
+      <a href="/contact.html">Contact us</a><a href="/#/privacy">Privacy notice</a><a href="/#/terms">Terms</a>
+    </nav>
+  </div>
+  <div class="obf__inner obf__bottom">
+    <p class="obf__disclosure"><strong>Currently a concept preview.</strong> Bills shown in the demo are fictional. No payments, donations, or real bill uploads are available.</p>
+    <div class="obf__legal"><span>© 2026 OnlyBills</span><a href="/contact.html">Privacy requests</a></div>
+  </div>
+</footer>
 <script>
 (function(){
 "use strict";
