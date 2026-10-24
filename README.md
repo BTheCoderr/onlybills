@@ -75,7 +75,7 @@ The public assistance directory at **/help** or **/resources** is useful without
 - /help is linked from the homepage, mobile navigation, Instagram campaign and waitlist.
 - Source links and review/QA notes are in [RESOURCE_HUB.md](RESOURCE_HUB.md).
 
-**Real accounts:** `src/config.js` still has empty Supabase URL / publishable key. The interactive app remains a fictional prototype until OnlyBills receives its own Supabase project, tested storage policies and working confirmation emails. Never connect it to another project's database just to get signups running.
+**Real accounts:** A dedicated Supabase project is now prepared and its public connection settings are stored in Netlify's build environment. Account activation, private bill uploads and public requests are still disabled until verification, security testing, and email setup are complete. See [ACCOUNT_PILOT.md](ACCOUNT_PILOT.md).
 
 ## Impact Hub feature validation
 
@@ -86,37 +86,18 @@ The public assistance directory at **/help** or **/resources** is useful without
 - The form collects a segmented opt-in lead, participant type, feature priority and optional organization. It does not collect passwords, account numbers or money.
 - Impact League remains an honest zero state until the application has trustworthy server-side settlement records. Example matching ratios and example receipts are never financial commitments.
 
-## Connect real accounts and uploads with Supabase
+## Dedicated OnlyBills account pilot (not publicly open yet)
 
-1. Create a new Supabase project.
-2. In **SQL Editor**, execute `supabase/migrations/0001_onlybills.sql` against that project. This creates tables, row security, an approved-only public view, a private `bill-documents` bucket, and pledge and moderation triggers.
-3. In **Authentication → Providers**, enable email/password and require email verification. In **Authentication → URL Configuration**, add the deployed site URL, its `/#/auth` confirmation redirect, and `/?reset=1` password reset redirect to the allow list.
-4. Configure **custom SMTP** for public signups and password resets. Supabase's default mailer is severely rate limited and not suitable for a public app.
-5. In `src/config.js`, paste the Supabase project URL and **publishable/anon** key:
+- Supabase project: [OnlyBills · bthedream](https://supabase.com/dashboard/project/xpofbysfuhlbibjlbwur) (US East). Never use other apps' databases for OnlyBills.
+- Migrations `0001_onlybills.sql` and `0002_safe_public_bills.sql` have been applied to the project. Public and private tables have RLS; approved summaries are a separate projection with no private document paths.
+- Netlify holds only a PUBLIC project URL and publishable key at build scope. Do not paste auth secrets, SMTP credentials, service-role keys or payment keys into web files.
+- All production account switches are OFF: `ONLYBILLS_ACCOUNTS_ENABLED=0`, `ONLYBILLS_PRIVATE_INTAKE_ENABLED=0`, `ONLYBILLS_PUBLIC_FEED_ENABLED=0`. The site remains a safe fictional demo/waitlist until explicitly verified and enabled.
+- An OnlyBills-branded verified email sender, Auth site/redirect settings, reliable confirmation delivery, and two-user/private-evidence QA are still required before accounts are opened.
+- `src/runtime-config.js` is generated on deploy by `scripts/prepare-deployment.mjs`. The build rejects secret keys and invalid project URLs. Do not manually edit `src/config.js` or expose database credentials.
+- Existing Netlify waitlist entries are **not** user accounts; opt-in research does not authorize account creation or fundraising.
+- No real pledges, donations, receipts, or bill settlements are implemented. Never promote the prototype as a working payment service.
 
-```js
-export const CONFIG = {
-  supabaseUrl: 'https://YOUR_PROJECT.supabase.co',
-  supabaseAnonKey: 'YOUR_PUBLIC_ANON_OR_PUBLISHABLE_KEY',
-  siteName: 'OnlyBills',
-};
-export const IS_DEMO = !(CONFIG.supabaseUrl && CONFIG.supabaseAnonKey);
-```
-
-6. Refresh the app; Supabase mode replaces browser demo data. New requests stay private in `pending_review` until an admin approves them.
-7. To appoint a reviewer, first create their account through the website, then execute in the SQL Editor, replacing the email with their actual account email:
-
-```sql
-insert into public.admin_users(user_id)
-select id from auth.users where email = 'ACTUAL_REVIEWER_EMAIL_HERE'
-on conflict do nothing;
-```
-
-8. Reviewer signs in and opens **My space → Review queue**. They can open the private upload through a one-minute signed URL and approve/reject. A successful approval makes a public story appear in **Explore bills**.
-
-Account creation asks whether the person needs help with a bill or wants to support others. That choice is a **UI preference**, not a permission role; both can browse and post. Reviewers must be promoted in `admin_users` separately. Password recovery and verification email sending are unavailable in demo mode; the app never claims to send demo emails.
-
-**Never put your Supabase service-role key, database password, Stripe secret key, or other server secrets in `src/config.js`.** Browser auth + SQL RLS is the security boundary for this version. `esm.sh` is used to load the Supabase client only when configured; review and pin that dependency for production.
+For the complete activation plan, reviewer provisioning procedure and security gates, see [ACCOUNT_PILOT.md](ACCOUNT_PILOT.md). For waitlist research questions, roles, and acquisition tracking, see [BETA_VALIDATION.md](BETA_VALIDATION.md).
 
 ## Data and security model
 

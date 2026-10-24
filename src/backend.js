@@ -31,6 +31,8 @@ export async function initialize() {
 }
 
 export function isDemo() { return IS_DEMO; }
+export function canSubmitRealBills() { return !IS_DEMO && CONFIG.privateIntakeEnabled; }
+export function canBrowseRealBills() { return !IS_DEMO && CONFIG.publicFeedEnabled; }
 export function user() { return currentUser; }
 export function accountName() { return currentUser?.user_metadata?.full_name || currentUser?.name || currentUser?.email?.split('@')[0] || 'Friend'; }
 
@@ -49,7 +51,10 @@ export async function signUp(name, email, password, intent = 'requester') {
     const d = readDemo(); const normalized = email.trim().toLowerCase(); d.user = { id: `demo:${normalized}`, email: normalized, name, signup_intent: intent }; writeDemo(d); currentUser = d.user;
     return { message: 'Demo account ready. No email was sent.' };
   }
-  const { data, error } = await client.auth.signUp({ email, password, options: { data: { full_name: name, signup_intent: intent }, emailRedirectTo: `${window.location.origin}${window.location.pathname}#/auth` } });
+  if (String(name).trim().length < 2 || String(name).trim().length > 120) throw new Error('Enter a name between 2 and 120 characters.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email).trim())) throw new Error('Enter a valid email address.');
+  if (String(password).length < 10) throw new Error('Use a password of at least 10 characters.');
+  const { data, error } = await client.auth.signUp({ email: email.trim(), password, options: { data: { full_name: name.trim(), signup_intent: intent }, emailRedirectTo: `${window.location.origin}${window.location.pathname}#/auth` } });
   if (error) throw error; currentUser = data.session ? data.user : null;
   return { message: data.session ? 'Account created.' : 'Check your email to confirm your account, then sign in.' };
 }
@@ -82,6 +87,7 @@ export async function signOut() {
 
 export async function getPublicBills() {
   if (IS_DEMO) return readDemo().bills.filter((b) => b.status === 'approved').sort((a, b) => b.created_at.localeCompare(a.created_at));
+  if (!CONFIG.publicFeedEnabled) return [];
   const { data, error } = await client.from('public_bills').select('*').order('created_at', { ascending: false }).limit(100);
   if (error) throw error;
   return data;
@@ -103,6 +109,10 @@ export async function getMyPledges() {
 
 export async function submitBill(input, document) {
   if (!currentUser) throw new Error('Please sign in before submitting a bill.');
+  if (!IS_DEMO) {
+    if (!CONFIG.privateIntakeEnabled) throw new Error('Private bill uploads are not enabled for this pilot yet. Join the early access list.');
+    if (!currentUser.email_confirmed_at) throw new Error('Verify your email before submitting a bill.');
+  }
   const formError = validateRequest(input); if (formError) throw new Error(formError);
   const docError = validateDocument(document); if (docError) throw new Error(docError);
   const bill = {
@@ -128,6 +138,9 @@ export async function submitBill(input, document) {
 
 export async function submitPledge(billId, amountCents) {
   if (!Number.isSafeInteger(amountCents) || amountCents < 100) throw new Error('The minimum pledge is $1.');
+  if (!IS_DEMO) {
+    throw new Error('OnlyBills is not accepting payment or funding pledges. Join the supporter beta list instead.');
+  }
   if (IS_DEMO) {
     const d = readDemo(); const bill = d.bills.find((b) => b.id === billId && b.status === 'approved');
     if (!bill) throw new Error('This request is no longer available.');
@@ -136,9 +149,7 @@ export async function submitPledge(billId, amountCents) {
     const pledge = { id: crypto.randomUUID(), bill_id: billId, donor_id: currentUser?.id || 'demo-guest', amount_cents: amountCents, created_at: new Date().toISOString(), status: 'pledged' };
     d.pledges.push(pledge); bill.pledged_cents += amountCents; writeDemo(d); return pledge;
   }
-  if (!currentUser) throw new Error('Please sign in before pledging.');
-  const { data, error } = await client.from('pledges').insert({ bill_id: billId, donor_id: currentUser.id, amount_cents: amountCents }).select('id').single();
-  if (error) throw error; return data;
+  throw new Error('Real pledges are not enabled.');
 }
 
 export async function simulateApproval(id) {

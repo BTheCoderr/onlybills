@@ -1,4 +1,5 @@
 [build]
+  command = "node scripts/prepare-deployment.mjs"
   publish = "."
 
 [[headers]]

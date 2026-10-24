@@ -4,6 +4,12 @@
 
 create extension if not exists pgcrypto;
 
+-- Non-exposed schema for privileged internal functions. Do not add "private" to API exposed schemas.
+create schema if not exists private;
+revoke all on schema private from public;
+grant usage on schema private to authenticated;
+
+
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text not null default '',
@@ -16,8 +22,8 @@ grant update (full_name) on public.profiles to authenticated;
 create policy "Read own profile" on public.profiles for select to authenticated using (id = (select auth.uid()));
 create policy "Update own name" on public.profiles for update to authenticated using (id = (select auth.uid())) with check (id = (select auth.uid()));
 
-create or replace function public.new_user_profile()
-returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
+create or replace function private.new_user_profile()
+returns trigger language plpgsql security definer set search_path = '' as $$
 begin
   insert into public.profiles(id, full_name) values (new.id, left(coalesce(new.raw_user_meta_data->>'full_name',''), 120))
   on conflict(id) do nothing;
@@ -25,7 +31,8 @@ begin
 end;
 $$;
 drop trigger if exists on_user_created on auth.users;
-create trigger on_user_created after insert on auth.users for each row execute procedure public.new_user_profile();
+create trigger on_user_created after insert on auth.users for each row execute procedure private.new_user_profile();
+revoke execute on function private.new_user_profile() from public, anon, authenticated;
 
 -- Membership here is granted manually, never by a client-controlled role or profile field.
 create table if not exists public.admin_users (
@@ -35,9 +42,17 @@ create table if not exists public.admin_users (
 alter table public.admin_users enable row level security;
 revoke all on public.admin_users from anon, authenticated;
 
-create or replace function public.is_admin()
-returns boolean language sql stable security definer set search_path = public, pg_temp as $$
+create or replace function private.is_admin()
+returns boolean language sql stable security definer set search_path = '' as $$
   select exists(select 1 from public.admin_users where user_id = (select auth.uid()));
+$$;
+revoke all on function private.is_admin() from public, anon;
+grant execute on function private.is_admin() to authenticated;
+
+-- RPC wrapper has no elevated privileges: only the hidden private function does.
+create or replace function public.is_admin()
+returns boolean language sql stable security invoker set search_path = '' as $$
+  select private.is_admin();
 $$;
 revoke all on function public.is_admin() from public, anon;
 grant execute on function public.is_admin() to authenticated;
@@ -96,17 +111,18 @@ create index if not exists pledges_bill_idx on public.pledges(bill_id);
 alter table public.pledges enable row level security;
 revoke all on public.pledges from anon, authenticated;
 grant select on public.pledges to authenticated;
-grant insert (bill_id, donor_id, amount_cents) on public.pledges to authenticated;
+-- Pledges remain disabled for authenticated API users until a controlled server-side
+-- payment/reconciliation system is implemented. The prototype must not be used to forge totals.
+revoke insert on public.pledges from anon, authenticated;
 create policy "Read own pledges or moderate" on public.pledges for select to authenticated
   using(donor_id = (select auth.uid()) or (select public.is_admin()));
-create policy "Pledge only as self" on public.pledges for insert to authenticated
-  with check(donor_id = (select auth.uid())
-    and exists(select 1 from public.public_bills where id = bill_id));
+-- No INSERT policy is installed for pledges. An API client cannot invent a funded total.
+-- Future payment integrations must use trusted transactions and idempotent provider events.
 
 -- Serialize pledge requests by locking the target bill row before modifying the counter.
 -- This prevents competing clients from oversubscribing the amount.
-create or replace function public.reserve_pledged_amount()
-returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
+create or replace function private.reserve_pledged_amount()
+returns trigger language plpgsql security definer set search_path = '' as $$
 declare
   target public.bills%rowtype;
 begin
@@ -129,7 +145,8 @@ end;
 $$;
 drop trigger if exists on_pledge_insert on public.pledges;
 create trigger on_pledge_insert before insert on public.pledges
-for each row execute function public.reserve_pledged_amount();
+for each row execute function private.reserve_pledged_amount();
+revoke execute on function private.reserve_pledged_amount() from public, anon, authenticated;
 
 -- Make each moderation status change auditable.
 create table if not exists public.bill_reviews (
@@ -144,10 +161,13 @@ alter table public.bill_reviews enable row level security;
 revoke all on public.bill_reviews from anon, authenticated;
 grant select on public.bill_reviews to authenticated;
 create policy "Reviewers read audit history" on public.bill_reviews for select to authenticated using((select public.is_admin()));
-create or replace function public.audit_bill_review()
-returns trigger language plpgsql security definer set search_path = public, pg_temp as $$
+create or replace function private.audit_bill_review()
+returns trigger language plpgsql security definer set search_path = '' as $$
 begin
   if new.status is distinct from old.status then
+    if not private.is_admin() then
+      raise exception 'Only approved reviewers may change a bill status';
+    end if;
     if old.status <> 'pending_review' then
       raise exception 'Only pending requests can be reviewed in MVP';
     end if;
@@ -161,7 +181,51 @@ end;
 $$;
 drop trigger if exists on_bill_review on public.bills;
 create trigger on_bill_review before update of status on public.bills
-for each row execute function public.audit_bill_review();
+for each row execute function private.audit_bill_review();
+revoke execute on function private.audit_bill_review() from public, anon, authenticated;
+
+
+-- Intake is bounded per account. Private documents must exist *before* bill submission.
+-- This trigger runs with owner rights only to check Storage metadata and enforce limits;
+-- clients cannot execute the function directly.
+create or replace function private.check_bill_submission()
+returns trigger language plpgsql security definer set search_path = '' as $$
+begin
+  if (select auth.uid()) is null or new.user_id is distinct from (select auth.uid()) then
+    raise exception 'Submit a request using your own authenticated account';
+  end if;
+  if new.status <> 'pending_review' or new.pledged_cents <> 0 then
+    raise exception 'New requests must enter private review with no pledge total';
+  end if;
+  if new.document_path not like new.user_id::text || '/%' then
+    raise exception 'Document path must belong to the requesting account';
+  end if;
+  if not exists (
+    select 1 from storage.objects
+    where bucket_id = 'bill-documents'
+      and name = new.document_path
+      and owner_id = new.user_id::text
+  ) then
+    raise exception 'Upload private supporting evidence before submitting a request';
+  end if;
+
+  -- Serialize submissions for this account to prevent concurrent limit bypass.
+  perform pg_catalog.pg_advisory_xact_lock(pg_catalog.hashtext(new.user_id::text));
+  if (select count(*) from public.bills
+      where user_id = new.user_id and created_at > now() - interval '24 hours') >= 5 then
+    raise exception 'Daily request limit reached';
+  end if;
+  if (select count(*) from public.bills
+      where user_id = new.user_id and status = 'pending_review') >= 3 then
+    raise exception 'Maximum pending review requests reached';
+  end if;
+  return new;
+end;
+$$;
+revoke all on function private.check_bill_submission() from public, anon, authenticated;
+drop trigger if exists on_bill_insert on public.bills;
+create trigger on_bill_insert before insert on public.bills
+for each row execute function private.check_bill_submission();
 
 -- Private evidence: authorized reviewers and the original uploader may view.
 -- The public feed NEVER contains storage paths or signed URLs.
@@ -176,6 +240,15 @@ create policy "Uploader and reviewer may inspect evidence" on storage.objects fo
   using(bucket_id='bill-documents' and (
     (storage.foldername(name))[1] = (select auth.uid())::text or (select public.is_admin())
   ));
+
+
+-- An authenticated uploader may remove a failed, unreferenced upload.
+-- They cannot remove evidence already attached to a request.
+create policy "Uploader may clean unused evidence" on storage.objects for delete to authenticated
+  using(bucket_id='bill-documents'
+    and owner_id=(select auth.uid())::text
+    and (storage.foldername(name))[1] = (select auth.uid())::text
+    and not exists (select 1 from public.bills where document_path = name));
 
 -- GRANT A REVIEWER ONLY AFTER CREATING/CONFIRMING THEIR AUTH ACCOUNT:
 -- insert into public.admin_users(user_id)
