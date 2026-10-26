@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /events/
+
+Sitemap: https://onlybillss.netlify.app/sitemap.xml

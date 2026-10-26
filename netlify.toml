@@ -26,6 +26,56 @@
   to = "/impact.html"
   status = 200
 
+# Public, anonymous, first-party aggregate interaction counters.
+# The endpoint serves a tiny static image. Only a fixed event name, source
+# and campaign are used; no user ID, cookies or form values.
+[[headers]]
+  for = "/events/*"
+  [headers.values]
+    Cache-Control = "no-store, max-age=0"
+
+[[redirects]]
+  from = "/events/demo-start.gif"
+  to = "/assets/pixel.gif"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/events/demo-complete.gif"
+  to = "/assets/pixel.gif"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/events/giver-click.gif"
+  to = "/assets/pixel.gif"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/events/giver-form-submit.gif"
+  to = "/assets/pixel.gif"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/events/business-form-submit.gif"
+  to = "/assets/pixel.gif"
+  status = 200
+  force = true
+
+# Native iOS touch icon compatibility
+[[redirects]]
+  from = "/apple-touch-icon-precomposed.png"
+  to = "/apple-touch-icon.png"
+  status = 301
+
+# The growing list of visitor-friendly short paths.
+[[redirects]]
+  from = "/givers"
+  to = "/givers.html"
+  status = 200
+
 # Independent public assistance directory (no account, no uploads).
 [[redirects]]
   from = "/help"

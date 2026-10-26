@@ -4,6 +4,14 @@
 
 A mobile-friendly, GitHub-ready bill-help community prototype. The experience has a polished landing page, swipeable donor feed, category filters, bill submission with supporting private evidence, email/password accounts, user dashboard, pledge records, an authorized moderation queue, and a responsive mobile UI.
 
+## Founding Givers · current rollout
+
+- **/givers** is a dedicated page for people and businesses willing to discuss a future, partner-managed direct-to-biller assistance pilot.
+- Joining the existing **/beta** form is **nonbinding research**, not a donation, pledge, applicant intake, or promise of assistance.
+- **/try** tracks anonymous demo starts/completions, and tagged Giver clicks are measured using first-party, fixed-path image requests (without visitor IDs or form data). See [FOUNDING_GIVERS_RELEASE.md](FOUNDING_GIVERS_RELEASE.md) for measurement limits and campaign links.
+- The site now has a minimal `robots.txt`, sitemap and touch icon for iOS.
+- **Real accounts and private bill uploads remain OFF**, and there is still no provider authorization or live payment processor. Counts of event requests are not unique visitors.
+
 ## What is actually working
 
 | Feature | Status |

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#faf9f6">
-<meta name="description" content="Join the OnlyBills early access list. Share a bill or help someone else when OnlyBills launches.">
-<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<meta name="description" content="Join the OnlyBills early access research list as a potential Giver, business partner or requester. No payments or bill uploads yet.">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Join early access | OnlyBills</title>
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#181825;background:#faf9f6}
@@ -130,11 +130,12 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
     <div class="field"><label for="state-region">State or region (optional)</label><input type="text" id="state-region" name="state_region" maxlength="35" placeholder="e.g. Rhode Island"></div>
     <label class="consent"><input type="checkbox" name="consent" value="yes" required> <span>I agree to receive OnlyBills launch and beta emails. My details will be stored through Netlify Forms for this purpose. I can request removal through our <a href="/contact.html">privacy contact form</a>. <a href="/#/privacy">Read the privacy notice</a>.</span></label>
     <button type="submit">Get early access →</button>
-    <div class="note">🔒 No password, payment information, bill photos or account numbers needed. Please don't send sensitive bill details through this form.</div>
+    <div class="note">Private by design. No password, payment information, bill photos or account numbers needed. Please don't send sensitive bill details through this form.</div>
   </form>
   <p class="demo-link">Curious first? <a href="/idea.html">Try three example cards</a> before signing up.</p><p class="demo-link" style="margin-top:8px">Need assistance now? <a href="/help">Find legitimate bill-help resources</a> without an account.</p>
 </section>
 </main>
+<script src="/src/anon-events.js"></script>
 <script>
 (function() {
   var params = new URLSearchParams(window.location.search);
@@ -176,6 +177,15 @@ button{width:100%;background:#1b1b2a;color:white;border:0;padding:17px 22px;bord
     if (chosen) chosen.checked = true;
   }
   syncQuestions();
+  // Anonymous aggregate research signal only; actual Netlify Forms submissions
+  // remain the sole source of truth for completed beta signups.
+  var betaForm = document.querySelector('form[name="onlybills-early-access"]');
+  if(betaForm) betaForm.addEventListener('submit',function(){
+    var selected = document.querySelector('input[name="intent"]:checked');
+    if(!selected || !window.OnlyBillsMetrics)return;
+    if(selected.value === 'want-to-help') window.OnlyBillsMetrics.track('giver-form-submit');
+    if(selected.value === 'business-creator') window.OnlyBillsMetrics.track('business-form-submit');
+  });
 })();
 </script>
 <footer class="obf" aria-label="OnlyBills footer">

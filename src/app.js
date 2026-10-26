@@ -46,13 +46,13 @@ function nav(active) {
   return `<header class="site-header"><div class="nav-inner">${brand()}
     <nav class="desktop-nav" aria-label="Main navigation">
       ${link('discover','Explore bills', active === 'discover' ? 'nav-link active' : 'nav-link')}
-      <a href="./impact" class="nav-link">Impact Hub</a><a href="./help" class="nav-link">Find assistance</a>
+      <a href="./impact" class="nav-link">Impact Hub</a><a href="/givers" class="nav-link" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Founding Givers</a><a href="./help" class="nav-link">Find assistance</a>
       ${link('how','How it works', active === 'how' ? 'nav-link active' : 'nav-link')}
       ${isDemo()?'<a class="nav-link" href="./join.html?intent=need-help">Need help?</a>':link('post','Post a bill', active === 'post' ? 'nav-link active' : 'nav-link')}
     </nav><div class="nav-actions">${signed ? `${link('dashboard', `<span class="small-avatar">${esc(initials(accountName()))}</span> My space`, 'account-link')}` : `${isDemo()?'<a class="nav-signin" href="#/discover">Explore demo</a>':link('auth','Sign in', 'nav-signin')}`}
     ${isDemo()?'<a class="btn btn-dark nav-get" href="./join.html">Join early access '+icon('arrow',17)+'</a>':link('post','Get help ' + icon('arrow',17), 'btn btn-dark nav-get')}
     <button type="button" class="mobile-menu" data-action="menu" aria-label="Open menu">${icon('menu',23)}</button></div></div>
-    <div class="mobile-dropdown" id="mobile-dropdown">${link('discover', 'Explore bills')}<a href="./impact">Impact Hub</a><a href="./help">Find assistance</a>${link('how','How it works')}${isDemo()?'<a href="./join.html?intent=need-help">Join as requester</a>':link('post','Post a bill')}${isDemo()?'':link('dashboard','My space')}${signed ? `<button data-action="logout">Sign out</button>` : isDemo()?'<a href="./join.html">Join early access</a><a href="#/discover">Explore demo</a>':link('auth','Sign in')}</div>
+    <div class="mobile-dropdown" id="mobile-dropdown">${link('discover', 'Explore bills')}<a href="./impact">Impact Hub</a><a href="/givers" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Founding Givers</a><a href="./help">Find assistance</a>${link('how','How it works')}${isDemo()?'<a href="./join.html?intent=need-help">Join as requester</a>':link('post','Post a bill')}${isDemo()?'':link('dashboard','My space')}${signed ? `<button data-action="logout">Sign out</button>` : isDemo()?'<a href="./join.html">Join early access</a><a href="#/discover">Explore demo</a>':link('auth','Sign in')}</div>
   </header>`;
 }
 function foot() { return `<footer class="obf obf--app" aria-label="OnlyBills footer">
@@ -63,7 +63,7 @@ function foot() { return `<footer class="obf obf--app" aria-label="OnlyBills foo
       <a class="obf__action" href="/beta?utm_source=footer&amp;utm_campaign=early_access">Help shape the beta <span aria-hidden="true">↗</span></a>
     </div>
     <nav class="obf__column" aria-label="Explore OnlyBills"><span class="obf__heading">Explore</span>
-      <a href="/try">Try the swipe demo</a><a href="/#/how">How it works</a><a href="/impact">Impact Hub</a>
+      <a href="/try">Try the swipe demo</a><a href="/#/how">How it works</a><a href="/impact">Impact Hub</a><a href="/givers" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Founding Givers</a>
     </nav>
     <nav class="obf__column" aria-label="Get involved"><span class="obf__heading">Get involved</span>
       <a href="/beta">Join early access</a><a href="/idea.html#vote">Share feedback</a><a href="/help">Find bill assistance</a>
@@ -146,8 +146,8 @@ function newLaunchHomePage() {
       <h1 class="ob-hero-title">What if you could <em>swipe to help</em> someone pay a bill?</h1>
       <p class="ob-hero-description">It started as a joke in the comments. We made it into something you can actually try. Explore sample requests, help shape the idea, and get first access when real accounts are ready.</p>
       <div class="ob-hero-actions">
-        <a href="#/discover" class="ob-action-primary">Try the swipe demo ${icon('arrow',17)}</a>
-        <a href="./join.html?utm_source=site&utm_campaign=site_v2" class="ob-action-secondary">Get early access ${icon('arrow',17)}</a>
+        <a href="/try" class="ob-action-primary" data-ob-funnel="source-bridge">Try the swipe demo ${icon('arrow',17)}</a>
+        <a href="/givers" class="ob-action-secondary" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Help as a Giver ${icon('arrow',17)}</a>
       </div>
       <div class="ob-footnote">${icon('info',18)} <span>Interactive prototype. Fictional requests. No payments or real bill uploads.</span></div>
     </div>
@@ -196,7 +196,7 @@ function newLaunchHomePage() {
     </div>
     <div class="ob-choices">
       <a class="ob-choice" href="./join.html?intent=need-help&utm_source=site&utm_campaign=site_v2"><span><span class="ob-choice-title">I might need help with a bill</span><small>Join the early list as a potential requester</small></span>${icon('arrow',22)}</a>
-      <a class="ob-choice" href="./join.html?intent=want-to-help&utm_source=site&utm_campaign=site_v2"><span><span class="ob-choice-title">I'd consider helping someone</span><small>Join the early list as a potential supporter</small></span>${icon('arrow',22)}</a>
+      <a class="ob-choice" href="/givers" data-ob-funnel="giver-click" data-ob-campaign="founding_givers"><span><span class="ob-choice-title">I'd consider helping someone</span><small>See how the Founding Givers pilot could work</small></span>${icon('arrow',22)}</a>
       <a class="ob-choice" href="./help"><span><span class="ob-choice-title">I need assistance right now</span><small>Search real outside programs while OnlyBills is in beta</small></span>${icon('arrow',22)}</a>
       <a class="ob-choice" href="./idea.html#vote"><span><span class="ob-choice-title">I have thoughts about the idea</span><small>Vote on what would make it trustworthy</small></span>${icon('arrow',22)}</a>
     </div>
@@ -210,7 +210,7 @@ function newLaunchHomePage() {
       <a class="ob-choice" href="https://211.org/about-us/your-local-211" target="_blank" rel="noopener noreferrer"><span><span class="ob-choice-title">Start with your local 211</span><small>Independent referrals for food, housing and utilities</small></span>${icon('arrow',22)}</a>
     </div></div></section>
   <section class="ob-section ob-section--muted" id="ob-impact-preview"><div class="shell">
-    <div class="ob-examples-heading"><div class="ob-section-intro"><span class="ob-overline">04 / WHAT YOU ASKED FOR</span><h2>What if helping<br/>became a team effort?</h2><p class="ob-section-description">Community members suggested supporter rankings, business matching, and proof of impact. We're exploring all three, with real records only after payments exist.</p></div><a href="./impact" class="ob-text-link">Explore the Impact Hub →</a></div>
+    <div class="ob-examples-heading"><div class="ob-section-intro"><span class="ob-overline">04 / WHAT YOU ASKED FOR</span><h2>What if helping<br/>became a team effort?</h2><p class="ob-section-description">Community members suggested supporter rankings, business matching, and proof of impact. We're exploring all three, with real records only after payments exist.</p></div><a href="/givers" class="ob-text-link" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Explore Founding Givers →</a></div>
     <div class="ob-example-grid">
       <article class="ob-example"><div class="ob-example-head"><span class="ob-example-kind">THE IMPACT LEAGUE</span><span class="ob-example-number">PREVIEW</span></div><h3>Recognize people who help.</h3><p>Future rankings would be optional and based only on bill assistance that really settled.</p><div class="ob-example-foot"><span>No completed payments yet</span><strong>—</strong></div></article>
       <article class="ob-example"><div class="ob-example-head"><span class="ob-example-kind">BUSINESS MATCHES</span><span class="ob-example-number">PREVIEW</span></div><h3>A little help, matched.</h3><p>See how a company's matching challenge could work with clear terms and a public cap.</p><div class="ob-example-foot"><span>No active challenges</span><strong>—</strong></div></article>
@@ -320,7 +320,7 @@ function policyPage(type) {
   if (type === 'privacy') return `<section class="legal shell"><span class="eyebrow">YOUR DATA / OUR RESPONSIBILITY</span>
   <h1>Privacy should not be complicated.</h1>
   <p><strong>Early-access privacy notice · October 2026.</strong> OnlyBills is a prototype. Account registration, bill uploads and payments are not open to the public. This notice needs further legal and operational review before those features launch.</p>
-  <h2>What we collect now</h2><p>If you join the beta list, Netlify Forms stores your email, optional first name and region, your interest in requesting or giving help, any short role-specific answers, and your email-update consent. The concept survey asks about interest and trust priorities without requiring an email. Other forms collect information you choose to submit for impact-pilot research or contact requests. Form submissions may also include basic campaign attribution.</p>
+  <h2>What we collect now</h2><p>If you join the beta list, Netlify Forms stores your email, optional first name and region, your interest in requesting or giving help, any short role-specific answers, and your email-update consent. The concept survey asks about interest and trust priorities without requiring an email. We also count limited, anonymous interactions with the demo and Giver links using first-party request events and campaign labels. These events do not contain form answers, personal IDs, or financial information. Netlify may retain normal server request metadata; browsers signaling a privacy opt-out are not sent these interaction events. Other forms collect information you choose to submit for impact-pilot research or contact requests. Form submissions may also include basic campaign attribution.</p>
   <h2>How we use it</h2><p>We use these responses to evaluate the product, recruit willing beta testers and, where you opted in, share OnlyBills launch updates. Completing the form does not create an OnlyBills account, request payment assistance, authorize a donation, or create a business commitment.</p>
   <h2>Demo and outside services</h2><p>The swipe demo uses fictional requests; local demo choices can remain in your browser's storage. Netlify hosts this site and captures form submissions. Supabase infrastructure is prepared but public account access and private document intake are disabled. Third-party resource links take you to independent organizations with their own privacy practices.</p>
   <h2>Your choices</h2><p>Do not include bill images, account numbers, passwords, banking information or medical details in our public forms. To correct or remove early-access details or ask a privacy question, use the <a href="/contact.html">contact and privacy request form</a>. Requests are reviewed manually; submitting one does not immediately erase data.</p>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f9f8f4"><meta name="description" content="Become an early OnlyBills Founding Giver. Help design transparent, verified direct-to-biller assistance. Join a research list; no money is being accepted.">
+<meta property="og:title" content="OnlyBills | Help build the first Founding Givers community">
+<meta property="og:description" content="We’re building a safer way to help pay verified bills. Join the Founding Givers pilot interest list. No donations yet.">
+<title>Founding Givers | OnlyBills</title>
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/brand-footer.css">
+<style>
+:root{--ink:#203b31;--muted:#627869;--cream:#f9f8f4;--coral:#d9826c;--line:#dfe6db;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--cream)}
+*{box-sizing:border-box}body{margin:0}a{color:inherit}a:focus-visible{outline:3px solid #a18b56;outline-offset:4px}
+.shell{width:min(1140px,calc(100% - 44px));margin:0 auto}
+.header{border-bottom:1px solid var(--line);background:var(--cream)}.nav{display:flex;justify-content:space-between;align-items:center;gap:18px;min-height:78px}
+.logo{font-weight:900;font-size:27px;letter-spacing:-1.6px;text-decoration:none}.logo span{color:var(--coral)}.nav-links{display:flex;align-items:center;gap:22px}.nav-links a{font-size:12px;text-decoration:none;font-weight:800}
+.nav-links .nav-cta{background:var(--ink);color:white;padding:13px 15px;border-radius:7px}
+.hero{padding:80px 0 86px}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(25px,6vw,100px);align-items:center}
+.eyebrow{font-size:10px;letter-spacing:1.9px;font-weight:900;color:#66856e;text-transform:uppercase}
+h1{font-size:clamp(47px,5.9vw,80px);line-height:1.08;letter-spacing:-.078em;margin:23px 0 22px}h1 em{font-family:Georgia,serif;font-weight:400;color:#63836a;font-style:normal}
+.lead{font-size:16px;color:#536b5c;line-height:1.85;max-width:585px}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:29px 0 22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 21px;border-radius:8px;font-size:13px;text-decoration:none;font-weight:900;line-height:1.4}
+.btn-primary{background:var(--ink);color:#fff}.btn-outline{border:1px solid #b8caba;color:var(--ink)}
+.micro{font-size:11px;color:#809181;line-height:1.7;max-width:600px}
+.board{background:#fffefa;border:1px solid #dce4d8;border-radius:13px;padding:29px;box-shadow:0 21px 70px #1e35220e}
+.board-label{font-size:10px;font-weight:900;letter-spacing:1.6px;color:#718a76}
+.board h2{font-size:29px;line-height:1.18;letter-spacing:-.055em;margin:19px 0 14px}
+.board p{color:#607363;font-size:13px;line-height:1.7}.board ol{margin:25px 0 0;padding:0;list-style:none;counter-reset:step}
+.board li{display:flex;align-items:flex-start;gap:14px;border-top:1px solid #e8ebe4;padding:18px 0;font-size:13px;line-height:1.55;font-weight:730}
+.board li:before{counter-increment:step;content:counter(step,decimal-leading-zero);color:#7e9e86;font-size:11px;font-weight:900;letter-spacing:.3px}
+.strip{background:#eaf0e8;border-top:1px solid #dfe6db;border-bottom:1px solid #dfe6db;padding:19px 0}
+.strip .shell{display:flex;justify-content:center;gap:35px;align-items:center;flex-wrap:wrap}.strip span{font-size:12px;color:#58725d;font-weight:780}
+.section{padding:85px 0}.section.gray{background:#eef3ed}.section h2{font-size:clamp(34px,4.2vw,53px);letter-spacing:-.065em;line-height:1.15;margin:14px 0 16px}.section-head{max-width:700px;margin-bottom:30px}.section-head p,.section-copy{line-height:1.8;color:#627668;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#fffefa;border:1px solid #dae5d8;border-radius:11px;padding:28px;min-height:245px}
+.card-index{font-size:10px;color:#739378;font-weight:900;letter-spacing:1.5px}.card h3{font-size:22px;letter-spacing:-.05em;line-height:1.2;margin:28px 0 12px}
+.card p{font-size:13px;line-height:1.75;color:#5f7366;margin:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.path{padding:35px;background:#fffefa;border:1px solid #d9e4d8;border-radius:12px}
+.path.alt{background:#1f3b2f;color:white;border-color:#1f3b2f}
+.path h3{font-size:26px;letter-spacing:-.055em;margin:17px 0}.path p{font-size:13px;line-height:1.8;color:#637668;margin:0 0 23px}
+.path.alt p{color:#c3d2c5}.path.alt .eyebrow{color:#bbcfbe}.path.alt .btn{background:#f9f8f4;color:#203b31}
+.faq{max-width:820px;margin:auto}.faq details{padding:21px 0;border-bottom:1px solid #dce4d9}.faq summary{cursor:pointer;font-weight:850;font-size:15px;letter-spacing:-.01em}.faq p{color:#617266;font-size:13px;line-height:1.8;margin:14px 0 0}
+.final{background:#1f3b2f;color:white;padding:70px 0}.final .shell{display:flex;gap:35px;justify-content:space-between;align-items:center}.final h2{font-size:clamp(33px,4vw,50px);letter-spacing:-.065em;line-height:1.15;margin:13px 0 12px}.final p{font-size:13px;line-height:1.7;color:#bdd1c0;max-width:630px}.final .btn{background:#fffefa;color:#203b31;white-space:nowrap}
+@media(max-width:850px){.hero-grid{grid-template-columns:1fr;gap:35px}.cards{grid-template-columns:1fr 1fr}.final .shell{display:block}.final .btn{margin-top:15px}}
+@media(max-width:600px){.shell{width:calc(100% - 34px)}.nav{min-height:67px}.logo{font-size:24px}.nav-links{gap:12px}.nav-links a:first-child{display:none}.hero{padding:49px 0 56px}h1{font-size:clamp(45px,12vw,62px)}.lead{font-size:14px}.actions{display:grid}.board{padding:24px}.section{padding:60px 0}.cards,.two{grid-template-columns:1fr}.card{min-height:auto;padding:23px}.card h3{margin-top:20px}.path{padding:26px}.strip .shell{justify-content:flex-start;gap:12px 22px}.final{padding:51px 0}.final .btn{white-space:normal}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head><body>
+<header class="header"><nav class="shell nav" aria-label="Site navigation"><a class="logo" href="/">onlybills<span>.</span></a><div class="nav-links"><a href="/try">Try the demo</a><a class="nav-cta" href="/beta?intent=want-to-help" data-ob-funnel="giver-click">Join Giver interest list →</a></div></nav></header>
+<main>
+<section class="hero"><div class="shell hero-grid">
+<div><span class="eyebrow">OnlyBills / Founding Givers · Interest list</span>
+<h1>Want to help<br>with a bill?<br><em>Help us get it right.</em></h1>
+<p class="lead">We're building a way for people and businesses to support real household expenses, with bills checked privately and payments made through an approved partner. We need people willing to shape the first safe pilot.</p>
+<div class="actions"><a class="btn btn-primary" href="/beta?intent=want-to-help" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Join as a potential Giver →</a><a class="btn btn-outline" href="/try">Try the fictional swipe demo</a></div>
+<p class="micro">This is a research invitation, not a donation request. We are not accepting funds, promising tax deductions, or paying real bills through the app yet.</p>
+</div>
+<aside class="board" aria-label="Proposed assistance process">
+<span class="board-label">HOW THE REAL VERSION COULD WORK</span>
+<h2>Clarity before<br>the first dollar.</h2>
+<p>We're validating this process with potential assistance and payment partners. None of these money-moving steps are live.</p>
+<ol><li>Private bill review and confirmation of the obligation</li><li>Supporter chooses a verified type of expense</li><li>Approved partner handles funds and pays the biller</li><li>Biller settlement is checked before reporting impact</li></ol>
+</aside></div></section>
+<div class="strip"><div class="shell"><span>Private bill evidence</span><span>No public account numbers</span><span>Optional anonymous recognition</span><span>No payment collected here</span></div></div>
+<section class="section gray"><div class="shell">
+<div class="section-head"><span class="eyebrow">We need your help to validate trust</span><h2>Giving should feel specific.<br>And accountable.</h2><p>These are the safeguards we want to test with real Givers. We won't advertise them as operational until they are verified.</p></div>
+<div class="cards">
+<article class="card"><span class="card-index">01 / VERIFY</span><h3>Know it's a real bill.</h3><p>Documents stay private. A trained reviewer and approved partner confirm the bill before it's eligible for help.</p></article>
+<article class="card"><span class="card-index">02 / DIRECT</span><h3>Pay the right place.</h3><p>Our goal is a partner-managed payment to the named biller, instead of unrestricted transfers to strangers.</p></article>
+<article class="card"><span class="card-index">03 / CONFIRM</span><h3>Show the outcome.</h3><p>A payment should count as completed only after settlement can be confirmed, not when someone swipes or makes a pledge.</p></article>
+</div></div></section>
+<section class="section"><div class="shell">
+<div class="section-head"><span class="eyebrow">Choose your role</span><h2>Two ways to help<br>build the pilot.</h2><p>We'll use your answers to recruit potential interview participants and understand what safeguards you'd need. Joining never commits you to paying.</p></div>
+<div class="two">
+<article class="path"><span class="eyebrow">For individuals</span><h3>Become a potential Founding Giver.</h3><p>Tell us whether you'd prefer direct-to-biller assistance or a matching challenge, and what amount you'd feel comfortable considering if the program is approved.</p><a class="btn btn-primary" href="/beta?intent=want-to-help" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Join the Giver interest list →</a></article>
+<article class="path alt"><span class="eyebrow">For businesses & creators</span><h3>Explore a future community challenge.</h3><p>Help us assess a small, capped pilot through a partner-led assistance program, with clear reporting and optional recognition.</p><a class="btn" href="/beta?intent=business-creator" data-ob-funnel="giver-click" data-ob-campaign="business_pilot">Explore a business pilot →</a></article>
+</div></div></section>
+<section class="section gray"><div class="shell faq"><span class="eyebrow">Questions worth asking</span><h2>Before anybody contributes.</h2>
+<details><summary>Can I give money through OnlyBills today?</summary><p>No. OnlyBills is a concept preview. We cannot accept or transfer contributions yet. This page collects optional interest only.</p></details>
+<details><summary>Can I choose a particular person or bill?</summary><p>We are still testing whether support should be allocated by verified bill, expense category, or through an independent assistance partner. The permitted options will depend on payment, partner and legal requirements.</p></details>
+<details><summary>What would a business sponsorship look like?</summary><p>A potential partner could sponsor a capped, approved assistance challenge. Funding, matching rules, eligibility and tax treatment must be confirmed before any program launches.</p></details>
+<details><summary>Will people in need have to publish their bills?</summary><p>No. We plan to keep original documents private and publish only a limited, approved summary when consent and safeguards allow.</p></details>
+<details><summary>Is signing up a pledge?</summary><p>No. Your answers are research interest only. There is no checkout, contract, donation or payment authorization.</p></details>
+</div></section>
+<section class="final"><div class="shell"><div><span class="eyebrow" style="color:#bdd1c0">FOUNDING GIVERS / RESEARCH PILOT</span><h2>Help make the first<br>verified bill possible.</h2><p>Join the interest list, share what you'd need to trust the process, and help us design a legitimate first pilot.</p></div><a class="btn" href="/beta?intent=want-to-help" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Join the interest list →</a></div></section>
+</main>
+<footer class="obf" aria-label="OnlyBills footer">
+  <div class="obf__inner obf__top">
+    <div class="obf__intro">
+      <a class="obf__logo" href="/" aria-label="OnlyBills home">onlybills<span>.</span></a>
+      <p class="obf__statement">Building a simpler, safer way for people to help with everyday bills.</p>
+      <a class="obf__action" href="/beta?utm_source=footer&amp;utm_campaign=early_access">Help shape the beta <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav class="obf__column" aria-label="Explore OnlyBills"><span class="obf__heading">Explore</span>
+      <a href="/try">Try the swipe demo</a><a href="/#/how">How it works</a><a href="/impact">Impact Hub</a>
+    </nav>
+    <nav class="obf__column" aria-label="Get involved"><span class="obf__heading">Get involved</span>
+      <a href="/beta">Join early access</a><a href="/idea.html#vote">Share feedback</a><a href="/help">Find bill assistance</a>
+    </nav>
+    <nav class="obf__column" aria-label="Support and policies"><span class="obf__heading">Information</span>
+      <a href="/contact.html">Contact us</a><a href="/#/privacy">Privacy notice</a><a href="/#/terms">Terms</a>
+    </nav>
+  </div>
+  <div class="obf__inner obf__bottom">
+    <p class="obf__disclosure"><strong>Currently a concept preview.</strong> Bills shown in the demo are fictional. No payments, donations, or real bill uploads are available.</p>
+    <div class="obf__legal"><span>© 2026 OnlyBills</span><a href="/contact.html">Privacy requests</a></div>
+  </div>
+</footer>
+<script src="/src/anon-events.js"></script>
+</body></html>
