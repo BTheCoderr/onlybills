@@ -12,12 +12,14 @@ test('Founding Givers explains the pilot without collecting or promising payment
   assert.match(giver,/approved partner/);
   assert.match(giver,/not a donation request/);
   assert.match(giver,/This is a research invitation/);
-  assert.match(giver,/data-ob-campaign="business_pilot"/);
-  assert.match(giver,/intent=want-to-help/);
-  assert.match(giver,/intent=business-creator/);
+  assert.match(giver,/data-role-pick="business"/);
+  assert.match(giver,/data-role-pick="individual"/);
+  assert.match(giver,/href="#founding-join"/);
   assert.match(giver,/class="obf"/);
   assert.match(giver,/href="\/brand-footer\.css"/);
-  assert.equal((giver.match(/<form/g)||[]).length,0,'No unreviewed separate form');
+  assert.equal((giver.match(/<form\b/g)||[]).length,1,'Only one Netlify-native interview form');
+  assert.match(giver,/name="onlybills-giver-interviews" method="POST" action="\/giver-thanks" data-netlify="true"/);
+  assert.match(giver,/name="consent" value="yes" required/);
   assert.doesNotMatch(giver,/name="card"|stripe|paypal/i);
   assert.match(net,/from = "\/givers"\s+to = "\/givers\.html"\s+status = 200/);
 });

@@ -76,6 +76,12 @@
   to = "/givers.html"
   status = 200
 
+# Netlify Forms sends accepted Founding Giver interviews here.
+[[redirects]]
+  from = "/giver-thanks"
+  to = "/giver-thanks.html"
+  status = 200
+
 # Independent public assistance directory (no account, no uploads).
 [[redirects]]
   from = "/help"

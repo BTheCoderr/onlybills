@@ -44,15 +44,42 @@ h1{font-size:clamp(47px,5.9vw,80px);line-height:1.08;letter-spacing:-.078em;marg
 @media(max-width:850px){.hero-grid{grid-template-columns:1fr;gap:35px}.cards{grid-template-columns:1fr 1fr}.final .shell{display:block}.final .btn{margin-top:15px}}
 @media(max-width:600px){.shell{width:calc(100% - 34px)}.nav{min-height:67px}.logo{font-size:24px}.nav-links{gap:12px}.nav-links a:first-child{display:none}.hero{padding:49px 0 56px}h1{font-size:clamp(45px,12vw,62px)}.lead{font-size:14px}.actions{display:grid}.board{padding:24px}.section{padding:60px 0}.cards,.two{grid-template-columns:1fr}.card{min-height:auto;padding:23px}.card h3{margin-top:20px}.path{padding:26px}.strip .shell{justify-content:flex-start;gap:12px 22px}.final{padding:51px 0}.final .btn{white-space:normal}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+/* Pilot conversations: one short form with Netlify-native spam protection. */
+.signup-section{padding:78px 0;background:#f9f8f4;scroll-margin-top:20px}
+.signup-panel{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,5vw,80px);align-items:start}
+.signup-panel h2{font-size:clamp(36px,4.8vw,60px);letter-spacing:-.07em;line-height:1.1;margin:16px 0 18px}
+.signup-panel p{font-size:14px;line-height:1.8;color:#637667}
+.signup-panel .assurance{margin-top:20px;border-left:3px solid #9db6a1;padding:11px 15px;background:#eef3ed;font-size:12px}
+.lead-form{background:#fff;border:1px solid #d7e2d5;padding:28px;border-radius:12px;box-shadow:0 14px 40px #1c342710}
+.lead-form fieldset{border:0;padding:0;margin:0 0 20px;min-width:0}
+.lead-form legend,.lead-form label.label{display:block;font-size:13px;font-weight:800;color:#243e31;margin:0 0 9px}
+.lead-form .choices{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.lead-form .choices label{border:1px solid #cbdccc;border-radius:7px;padding:12px;display:flex;align-items:center;gap:8px;line-height:1.4;font-size:12px;cursor:pointer}
+.lead-form .choices label:has(input:checked){background:#edf4e9;border-color:#6d9571}
+.lead-form input[type=radio],.lead-form input[type=checkbox]{accent-color:#2c6344;flex:0 0 auto}
+.lead-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lead-form input[type=text],.lead-form input[type=email],.lead-form select{width:100%;border:1px solid #bacfba;border-radius:7px;min-height:45px;background:#fffefa;padding:11px;color:#253d31;font:inherit;font-size:13px}
+.lead-form .control{margin-bottom:17px}
+.lead-form .hint{font-size:11px;color:#718474;line-height:1.6;margin:6px 0}
+.lead-form .checkbox-row{display:flex;gap:10px;align-items:start;margin:15px 0;font-size:11px;line-height:1.7;color:#536657}
+.lead-form .checkbox-row input{margin-top:4px}
+.lead-form button{border:0;border-radius:7px;background:#213e31;color:white;font-weight:850;font-size:14px;width:100%;min-height:49px;cursor:pointer}
+.lead-form button:hover{background:#335942}
+.lead-form :focus-visible{outline:3px solid #bd9d67;outline-offset:3px}
+.lead-form .contact-note{font-size:11px;line-height:1.7;margin:12px 0 0;color:#647568}
+@media(max-width:850px){.signup-panel{grid-template-columns:1fr}}
+@media(max-width:620px){.signup-section{padding:52px 0}.lead-form{padding:21px}.lead-form .form-row{grid-template-columns:1fr}.lead-form .choices{grid-template-columns:1fr}}
+
 </style>
 </head><body>
-<header class="header"><nav class="shell nav" aria-label="Site navigation"><a class="logo" href="/">onlybills<span>.</span></a><div class="nav-links"><a href="/try">Try the demo</a><a class="nav-cta" href="/beta?intent=want-to-help" data-ob-funnel="giver-click">Join Giver interest list →</a></div></nav></header>
+<header class="header"><nav class="shell nav" aria-label="Site navigation"><a class="logo" href="/">onlybills<span>.</span></a><div class="nav-links"><a href="/try">Try the demo</a><a class="nav-cta" href="#founding-join" data-role-pick="individual">Join Giver interest list →</a></div></nav></header>
 <main>
 <section class="hero"><div class="shell hero-grid">
 <div><span class="eyebrow">OnlyBills / Founding Givers · Interest list</span>
 <h1>Want to help<br>with a bill?<br><em>Help us get it right.</em></h1>
 <p class="lead">We're building a way for people and businesses to support real household expenses, with bills checked privately and payments made through an approved partner. We need people willing to shape the first safe pilot.</p>
-<div class="actions"><a class="btn btn-primary" href="/beta?intent=want-to-help" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Join as a potential Giver →</a><a class="btn btn-outline" href="/try">Try the fictional swipe demo</a></div>
+<div class="actions"><a class="btn btn-primary" href="#founding-join" data-role-pick="individual" data-ob-campaign="founding_givers">Join as a potential Giver →</a><a class="btn btn-outline" href="/try">Try the fictional swipe demo</a></div>
 <p class="micro">This is a research invitation, not a donation request. We are not accepting funds, promising tax deductions, or paying real bills through the app yet.</p>
 </div>
 <aside class="board" aria-label="Proposed assistance process">
@@ -72,9 +99,56 @@ h1{font-size:clamp(47px,5.9vw,80px);line-height:1.08;letter-spacing:-.078em;marg
 <section class="section"><div class="shell">
 <div class="section-head"><span class="eyebrow">Choose your role</span><h2>Two ways to help<br>build the pilot.</h2><p>We'll use your answers to recruit potential interview participants and understand what safeguards you'd need. Joining never commits you to paying.</p></div>
 <div class="two">
-<article class="path"><span class="eyebrow">For individuals</span><h3>Become a potential Founding Giver.</h3><p>Tell us whether you'd prefer direct-to-biller assistance or a matching challenge, and what amount you'd feel comfortable considering if the program is approved.</p><a class="btn btn-primary" href="/beta?intent=want-to-help" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Join the Giver interest list →</a></article>
-<article class="path alt"><span class="eyebrow">For businesses & creators</span><h3>Explore a future community challenge.</h3><p>Help us assess a small, capped pilot through a partner-led assistance program, with clear reporting and optional recognition.</p><a class="btn" href="/beta?intent=business-creator" data-ob-funnel="giver-click" data-ob-campaign="business_pilot">Explore a business pilot →</a></article>
+<article class="path"><span class="eyebrow">For individuals</span><h3>Become a potential Founding Giver.</h3><p>Tell us whether you'd prefer direct-to-biller assistance or a matching challenge, and what amount you'd feel comfortable considering if the program is approved.</p><a class="btn btn-primary" href="#founding-join" data-role-pick="individual" data-ob-campaign="founding_givers">Join the Giver interest list →</a></article>
+<article class="path alt"><span class="eyebrow">For businesses & creators</span><h3>Explore a future community challenge.</h3><p>Help us assess a small, capped pilot through a partner-led assistance program, with clear reporting and optional recognition.</p><a class="btn" href="#founding-join" data-role-pick="business" data-ob-campaign="business_pilot">Explore a business pilot →</a></article>
 </div></div></section>
+<section class="signup-section" id="founding-join"><div class="shell signup-panel">
+<div><span class="eyebrow">Founding Givers / first conversations</span>
+<h2>Help us build<br>something worth<br>supporting.</h2>
+<p>We are recruiting a small group of potential supporters and local businesses for short conversations. What would make you willing to help fund a verified bill through an approved partner?</p>
+<p class="assurance"><strong>No payment today.</strong> This is an interview interest form, not a donation, binding pledge, eligibility screening, or guarantee of assistance.</p>
+<p>Have questions first? <a href="/contact.html">Get in touch</a>.</p></div>
+<form class="lead-form" name="onlybills-giver-interviews" method="POST" action="/giver-thanks" data-netlify="true" netlify-honeypot="bot-field">
+<input type="hidden" name="form-name" value="onlybills-giver-interviews">
+<input type="hidden" name="subject" value="OnlyBills: Founding Giver pilot inquiry">
+<input type="hidden" name="source" id="giver-source" value="direct">
+<input type="hidden" name="campaign" id="giver-campaign" value="founding_givers">
+<p style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden" aria-hidden="true"><label>Leave blank <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+<fieldset><legend>I am interested as</legend><div class="choices">
+<label><input name="giver_role" type="radio" value="individual" required> An individual</label>
+<label><input name="giver_role" type="radio" value="business" required> A business or creator</label>
+</div></fieldset>
+<div class="control"><label class="label" for="trust">What would you need to trust the program?</label>
+<select name="trust_priority" id="trust" required>
+<option value="">Select the biggest factor</option>
+<option value="verified-bills">Independent bill verification</option>
+<option value="direct-biller">Payments made to the actual biller</option>
+<option value="trusted-partner">A trusted nonprofit or regulated partner</option>
+<option value="payment-proof">Confirmation the bill was paid</option>
+<option value="still-unsure">More information before I decide</option>
+</select></div>
+<div class="form-row">
+<div class="control"><label class="label" for="giver-budget">Potential support range (optional)</label>
+<select name="consideration_range" id="giver-budget">
+<option value="">Prefer not to say</option><option value="under-25">Under $25</option>
+<option value="25-99">$25–$99</option><option value="100-249">$100–$249</option>
+<option value="250-999">$250–$999</option><option value="1000-plus">$1,000+</option>
+</select><p class="hint">Research only, not a charge or commitment.</p></div>
+<div class="control"><label class="label" for="interview">Open to a 15-minute conversation?</label>
+<select name="interview_interest" id="interview" required>
+<option value="">Choose one</option><option value="yes">Yes, contact me</option>
+<option value="maybe">Maybe, send details</option><option value="no">Not at this time</option>
+</select></div></div>
+<div class="form-row">
+<div class="control"><label class="label" for="giver-name">Name (optional)</label><input type="text" id="giver-name" name="name" autocomplete="name" maxlength="100" placeholder="What should we call you?"></div>
+<div class="control"><label class="label" for="giver-organization">Organization (optional)</label><input type="text" id="giver-organization" name="organization" maxlength="100" placeholder="If applicable"></div>
+</div>
+<div class="control"><label class="label" for="giver-email">Email address</label><input type="email" id="giver-email" name="email" autocomplete="email" maxlength="254" placeholder="you@example.com" required></div>
+<label class="checkbox-row"><input type="checkbox" name="consent" value="yes" required> <span>OnlyBills may use my answers to contact me about this prospective pilot. I understand this does not establish an account or authorize a payment. I can request removal through the <a href="/contact.html">privacy contact form</a>.</span></label>
+<label class="checkbox-row"><input type="checkbox" name="updates" value="yes"> <span>Optional: Send me future OnlyBills product updates.</span></label>
+<button type="submit">Request a pilot conversation →</button>
+<p class="contact-note">Please do not enter sensitive financial, billing, or identity information here. <a href="/#/privacy">Privacy notice</a>.</p>
+</form></div></section>
 <section class="section gray"><div class="shell faq"><span class="eyebrow">Questions worth asking</span><h2>Before anybody contributes.</h2>
 <details><summary>Can I give money through OnlyBills today?</summary><p>No. OnlyBills is a concept preview. We cannot accept or transfer contributions yet. This page collects optional interest only.</p></details>
 <details><summary>Can I choose a particular person or bill?</summary><p>We are still testing whether support should be allocated by verified bill, expense category, or through an independent assistance partner. The permitted options will depend on payment, partner and legal requirements.</p></details>
@@ -82,7 +156,7 @@ h1{font-size:clamp(47px,5.9vw,80px);line-height:1.08;letter-spacing:-.078em;marg
 <details><summary>Will people in need have to publish their bills?</summary><p>No. We plan to keep original documents private and publish only a limited, approved summary when consent and safeguards allow.</p></details>
 <details><summary>Is signing up a pledge?</summary><p>No. Your answers are research interest only. There is no checkout, contract, donation or payment authorization.</p></details>
 </div></section>
-<section class="final"><div class="shell"><div><span class="eyebrow" style="color:#bdd1c0">FOUNDING GIVERS / RESEARCH PILOT</span><h2>Help make the first<br>verified bill possible.</h2><p>Join the interest list, share what you'd need to trust the process, and help us design a legitimate first pilot.</p></div><a class="btn" href="/beta?intent=want-to-help" data-ob-funnel="giver-click" data-ob-campaign="founding_givers">Join the interest list →</a></div></section>
+<section class="final"><div class="shell"><div><span class="eyebrow" style="color:#bdd1c0">FOUNDING GIVERS / RESEARCH PILOT</span><h2>Help make the first<br>verified bill possible.</h2><p>Join the interest list, share what you'd need to trust the process, and help us design a legitimate first pilot.</p></div><a class="btn" href="#founding-join" data-role-pick="individual" data-ob-campaign="founding_givers">Join the interest list →</a></div></section>
 </main>
 <footer class="obf" aria-label="OnlyBills footer">
   <div class="obf__inner obf__top">
@@ -107,4 +181,24 @@ h1{font-size:clamp(47px,5.9vw,80px);line-height:1.08;letter-spacing:-.078em;marg
   </div>
 </footer>
 <script src="/src/anon-events.js"></script>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  function label(v,f){return String(v||f).replace(/[^a-zA-Z0-9_-]/g,'').slice(0,32)||f}
+  document.getElementById('giver-source').value=label(p.get('utm_source'),'direct');
+  document.getElementById('giver-campaign').value=label(p.get('utm_campaign'),'founding_givers');
+  var roles=document.querySelectorAll('input[name="giver_role"]');
+  document.querySelectorAll('[data-role-pick]').forEach(function(link){
+    link.addEventListener('click',function(){var wanted=link.dataset.rolePick;roles.forEach(function(r){r.checked=r.value===wanted});if(window.OnlyBillsMetrics)window.OnlyBillsMetrics.track('giver-click')});
+  });
+  var pre=label(p.get('role'),'');
+  if(pre==='individual'||pre==='business'){roles.forEach(function(r){r.checked=r.value===pre})}
+  var form=document.querySelector('form[name="onlybills-giver-interviews"]');
+  form.addEventListener('submit',function(){
+    if(!window.OnlyBillsMetrics)return;
+    var role=document.querySelector('input[name="giver_role"]:checked');
+    if(role)window.OnlyBillsMetrics.track(role.value==='business'?'business-form-submit':'giver-form-submit');
+  });
+})();
+</script>
 </body></html>

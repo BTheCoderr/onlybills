@@ -4,6 +4,15 @@
 
 A mobile-friendly, GitHub-ready bill-help community prototype. The experience has a polished landing page, swipeable donor feed, category filters, bill submission with supporting private evidence, email/password accounts, user dashboard, pledge records, an authorized moderation queue, and a responsive mobile UI.
 
+## Giver conversion pilot and naming review (Oct 31, 2026)
+
+- The existing `/givers` page now has a **short, dedicated, Netlify-native interview form** rather than redirecting potential sponsors into the general applicant beta flow. Form name: `onlybills-giver-interviews`. Its submission confirmation page is `/giver-thanks`.
+- It asks about the respondent's potential role, trust priority, optional *hypothetical* contribution range, interview willingness, and consent. It **does not accept money or create a pledge**.
+- The previous beta list, demo and static assistance resources remain available.
+- The similarly named **onlybills.co** bill-help website creates a material naming conflict risk. See [BRAND_CLEARANCE_PRELIMINARY.md](BRAND_CLEARANCE_PRELIMINARY.md). Do not assume trademark clearance or change the brand without a decision.
+- See [GIVER_INTERVIEW_RUNBOOK.md](GIVER_INTERVIEW_RUNBOOK.md) for lead qualification, Netlify alert setup, outreach links and safety gates.
+- Account registration, private uploads, real bill payments and tax-deductible donation claims remain OFF until verified and authorized.
+
 ## Founding Givers · current rollout
 
 - **/givers** is a dedicated page for people and businesses willing to discuss a future, partner-managed direct-to-biller assistance pilot.
