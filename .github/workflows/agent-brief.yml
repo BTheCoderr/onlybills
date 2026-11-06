@@ -1,0 +1,43 @@
+name: OnlyBills Agent Brief
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+  actions: read
+
+jobs:
+  brief:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Create or update one issue brief
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const title = '[Agent Ops] OnlyBills operating brief';
+            const [all, prs, runResponse] = await Promise.all([
+              github.paginate(github.rest.issues.listForRepo, { owner, repo, state: 'open', per_page: 100 }),
+              github.paginate(github.rest.pulls.list, { owner, repo, state: 'open', per_page: 100 }),
+              github.rest.actions.listWorkflowRunsForRepo({ owner, repo, per_page: 20 })
+            ]);
+            const current = all.find(x => !x.pull_request && x.title === title);
+            const issues = all.filter(x => !x.pull_request && x.title !== title);
+            const failed = runResponse.data.workflow_runs.filter(x => x.conclusion === 'failure').slice(0, 5);
+            const safe = s => String(s || '').replace(/[\r\n]/g, ' ').slice(0, 160);
+            const bullets = xs => xs.length ? xs.map(x => '- ' + x).join('\n') : '- None';
+            const body = [
+              '# OnlyBills engineering brief', '',
+              'Generated: ' + new Date().toISOString(), '',
+              'Source: GitHub only. NOT measured donors, bill payments, actual assistance, or financial activity.', '',
+              '## Open PRs', bullets(prs.slice(0, 15).map(x => '#' + x.number + ' ' + safe(x.title) + ' (' + x.html_url + ')')), '',
+              '## Open issues', bullets(issues.slice(0, 15).map(x => '#' + x.number + ' ' + safe(x.title) + ' (' + x.html_url + ')')), '',
+              '## Recent failing Actions runs', bullets(failed.map(x => safe(x.name) + ' (' + x.html_url + ')')), '',
+              'Founder: prioritize trust, product demand and the unresolved naming and payment-partner gates before any live financial feature.', ''
+            ].join('\n');
+            if (current) await github.rest.issues.update({ owner, repo, issue_number: current.number, body });
+            else await github.rest.issues.create({ owner, repo, title, body });
