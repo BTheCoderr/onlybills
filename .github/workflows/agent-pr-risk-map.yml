@@ -1,0 +1,29 @@
+name: Agent PR Risk Map
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  risk-map:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Validate founder review notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const n = context.issue.number;
+            const lines = (context.payload.pull_request?.body ?? '').split(/\r?\n/).map(x => x.trim());
+            const required = ['What changed', 'Verification', 'Risk assessment', 'Human approval and rollback', 'After release'];
+            const missing = required.filter(x => !lines.includes('### ' + x));
+            const files = await github.paginate(github.rest.pulls.listFiles, { owner, repo, pull_number: n, per_page: 100 });
+            const risky = files.map(f => f.filename).filter(x => /^(src\/|netlify\/|functions\/|netlify\.toml$|public\/|package(-lock)?\.json$)/.test(x));
+            if (risky.length) core.warning('Founder financial/privacy review required for: ' + risky.join(', ').slice(0, 1700));
+            if (missing.length) core.setFailed('Required PR headings missing: ' + missing.join(', '));
+            else core.info('PR review contract passed. Does not validate legal compliance or payment safety.');
